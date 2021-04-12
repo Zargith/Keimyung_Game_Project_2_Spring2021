@@ -9,7 +9,7 @@ public class InteractWithBed : MonoBehaviour
     public GameObject elemDisplayed;
 
     void Update() {
-        if (elemDisplayed.activeSelf && Input.GetButton("Interact")) {
+        if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
             if (player.didTuto)
                 SceneManager.LoadScene("LevelsHub");
             else
