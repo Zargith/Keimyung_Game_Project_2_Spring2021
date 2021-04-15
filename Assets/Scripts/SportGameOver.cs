@@ -36,7 +36,7 @@ public class SportGameOver : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(new Vector3(_deathMin.x, -5, 0), new Vector3(_deathMin.x, 5, 0));
-        Gizmos.DrawLine(new Vector3(10, _deathMin.y, 0), new Vector3(-10, _deathMin.y, 0));
+        Gizmos.DrawLine(new Vector3(9999, _deathMin.y, 0), new Vector3(-10, _deathMin.y, 0));
     }
 
 }
