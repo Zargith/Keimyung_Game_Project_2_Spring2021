@@ -23,10 +23,10 @@ public class FireflyDecreaseMaxIntensityThroughLevel : MonoBehaviour
     void Update()
     {
         float currentPos = currentPlayerPos.position.x;
-        percentage = (currentPos - startPos) * 100 / (endPos - startPos);
+        percentage = (currentPos - startPos) / (endPos - startPos);
         if (percentage > maxPercentage && !(percentage > 100)) {
             maxPercentage = percentage;
-            float newIntensity = originalMaxIntensity * (1 - maxPercentage / 100);
+            float newIntensity = originalMaxIntensity * (1 - maxPercentage);
             if (newIntensity > scriptDecreaseLight.minIntensity)
                 scriptDecreaseLight.maxIntensity = newIntensity;
         }

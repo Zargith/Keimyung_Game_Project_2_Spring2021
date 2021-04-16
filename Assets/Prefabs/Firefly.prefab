@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5179887688504415148}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.555555, y: 5.555555, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5179887689667268047}
   m_Father: {fileID: 0}
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  xScale: 10
-  yScale: 2
+  xScale: 2
+  yScale: 0.4
 --- !u!114 &5179887688504415145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIntensity: 0
   maxIntensity: 1
-  frequency: 0.05
-  phase: 0
+  frequency: 0.25
 --- !u!114 &5435620329404193157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,8 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIntensity: 0
   maxIntensity: 1
-  frequency: 0.05
-  phase: 0
+  frequency: 0.25
 --- !u!114 &8093681872617012990
 MonoBehaviour:
   m_ObjectHideFlags: 0
