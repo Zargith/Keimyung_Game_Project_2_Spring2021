@@ -7,7 +7,7 @@ public class SportGameOver : MonoBehaviour
     public delegate void GameOver();
     public static event GameOver OnGameOver;
 
-    [SerializeField] float _deathHeight;
+    [SerializeField] Vector2 _deathMin;
 
 
     private Transform player;
@@ -20,17 +20,23 @@ public class SportGameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (player.position.y < _deathHeight)
+        if (player.position.x < _deathMin.x)
         {
             OnGameOver?.Invoke();
         }
+        if (player.position.y < _deathMin.y)
+        {
+            OnGameOver?.Invoke();
+        }
+
     }
 
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(new Vector3(10, _deathHeight, 0), new Vector3(-10, _deathHeight, 0));
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(new Vector3(_deathMin.x, -5, 0), new Vector3(_deathMin.x, 5, 0));
+        Gizmos.DrawLine(new Vector3(9999, _deathMin.y, 0), new Vector3(-10, _deathMin.y, 0));
     }
 
 }
