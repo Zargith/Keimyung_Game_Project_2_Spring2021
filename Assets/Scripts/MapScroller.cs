@@ -47,8 +47,7 @@ public class MapScroller : MonoBehaviour
         }
         foreach(Transform ch in toDestroy)
         {
-            _chunks.Remove(ch);
-            Destroy(ch.gameObject);
+            removeFromChunk(ch);
         }
     }
 
@@ -63,5 +62,16 @@ public class MapScroller : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(new Vector3(_drawLimits.x, -5, 0), new Vector3(_drawLimits.x, 5, 0));
         Gizmos.DrawLine(new Vector3(_drawLimits.y, -5, 0), new Vector3(_drawLimits.y, 5, 0));
+    }
+
+    public void addSpeed(float s)
+    {
+        _speed += s;
+    }
+
+    public void removeFromChunk(Transform ch)
+    {
+        _chunks.Remove(ch);
+        Destroy(ch.gameObject);
     }
 }

@@ -9,6 +9,7 @@ public class PlayerSportController : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask layerForCheck;
     bool isded = false;
+    Animator anim;
 
     public float jumpForce = 5.0f;
 
@@ -25,7 +26,9 @@ public class PlayerSportController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        GetComponent<Animator>().SetBool("isRunning", true);
+        anim = GetComponent<Animator>();
+        anim.SetBool("isRunning", true);
+        anim.SetBool("isGrounded", true);
 
     }
 
@@ -35,7 +38,6 @@ public class PlayerSportController : MonoBehaviour
         if (!isded)
         {
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, layerForCheck);
-            GetComponent<Animator>().SetBool("isGrounded", isGrounded);
             if (Input.GetButton("Jump") && isGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
