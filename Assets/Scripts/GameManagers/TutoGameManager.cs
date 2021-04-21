@@ -2,19 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutoActivateFireflyFollowPlayer : MonoBehaviour
+public class TutoGameManager : MonoBehaviour
 {
     [SerializeField] GameObject firefly;
     [SerializeField] GameObject player;
+    [SerializeField] AudioSource cameraAudioSource;
     TutoPlayerController tutoPlayerController;
     FlipPlayer playerFlipPlayerScript;
     [SerializeField] GameObject intaractibleObject;
     [SerializeField] TextMesh textMesh;
     bool textFinishedToDisplay = false;
-    [SerializeField] AudioSource cameraAudioSource;
     bool waitInteractonWithBed = false;
     [SerializeField] Vector2 respawnPosition;
-
+    public bool pause = false;
+    [SerializeField] GameObject pauseMenu;
+    [SerializeField] GameObject tmpPauseText;
 
     void Start()
     {
@@ -30,6 +32,16 @@ public class TutoActivateFireflyFollowPlayer : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonUp("Pause")) {
+            if (pause)
+                Unpause();
+            else
+                Pause();
+        }
+
+        if (pause)
+            return;
+
         if (!textFinishedToDisplay)
             return;
         else if (!intaractibleObject.activeSelf) {
@@ -39,7 +51,7 @@ public class TutoActivateFireflyFollowPlayer : MonoBehaviour
         }
 
         if (waitInteractonWithBed) {
-            if (Input.GetButtonDown("Interact") && !tutoPlayerController.canMove && !firefly.activeSelf) {
+            if (Input.GetButtonUp("Interact") && !tutoPlayerController.canMove && !firefly.activeSelf) {
                 firefly.SetActive(true);
                 playerFlipPlayerScript.enabled = true;
                 cameraAudioSource.enabled = true;
@@ -52,7 +64,7 @@ public class TutoActivateFireflyFollowPlayer : MonoBehaviour
     IEnumerator displayText()
     {
         yield return new WaitForSeconds(1.5f);
-        textMesh.text = "Again another boring day...";
+        textMesh.text = "Another boring day finally ended...";
 
         yield return new WaitForSeconds(3.5f);
         textMesh.text = "I think I'll just go to bed...";
@@ -64,5 +76,19 @@ public class TutoActivateFireflyFollowPlayer : MonoBehaviour
         textMesh.text = "";
 
         textFinishedToDisplay = true;
+    }
+
+    void Pause()
+    {
+        Time.timeScale = 0;
+        tmpPauseText.SetActive(true);
+        pause = true;
+    }
+
+    void Unpause()
+    {
+        Time.timeScale = 1;
+        tmpPauseText.SetActive(false);
+        pause = false;
     }
 }
