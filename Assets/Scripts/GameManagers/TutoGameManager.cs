@@ -32,6 +32,8 @@ public class TutoGameManager : MonoBehaviour
 
     void Update()
     {
+        if (!pauseMenu.activeSelf && pause)
+            Unpause();
         if (Input.GetButtonUp("Pause")) {
             if (pause)
                 Unpause();
@@ -81,14 +83,14 @@ public class TutoGameManager : MonoBehaviour
     void Pause()
     {
         Time.timeScale = 0;
-        tmpPauseText.SetActive(true);
+        pauseMenu.SetActive(true);
         pause = true;
     }
 
     void Unpause()
     {
         Time.timeScale = 1;
-        tmpPauseText.SetActive(false);
+        pauseMenu.SetActive(false);
         pause = false;
     }
 }

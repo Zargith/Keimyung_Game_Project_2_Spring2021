@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pausePanel;
+    [SerializeField] GameObject pausePanel;
 
-    public string startMenuScene;
+    [SerializeField] string startMenuScene;
 
     public void Resume()
     {
