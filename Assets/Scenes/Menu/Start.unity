@@ -1130,7 +1130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc4c2826b1efc647b206fe448a4abe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameEntryPointScene: Room
+  gameEntryPointScene: Tuto
   optionsScene: Options
 --- !u!1 &1802853172
 GameObject:
