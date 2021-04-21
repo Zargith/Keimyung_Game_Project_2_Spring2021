@@ -7,20 +7,15 @@ public class StartMenu : MonoBehaviour
 {
     public string gameEntryPointScene;
 
-    public string optionsScene;
-
     public void Play()
     {
+        Debug.Log("StartMenu - Play");
         SceneManager.LoadScene(gameEntryPointScene);
-    }
-
-    public void Options()
-    {
-        SceneManager.LoadScene(optionsScene);
     }
 
     public void Quit()
     {
+        Debug.Log("StartMenu - Quit");
         Application.Quit();
     }
 }

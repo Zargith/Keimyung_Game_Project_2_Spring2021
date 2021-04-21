@@ -5,30 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
-    public string keyBindScene;
    public void OnResolutionChange() 
     {
+        Debug.Log("OptionsMenu - OnResolutionChange");
         //Screen.SetResolution()
     }
 
     public void OnScreenModeChange()
     {
-
+        Debug.Log("OptionsMenu - OnScreenModeChange");
+        //Screen.SetResolution()
     }
 
     public void OnVolumeChange()
     {
-
-    }
-
-    public void KeyBind()
-    {
-        SceneManager.LoadScene(keyBindScene);
-    }
-    public void Back()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        // TODO
-        // Le back est a revoir aussi vu que c'est sur le build index et on veut un custom index -> si on click sur options dans pause et qu'on fait back on veut pas retourner sur le start menu
+        Debug.Log("OptionsMenu - OnVolumeChange");
+        // We'll see when there will be an audiosource
     }
 }

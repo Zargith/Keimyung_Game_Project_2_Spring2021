@@ -5,23 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public string startMenuScene;
+    public GameObject pausePanel;
 
-    public string optionsScene;
+    public string startMenuScene;
 
     public void Resume()
     {
-        // TODO
-        // Go back (idk how to do right now maybe pause won't be a scene and just a panel with a time stop/active pause panel // resume deactive pause panel time resume
-    }
-
-    public void Options()
-    {
-        SceneManager.LoadScene(optionsScene);
+        Debug.Log("PauseMenu - Resume");
+        //TODO
+        // Time resume eventually
+        // deactive pause panel already did
     }
 
     public void StartMenu()
     {
+        Debug.Log("PauseMenu - Start Menu");
         SceneManager.LoadScene(startMenuScene);
     }
 }
