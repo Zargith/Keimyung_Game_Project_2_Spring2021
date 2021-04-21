@@ -5,15 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class InteractWithBed : MonoBehaviour
 {
-    public player player;
-    public GameObject elemDisplayed;
+    [SerializeField] GameObject elemDisplayed;
 
     void Update() {
         if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
-            if (player.didTuto)
-                SceneManager.LoadScene("LevelsHub");
-            else
-                SceneManager.LoadScene("Tuto");
+            SceneManager.LoadScene("Tuto");
         }
     }
 }

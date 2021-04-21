@@ -189,6 +189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 6987314883901051480}
   playerSpeed: 1.5
+  canMove: 0
   canJump: 0
   jumpHeight: 1
   forestFootsteps: {fileID: 8300000, guid: e84d8c4389fb3274392a716831d63029, type: 3}
@@ -245,7 +246,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e84d8c4389fb3274392a716831d63029, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.25
   m_Pitch: 1
   Loop: 1

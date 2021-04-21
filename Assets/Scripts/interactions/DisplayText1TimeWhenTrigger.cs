@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class DisplayText1TimeWhenTrigger : MonoBehaviour
 {
-    private MeshRenderer mesh;
-    private bool hasAlreadyTriggered = false;
-    private TextMesh text;
-    private float alpha = 0;
+    MeshRenderer mesh;
+    bool hasAlreadyTriggered = false;
+    TextMesh text;
+    float alpha = 0;
 
     void Start() {
         mesh = GetComponent<MeshRenderer>();
@@ -28,7 +28,7 @@ public class DisplayText1TimeWhenTrigger : MonoBehaviour
         }
 
         var color = text.color;
-        text.color = new Color(color.r, color.g, color.b, alpha/100);
+        text.color = new Color(color.r, color.g, color.b, alpha / 100);
     }
 
     void OnTriggerEnter2D(Collider2D other)

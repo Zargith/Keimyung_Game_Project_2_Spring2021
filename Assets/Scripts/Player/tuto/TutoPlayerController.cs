@@ -6,7 +6,8 @@ public class TutoPlayerController : MonoBehaviour
 {
     [SerializeField] Animator anim;
     [SerializeField] float playerSpeed = 2.0f;
-    [SerializeField] bool canJump = true;
+    public bool canMove = false;
+    [SerializeField] bool canJump = false;
     [SerializeField] float jumpHeight = 1.0f;
     Rigidbody2D rb;
     Vector3 playerVelocity;
@@ -22,6 +23,8 @@ public class TutoPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = forestFootsteps;
+        audioSource.Play();
+        audioSource.Pause();
     }
 
     void Update()
@@ -29,6 +32,9 @@ public class TutoPlayerController : MonoBehaviour
         groundedPlayer = IsGrounded();
         anim.SetBool("isGrounded", groundedPlayer);
         anim.SetFloat("yVelocity", rb.velocity.y);
+
+        if (!canMove)
+            return;
 
         if (groundedPlayer && playerVelocity.y < 0)
             playerVelocity.y = 0f;
