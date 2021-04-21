@@ -19,7 +19,7 @@ public class FinalLevelTriggerClimbLadder : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (indicator.activeSelf && Input.GetButtonDown("Jump"))
+        if (indicator.activeSelf && (Input.GetButtonDown("Jump") || Input.GetButtonDown("Interact")))
         {
             end.enabled = false;
             top.isTrigger = true;
