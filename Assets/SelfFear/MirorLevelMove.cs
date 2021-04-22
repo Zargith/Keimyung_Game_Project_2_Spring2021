@@ -11,8 +11,6 @@ public class MirorLevelMove : MonoBehaviour
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private bool canJump = true;
     [SerializeField] private float jumpHeight = 1.0f;
-    private bool facingRight = true;
-    [SerializeField] private GameObject parent;
     [SerializeField] private LayerMask groundLayer;
     private Vector3 advance = Vector3.zero;
     private bool jump = false;
@@ -37,15 +35,6 @@ public class MirorLevelMove : MonoBehaviour
         } else {
             var horizontalInput = Input.GetAxis("Horizontal");
             Vector3 move = new Vector3(horizontalInput, 0, 0);
-
-
-            if (horizontalInput > 0 && !facingRight) {
-                facingRight = !facingRight;
-                parent.GetComponent<Transform>().rotation = Quaternion.Euler(0f, 0f, 0f);
-            } else if (horizontalInput < 0 && facingRight) {
-                facingRight = !facingRight;
-                parent.GetComponent<Transform>().rotation = Quaternion.Euler(0f, 0f, 0f);
-            }
 
             advance = move * Time.deltaTime * playerSpeed;
             transform.position += advance;
