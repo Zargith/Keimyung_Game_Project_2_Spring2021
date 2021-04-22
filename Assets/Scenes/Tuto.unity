@@ -6550,7 +6550,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2188174080063577659, guid: d0fa84ae70ec25a47b213fb0df4d3e5b, type: 3}
       propertyPath: playerSpeed
-      value: 15
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6987314883901051482, guid: d0fa84ae70ec25a47b213fb0df4d3e5b, type: 3}
       propertyPath: m_Name
