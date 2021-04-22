@@ -5,12 +5,23 @@ using UnityEngine;
 public class Interrupteur2 : MonoBehaviour
 {
     [SerializeField] private GameObject door;
+    private bool _hasBeenActivated;
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("enter");
         if (Input.GetKeyUp(KeyCode.E)) {
-            door.SetActive(false);
+            _hasBeenActivated = true;
         }
+    }
+
+    private void Update()
+    {
+        if (door.activeSelf && _hasBeenActivated)
+            door.SetActive(false);
+    }
+
+    public bool GetActiveState()
+    {
+        return _hasBeenActivated;
     }
 }
