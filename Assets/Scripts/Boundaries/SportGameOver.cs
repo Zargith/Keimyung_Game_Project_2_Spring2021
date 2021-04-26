@@ -7,9 +7,12 @@ public class SportGameOver : MonoBehaviour
     public delegate void GameOver();
     public static event GameOver OnGameOver;
 
+    public delegate void Restart();
+    public static event Restart OnRestart;
+
     [SerializeField] Vector2 _deathMin;
 
-
+    private bool pepsi = false;
     private Transform player;
 
     void Start()
@@ -22,21 +25,29 @@ public class SportGameOver : MonoBehaviour
     {
         if (player.position.x < _deathMin.x)
         {
-            OnGameOver?.Invoke();
-        }
-        if (player.position.y < _deathMin.y)
-        {
-            OnGameOver?.Invoke();
+            death();
         }
 
     }
 
+    void restart()
+    {
+        OnRestart?.Invoke();
+        pepsi = false;
+    }
+
+    public void death()
+    {
+        if (pepsi) return;
+        pepsi = true;
+        OnGameOver?.Invoke();
+        Invoke("restart", 2);
+    }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(new Vector3(_deathMin.x, -5, 0), new Vector3(_deathMin.x, 5, 0));
-        Gizmos.DrawLine(new Vector3(9999, _deathMin.y, 0), new Vector3(-10, _deathMin.y, 0));
     }
 
 }

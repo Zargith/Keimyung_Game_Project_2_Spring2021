@@ -5,17 +5,21 @@ using UnityEngine;
 public class MapScroller : MonoBehaviour
 {
     [SerializeField] float _speed;
+    [SerializeField] float _savedSpeed;
     [SerializeField] Vector2 _drawLimits;
     [SerializeField] List<Transform> _chunks = new List<Transform>();
 
     private void OnEnable()
     {
-        SportGameOver.OnGameOver += stopScroll;
+        SportGameOver.OnGameOver += death;
+        SportGameOver.OnRestart += restart;
     }
 
     private void OnDisable()
     {
-        SportGameOver.OnGameOver -= stopScroll;
+        SportGameOver.OnGameOver -= death;
+        SportGameOver.OnRestart -= restart;
+
     }
 
     private void Start()
@@ -28,10 +32,9 @@ public class MapScroller : MonoBehaviour
     
     void Update()
     {
-        List<Transform> toDestroy = new List<Transform>();
+        transform.position += Vector3.left * _speed * Time.deltaTime;
         foreach (Transform ch in _chunks)
         {
-                ch.position += Vector3.left * _speed * Time.deltaTime;
                 if (ch.position.x <= _drawLimits.y)
                 {
                     ch.gameObject.SetActive(true);
@@ -42,19 +45,22 @@ public class MapScroller : MonoBehaviour
                 }
                 if (ch.position.x <= _drawLimits.x)
                 {
-                    toDestroy.Add(ch);
+                    ch.gameObject.SetActive(false);
                 }
-        }
-        foreach(Transform ch in toDestroy)
-        {
-            removeFromChunk(ch);
         }
     }
 
 
-    void stopScroll()
+    void death()
     {
+        _savedSpeed = _speed;
         _speed = 0;
+    }
+
+    void restart()
+    {
+        transform.position = Vector3.zero;
+        _speed = _savedSpeed;
     }
 
     private void OnDrawGizmos()
