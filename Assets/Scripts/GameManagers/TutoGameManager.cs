@@ -71,8 +71,12 @@ public class TutoGameManager : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
         textMesh.text = "I think I'll just go to bed...";
 
+        yield return new WaitForSeconds(1.5f);
+        textMesh.text = "Like...";
+
         yield return new WaitForSeconds(3.5f);
-        textMesh.text = "Like every annoying day of my life...";
+        textMesh.text = "Every day of my life...";
+
 
         yield return new WaitForSeconds(3.5f);
         textMesh.text = "";
