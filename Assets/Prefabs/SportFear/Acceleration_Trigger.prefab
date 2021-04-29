@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7584964813806681871}
   - component: {fileID: 7584964813806681870}
+  - component: {fileID: 3249597596244599712}
   m_Layer: 0
   m_Name: Acceleration_Trigger
   m_TagString: Untagged
@@ -44,3 +45,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speedAdded: 0.5
+--- !u!58 &3249597596244599712
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584964813806681868}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 3

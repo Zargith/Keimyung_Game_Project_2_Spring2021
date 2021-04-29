@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SportAccelerationTrigger : MonoBehaviour
+public class SportHigherJumpTrigger : MonoBehaviour
 {
-    [SerializeField] float _speedAdded = 0.5f;
+    [SerializeField] float _forceAdded = 0.5f;
     Transform player;
     MapScroller map;
 
@@ -14,11 +14,11 @@ public class SportAccelerationTrigger : MonoBehaviour
         map = GameObject.FindObjectOfType<MapScroller>();
     }
 
-   private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
-            map.addSpeed(_speedAdded);
+            player.GetComponent<PlayerSportController>().addForce(_forceAdded);
             map.removeFromChunk(transform);
         }
     }
