@@ -22,4 +22,9 @@ public class FlipPlayer : MonoBehaviour
         newScale.x *= -1;
         transform.localScale = newScale;
     }
+
+    public bool isPlayerFacingRight()
+    {
+        return facingRight;
+    }
 }

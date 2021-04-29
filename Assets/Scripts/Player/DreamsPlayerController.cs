@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DreamsPlayerController : MonoBehaviour
 {
-    public Animator anim;
-    private Rigidbody2D rb;
-    private Vector3 playerVelocity;
-    private bool groundedPlayer;
-    public float playerSpeed = 2.0f;
-    public bool canJump = true;
-    public float jumpHeight = 1.0f;
+    [SerializeField] Animator anim;
+    Rigidbody2D rb;
+    Vector3 playerVelocity;
+    bool groundedPlayer;
+    [SerializeField] float playerSpeed = 2.0f;
+    [SerializeField] bool canJump = true;
+    [SerializeField] float jumpHeight = 1.0f;
 
 
     void Start()
