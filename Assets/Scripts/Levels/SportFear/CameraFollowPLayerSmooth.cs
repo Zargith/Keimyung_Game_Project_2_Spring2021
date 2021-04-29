@@ -67,7 +67,7 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
         prevOffset = transform.position.y - player.position.y;
     }
 
-    void replace()
+    public void replace()
     {
         transform.position = new Vector3(0, 0, -10);
     }

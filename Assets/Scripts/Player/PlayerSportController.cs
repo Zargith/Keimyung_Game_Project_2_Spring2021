@@ -16,13 +16,13 @@ public class PlayerSportController : MonoBehaviour
 
     private void OnEnable()
     {
-        SportGameOver.OnGameOver += death;
+        SportGameOver.OnGameOver += stop;
         SportGameOver.OnRestart += revive;
     }
 
     private void OnDisable()
     {
-        SportGameOver.OnGameOver -= death;
+        SportGameOver.OnGameOver -= stop;
         SportGameOver.OnRestart -= revive;
     }
 
@@ -50,14 +50,22 @@ public class PlayerSportController : MonoBehaviour
         }
     }
 
-    void death()
+    public void stop()
     {
         isded = true;
+        anim.SetBool("isRunning", false);
+
     }
 
-    void revive()
+    public void revive()
     {
         isded = false;
         transform.position = new Vector3(-4, -2.4f, 0);
+        anim.SetBool("isRunning", true);
+    }
+
+    public void addForce(float force)
+    {
+        jumpForce += force;
     }
 }

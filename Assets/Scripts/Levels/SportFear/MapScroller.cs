@@ -11,13 +11,13 @@ public class MapScroller : MonoBehaviour
 
     private void OnEnable()
     {
-        SportGameOver.OnGameOver += death;
+        SportGameOver.OnGameOver += stop;
         SportGameOver.OnRestart += restart;
     }
 
     private void OnDisable()
     {
-        SportGameOver.OnGameOver -= death;
+        SportGameOver.OnGameOver -= stop;
         SportGameOver.OnRestart -= restart;
 
     }
@@ -51,13 +51,13 @@ public class MapScroller : MonoBehaviour
     }
 
 
-    void death()
+    public void stop()
     {
         _savedSpeed = _speed;
         _speed = 0;
     }
 
-    void restart()
+    public void restart()
     {
         transform.position = Vector3.zero;
         _speed = _savedSpeed;
