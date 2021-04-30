@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class InteractWithBed : MonoBehaviour
 {
-    [SerializeField] GameObject elemDisplayed;
+	[SerializeField] GameObject elemDisplayed;
 
-    void Update() {
-        if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
-            SceneManager.LoadScene("Tuto");
-        }
-    }
+	void Update() {
+		if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
+			SceneManager.LoadScene("Tuto");
+		}
+	}
 }

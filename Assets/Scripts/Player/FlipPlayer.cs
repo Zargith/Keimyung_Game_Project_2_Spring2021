@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlipPlayer : MonoBehaviour
 {
-    private bool facingRight = true;
+    bool facingRight = true;
 
     void Update()
     {

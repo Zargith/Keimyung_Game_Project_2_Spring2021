@@ -85,7 +85,7 @@ public class TutoPlayerController : MonoBehaviour
 	}
 
 
-	public LayerMask groundLayer;
+	[SerializeField] LayerMask groundLayer;
 	bool IsGrounded()
 	{
 		Vector2 position = transform.position;

@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class TutoInteractionWithBedEnd : MonoBehaviour
 {
-    public GameObject elemDisplayed;
+	[SerializeField] GameObject elemDisplayed;
 
-    void Update() {
-        if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact"))
-            SceneManager.LoadScene("Room");
-    }
+	void Update() {
+		if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact"))
+			SceneManager.LoadScene("Room");
+	}
 }

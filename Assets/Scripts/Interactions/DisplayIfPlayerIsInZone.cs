@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class DisplayIfPlayerIsInZone : MonoBehaviour
 {
-    public GameObject elemToDisplay;
+	[SerializeField] GameObject elemToDisplay;
 
-    private void Start() {/*only here to have an enablable script*/}
+	private void Start() {/*only here to have an enablable script*/}
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-            elemToDisplay.SetActive(true);
-    }
-    void OnTriggerExit2D(Collider2D other) {
-        if (other.gameObject.CompareTag("Player"))
-            elemToDisplay.SetActive(false);
-    }
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject.CompareTag("Player"))
+			elemToDisplay.SetActive(true);
+	}
+	void OnTriggerExit2D(Collider2D other) {
+		if (other.gameObject.CompareTag("Player"))
+			elemToDisplay.SetActive(false);
+	}
 }

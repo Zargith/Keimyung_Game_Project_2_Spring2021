@@ -8,10 +8,9 @@ public class FireflyDecreaseMaxIntensityThroughLevel : MonoBehaviour
 	float originalMaxIntensity;
 	float percentage = 0f;
 	float maxPercentage = 0f;
-	public float startPos = 0f;
-	public float endPos = 1f;
-	public Transform currentPlayerPos;
-
+	[SerializeField] float startPos = 0f;
+	[SerializeField] float endPos = 1f;
+	[SerializeField] Transform currentPlayerPos;
 
 	void Start()
 	{

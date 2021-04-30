@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FireflyDecreaseLight : MonoBehaviour
 {
-	private Light _light;
+	Light _light;
 	public float minIntensity = 0.0f;
 	public float maxIntensity = 1.5f;
-	public float frequency = 0.01f;
-	private bool increasing = true;
-	private float intensity = 0f;
+	[SerializeField] float frequency = 0.01f;
+	bool increasing = true;
+	float intensity = 0f;
 
 	void Start () 
 	{
