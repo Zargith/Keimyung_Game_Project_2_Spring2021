@@ -65,18 +65,17 @@ public class TutoGameManager : MonoBehaviour
  
 	IEnumerator displayText()
 	{
-		yield return new WaitForSeconds(2f);
+		yield return new WaitForSeconds(1.5f);
 		textMesh.text = "Another boring day finally ended...";
 
 		yield return new WaitForSeconds(3.5f);
 		textMesh.text = "I think I'll just go to bed...";
 
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(3.5f);
 		textMesh.text = "Like...";
 
-		yield return new WaitForSeconds(3.5f);
+		yield return new WaitForSeconds(2f);
 		textMesh.text = "Every day of my life...";
-
 
 		yield return new WaitForSeconds(3.5f);
 		textMesh.text = "";
