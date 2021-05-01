@@ -87,7 +87,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &6987314883901051480
 Animator:
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 6987314883901051480}
-  playerSpeed: 1.5
+  playerSpeed: 2.5
   canMove: 0
   canJump: 0
   jumpHeight: 1

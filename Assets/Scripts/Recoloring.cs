@@ -8,8 +8,8 @@ public class Recoloring : MonoBehaviour
     Color baseColor;
     Color target;
     [SerializeField] float duration = 5.0f;
-    private bool recolor;
-    private float start;
+    bool recolor;
+    float start;
 
     // Start is called before the first frame update
     void Start()
@@ -23,17 +23,12 @@ public class Recoloring : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (recolor)
-        {
+        if (recolor) {
             float dt = Time.time - start;
             if (dt <= duration)
-            {
                 spr.color = Color.Lerp(baseColor, target, dt / duration);
-            }
             else
-            {
                 spr.color = target;
-            }
         }
     }
 

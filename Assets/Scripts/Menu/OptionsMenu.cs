@@ -10,11 +10,11 @@ public class OptionsMenu : MonoBehaviour
 
     public TMPro.TMP_Dropdown screenModeDropDown;
 
-    private int resolutionX = 1280;
+    int resolutionX = 1280;
 
-    private int resolutionY = 720;
+    int resolutionY = 720;
 
-    private bool fullscreen = false;
+    bool fullscreen = false;
 
 
     public Slider musicVolumeSlider;

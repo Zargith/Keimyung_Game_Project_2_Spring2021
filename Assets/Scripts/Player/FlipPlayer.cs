@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlipPlayer : MonoBehaviour
 {
-    private bool facingRight = true;
+    bool facingRight = true;
 
     void Update()
     {
@@ -21,5 +21,10 @@ public class FlipPlayer : MonoBehaviour
         Vector2 newScale = transform.localScale;
         newScale.x *= -1;
         transform.localScale = newScale;
+    }
+
+    public bool isPlayerFacingRight()
+    {
+        return facingRight;
     }
 }
