@@ -6,7 +6,7 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class FireflyDecreaseLight2D : MonoBehaviour
 {
 	Light2D _light;
-	public float minIntensity = 0.0f;
+	public float minIntensity = 0.01f;
 	public float maxIntensity = 1.5f;
 	[SerializeField] float frequency = 0.01f;
 	bool increasing = true;
