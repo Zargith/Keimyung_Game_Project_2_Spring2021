@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelsHub.unity
     guid: 0a03889230c50b241a547808ef3c3772
+  - enabled: 1
+    path: Assets/SelfFear/SelfFear.unity
+    guid: 06aeb203ee9d29b49ace1e06b545eeb8
+  - enabled: 1
+    path: Assets/Scenes/SportFear.unity
+    guid: b439d08f92983de479cec7ce05869919
+  - enabled: 1
+    path: Assets/Scenes/OthersFear.unity
+    guid: 55e90c5a23a20d4409593b0eb7ae7197
   m_configObjects: {}
