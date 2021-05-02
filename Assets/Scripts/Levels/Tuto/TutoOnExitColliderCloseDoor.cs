@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class TutoOnExitColliderCloseDoor : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TutoOnExitColliderCloseDoor : MonoBehaviour
 	BoxCollider2D _boxCollider;
 	[SerializeField] GameObject outsideDreamRoom;
 	[SerializeField] SpriteRenderer fournituresToChangeOrderInLayer;
+	[SerializeField] Light2D lightToStop;
 
 	void Start()
 	{
@@ -21,6 +23,7 @@ public class TutoOnExitColliderCloseDoor : MonoBehaviour
 			_boxCollider.isTrigger = false;
 			outsideDreamRoom.SetActive(false);
 			fournituresToChangeOrderInLayer.sortingOrder = 1;
+			lightToStop.enabled = false;
 		}
 	}
 }
