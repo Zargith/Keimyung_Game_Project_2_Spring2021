@@ -5,17 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(FlipPlayer))]
 public class FinalPlayer : MonoBehaviour
 {
-    [SerializeField] float playerSpeed = 2.0f;
-    [SerializeField] float playerClimbSpeed = 1.5f;
+    public float playerSpeed = 1.0f;
     Rigidbody2D rb;
     Animator anim;
     bool groundedPlayer;
-    bool climbing;
     AudioSource audioSource;
     [SerializeField] AudioClip forestFootsteps;
     [SerializeField] AudioClip otherFootsteps;
-    [SerializeField] float xPositionToChangeFootstepAudioClip = 0f;
-    private bool beyondXPositionToChangeFootstepAudioClip = false;
 
     void Start()
     {
@@ -28,34 +24,29 @@ public class FinalPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         groundedPlayer = IsGrounded();
         anim.SetBool("isGrounded", groundedPlayer);
         anim.SetFloat("yVelocity", rb.velocity.y);
 
+
         if (groundedPlayer && rb.velocity.y < 0)
             rb.velocity = new Vector2(rb.velocity.x, 0f);
 
-        if (Mathf.Abs(transform.position.x) >= 65)
+        if (transform.position.x > 12)
         {
-            transform.position = new Vector3(
-                (transform.position.x > 0 ? -120 : 120) + transform.position.x,
-                transform.position.y,
-                transform.position.z);
-        }
-
-        if (transform.position.x > xPositionToChangeFootstepAudioClip && !beyondXPositionToChangeFootstepAudioClip)
-        {
-            audioSource.clip = otherFootsteps;
-            audioSource.volume = 1;
-            audioSource.Play();
-            beyondXPositionToChangeFootstepAudioClip = true;
-        }
-        else if (transform.position.x < xPositionToChangeFootstepAudioClip && beyondXPositionToChangeFootstepAudioClip)
-        {
-            audioSource.clip = forestFootsteps;
-            audioSource.volume = 0.25f;
-            audioSource.Play();
-            beyondXPositionToChangeFootstepAudioClip = false;
+            transform.position += new Vector3(1f, 0, 0) * Time.deltaTime * playerSpeed;
+            if (playerSpeed <= 1.5)
+            {
+                anim.SetBool("isRunning", false);
+                anim.SetBool("isWalking", true);
+            }
+            else
+            {
+                anim.SetBool("isWalking", false);
+                anim.SetBool("isRunning", true);
+            }
+            return;
         }
 
         if (groundedPlayer)
@@ -65,11 +56,21 @@ public class FinalPlayer : MonoBehaviour
             if (move.x == 0)
             {
                 anim.SetBool("isRunning", false);
+                anim.SetBool("isWalking", false);
                 audioSource.Pause();
             }
             else
             {
-                anim.SetBool("isRunning", true);
+                if (playerSpeed <= 1.5)
+                {
+                    anim.SetBool("isRunning", false);
+                    anim.SetBool("isWalking", true);
+                }
+                else
+                {
+                    anim.SetBool("isWalking", false);
+                    anim.SetBool("isRunning", true);
+                }
                 audioSource.UnPause();
             }
         }
@@ -87,22 +88,5 @@ public class FinalPlayer : MonoBehaviour
         if (hit.collider != null)
             return true;
         return false;
-    }
-
-    public void Climb(bool doClimb)
-    {
-        climbing = doClimb;
-        if (doClimb)
-        {
-            rb.velocity = new Vector2(0, playerClimbSpeed);
-            rb.gravityScale = 0;
-            GetComponent<FlipPlayer>().enabled = false;
-        }
-        else
-        {
-            rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.gravityScale = 1;
-            GetComponent<FlipPlayer>().enabled = true;
-        }
     }
 }
