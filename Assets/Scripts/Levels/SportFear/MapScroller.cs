@@ -63,12 +63,6 @@ public class MapScroller : MonoBehaviour
         _speed = _savedSpeed;
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(new Vector3(_drawLimits.x, -5, 0), new Vector3(_drawLimits.x, 5, 0));
-        Gizmos.DrawLine(new Vector3(_drawLimits.y, -5, 0), new Vector3(_drawLimits.y, 5, 0));
-    }
 
     public void addSpeed(float s)
     {
@@ -80,4 +74,12 @@ public class MapScroller : MonoBehaviour
         _chunks.Remove(ch);
         Destroy(ch.gameObject);
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(new Vector3(_drawLimits.x, -5, 0), new Vector3(_drawLimits.x, 5, 0));
+        Gizmos.DrawLine(new Vector3(_drawLimits.y, -5, 0), new Vector3(_drawLimits.y, 5, 0));
+    }
+
 }

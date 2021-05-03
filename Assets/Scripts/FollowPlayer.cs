@@ -2,14 +2,26 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    [SerializeField] private GameObject _player;
-    [SerializeField] private float changeY = 0f;
+	[SerializeField] Transform _playerTransform;
+	[SerializeField] float changeY = 0f;
 
 
-    void Update()
+	void Update()
+	{
+		if (_playerTransform == null)
+			return;
+		Vector3 tmp = new Vector3(_playerTransform.position.x, _playerTransform.position.y + changeY, transform.position.z);
+		if (transform.position != tmp)
+			transform.position = tmp;
+	}
+
+	public void SetTarget(Transform target)
     {
-        Vector3 tmp = new Vector3(_player.transform.position.x, _player.transform.position.y + changeY, transform.position.z);
-        if (transform.position != tmp)
-            transform.position = tmp;
+		_playerTransform = target;
+    }
+
+	public void SetY(float y)
+    {
+		changeY = y;
     }
 }

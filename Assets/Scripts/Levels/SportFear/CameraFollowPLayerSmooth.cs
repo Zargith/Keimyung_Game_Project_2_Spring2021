@@ -9,13 +9,25 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
     Transform player;
     float playerOffset;
     float prevOffset;
-    float elapsedTime;
+
+    Vector3 origin;
+
+    //CAM UP 
+    float elapsedTimeU;
+    bool haveRisen= false;
+
+    //lerp var
+    float elapsedTimeHaveToMoveU;
+    bool haveToMoveU = false;
+
+
+    //CAM DOWN 
+    float elapsedTimeB;
     bool haveFallen = false;
 
     //lerp var
-    float elapsedTimeHaveToMove;
-    bool haveToMove = false;
-    Vector3 origin;
+    float elapsedTimeHaveToMoveB;
+    bool haveToMoveB = false;
 
     private void OnEnable()
     {
@@ -39,36 +51,77 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
     void Update()
     {
         Vector3 viewPos = cam.WorldToViewportPoint(player.position);
+        adjustDownCam(viewPos);
+        adjustDUpCam(viewPos);
+
+        prevOffset = transform.position.y - player.position.y;
+    }
+
+    void adjustDUpCam(Vector3 viewPos)
+    {
+        if (viewPos.y > 0.75)
+        {
+            transform.position = new Vector3(0, player.position.y + prevOffset, -10);
+            elapsedTimeB = 0;
+            elapsedTimeHaveToMoveU = 0;
+            haveRisen = true;
+            haveToMoveU = false;
+        }
+        else if (viewPos.y < 0.75 && haveRisen)
+        {
+            if (elapsedTimeHaveToMoveU > 1)
+            {
+                haveRisen = false;
+            }
+            elapsedTimeU += Time.deltaTime;
+            if (elapsedTimeU > 1 && !haveToMoveU)
+            {
+                origin = transform.position;
+                haveToMoveU = true;
+                elapsedTimeHaveToMoveU = 0;
+            }
+            if (haveToMoveU)
+            {
+                transform.position = Vector3.Lerp(origin, new Vector3(0, player.position.y + playerOffset, -10), elapsedTimeHaveToMoveU);
+                elapsedTimeHaveToMoveU += Time.deltaTime;
+            }
+        }
+    }
+
+    void adjustDownCam(Vector3 viewPos)
+    {
         if (viewPos.y < 0)
         {
             transform.position = new Vector3(0, player.position.y + prevOffset, -10);
-            elapsedTime = 0;
+            elapsedTimeB = 0;
+            elapsedTimeHaveToMoveB = 0;
             haveFallen = true;
-            haveToMove = false;
-        } else if (viewPos.y > 0 && haveFallen)
+            haveToMoveB = false;
+        }
+        else if (viewPos.y > 0 && haveFallen)
         {
-            if( elapsedTimeHaveToMove > 1)
+            if (elapsedTimeHaveToMoveB > 1)
             {
                 haveFallen = false;
             }
-            elapsedTime += Time.deltaTime;
-            if (elapsedTime > 1 && !haveToMove)
+            elapsedTimeB += Time.deltaTime;
+            if (elapsedTimeB > 1 && !haveToMoveB)
             {
                 origin = transform.position;
-                haveToMove = true;
-                elapsedTimeHaveToMove = 0;
+                haveToMoveB = true;
+                elapsedTimeHaveToMoveB = 0;
             }
-            if (haveToMove)
+            if (haveToMoveB)
             {
-                transform.position = Vector3.Lerp(origin, new Vector3(0, player.position.y + playerOffset, -10), elapsedTimeHaveToMove);
-                elapsedTimeHaveToMove += Time.deltaTime;
+                transform.position = Vector3.Lerp(origin, new Vector3(0, player.position.y + playerOffset, -10), elapsedTimeHaveToMoveB);
+                elapsedTimeHaveToMoveB += Time.deltaTime;
             }
         }
-        prevOffset = transform.position.y - player.position.y;
     }
 
     public void replace()
     {
         transform.position = new Vector3(0, 0, -10);
     }
+
 }

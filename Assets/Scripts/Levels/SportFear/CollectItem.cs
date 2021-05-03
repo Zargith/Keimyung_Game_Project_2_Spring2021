@@ -34,4 +34,5 @@ public class CollectItem : MonoBehaviour
         cam.replace();
         map.removeFromChunk(transform);
     }
+   
 }

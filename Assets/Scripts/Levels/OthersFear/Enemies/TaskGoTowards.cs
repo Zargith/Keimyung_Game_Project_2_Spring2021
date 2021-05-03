@@ -13,22 +13,24 @@ public class TaskGoTowards : MonoBehaviour
         DOWN
     }
 
-    [SerializeField] private Direction GoTo;
+    [SerializeField] private Direction GoTo = Direction.RIGHT;
 
     // Start is called before the first frame update
     void Start()
     {
+        Vector2 tmp = transform.localScale;
         switch (GoTo)
         {
             case Direction.LEFT:
-                transform.localScale = new Vector2(1, 1);
+                tmp.x = Mathf.Abs(tmp.x) * -1;
                 break;
             case Direction.RIGHT:
-                transform.localScale = new Vector2(-1, 1);
+                tmp.x = Mathf.Abs(tmp.x) * 1;
                 break;
             default:
                 break;
         }
+        transform.localScale = tmp;
     }
 
     // Update is called once per frame

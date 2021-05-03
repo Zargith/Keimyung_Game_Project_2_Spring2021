@@ -17,7 +17,7 @@ public class Recoloring : MonoBehaviour
         spr = gameObject.GetComponent<SpriteRenderer>();
         baseColor = spr.color;
 
-        target = Random.ColorHSV(0, 1, 0.8f, 1, 1, 1, 1, 1);
+        target = Random.ColorHSV(0, 1, 0.3f, 0.6f, 1, 1, 1, 1);
     }
 
     // Update is called once per frame
@@ -41,5 +41,13 @@ public class Recoloring : MonoBehaviour
     {
         recolor = true;
         start = Time.time;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player" && recolor == false)
+        {
+            StartColoring();
+        }
     }
 }
