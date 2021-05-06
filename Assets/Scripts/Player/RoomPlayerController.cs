@@ -8,13 +8,13 @@ public class RoomPlayerController : MonoBehaviour
 	Animator anim;
 	bool facingRight = true;
 	[SerializeField] float moveSpeed = 5.0f;
-	GameObject _textSpeechGO;
+	GameObject _textThoughtsGO;
 
 	void Start() {
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponent<Animator>();
 		anim.SetBool("isGrounded", true);
-		_textSpeechGO = transform.GetChild(0).gameObject;
+		_textThoughtsGO = transform.GetChild(0).gameObject;
 	}
 
 	void Update() {
@@ -39,8 +39,8 @@ public class RoomPlayerController : MonoBehaviour
 		newScale.x *= -1;
 		transform.localScale = newScale;
 
-		newScale = _textSpeechGO.transform.localScale;
+		newScale = _textThoughtsGO.transform.localScale;
 		newScale.x *= -1;
-		_textSpeechGO.transform.localScale = newScale;
+		_textThoughtsGO.transform.localScale = newScale;
 	}
 }

@@ -6,11 +6,12 @@ public class OnInteractWithMirror : MonoBehaviour
 {
 	[SerializeField] GameObject elemToHide;
 	[SerializeField] TextMesh textMesh;
-	bool textFinishedToDisplay = false;
+	bool textFinishedToDisplay = true;
 
 	void Update()
 	{
-		if (!textFinishedToDisplay && elemToHide.activeSelf && Input.GetButtonDown("Interact")) {
+		if (textFinishedToDisplay && elemToHide.activeSelf && Input.GetButtonDown("Interact")) {
+			textFinishedToDisplay = false;
 			StartCoroutine(displayText());
 			elemToHide.SetActive(false);
 		}
@@ -21,7 +22,7 @@ public class OnInteractWithMirror : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 		textMesh.text = "I don't want to see myself in the mirror...";
 
-		yield return new WaitForSeconds(3.5f);
+		yield return new WaitForSeconds(5.0f);
 		textMesh.text = "";
 
 		textFinishedToDisplay = true;
