@@ -62,7 +62,7 @@ public class TutoGameManager : MonoBehaviour
 			}
 		}
 	}
- 
+
 	IEnumerator displayText()
 	{
 		yield return new WaitForSeconds(1.5f);

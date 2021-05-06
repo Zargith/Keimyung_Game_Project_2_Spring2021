@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class OnInteractLoadScene : MonoBehaviour
 {
-    [SerializeField] GameObject elemDisplayed;
-    [SerializeField] string sceneName;
+	[SerializeField] GameObject elemDisplayed;
+	[SerializeField] string sceneName;
 
-    void Update() {
-        if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
-            SceneManager.LoadScene(sceneName);
-        }
-    }
+	void Update() {
+		if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
+			SceneManager.LoadScene(sceneName);
+		}
+	}
 }
