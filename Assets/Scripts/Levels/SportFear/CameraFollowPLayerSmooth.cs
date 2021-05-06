@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CameraFollowPLayerSmooth : MonoBehaviour
 {
+    float MAX = 0.80f;
+    float MIN = 0;
 
     Camera cam;
     Transform player;
@@ -59,7 +62,7 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
 
     void adjustDUpCam(Vector3 viewPos)
     {
-        if (viewPos.y > 0.75)
+        if (viewPos.y > MAX)
         {
             transform.position = new Vector3(0, player.position.y + prevOffset, -10);
             elapsedTimeB = 0;
@@ -67,7 +70,7 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
             haveRisen = true;
             haveToMoveU = false;
         }
-        else if (viewPos.y < 0.75 && haveRisen)
+        else if (viewPos.y < MAX && haveRisen)
         {
             if (elapsedTimeHaveToMoveU > 1)
             {
@@ -90,7 +93,7 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
 
     void adjustDownCam(Vector3 viewPos)
     {
-        if (viewPos.y < 0)
+        if (viewPos.y < MIN)
         {
             transform.position = new Vector3(0, player.position.y + prevOffset, -10);
             elapsedTimeB = 0;
@@ -98,7 +101,7 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
             haveFallen = true;
             haveToMoveB = false;
         }
-        else if (viewPos.y > 0 && haveFallen)
+        else if (viewPos.y > MIN && haveFallen)
         {
             if (elapsedTimeHaveToMoveB > 1)
             {
