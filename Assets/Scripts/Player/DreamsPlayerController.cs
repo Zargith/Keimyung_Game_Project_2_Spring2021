@@ -16,6 +16,10 @@ public class DreamsPlayerController : MonoBehaviour
 	void Start()
 	{
 		rb = GetComponent<Rigidbody2D>();
+		if (PlayerPrefs.GetInt("SportFear", 0) == 1)
+        {
+			canJump = true;
+        }
 	}
 
 	void Update()

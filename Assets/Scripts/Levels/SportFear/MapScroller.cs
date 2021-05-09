@@ -53,7 +53,7 @@ public class MapScroller : MonoBehaviour
 
     public void stop()
     {
-        _savedSpeed = _speed;
+        _savedSpeed = _speed == 0 ? _savedSpeed : _speed;
         _speed = 0;
     }
 
