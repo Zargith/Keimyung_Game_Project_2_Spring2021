@@ -16,8 +16,7 @@ public class TutoGameManager : MonoBehaviour
 	[SerializeField] Vector2 respawnPosition;
 	public bool pause = false;
 	[SerializeField] GameObject pauseMenu;
-	[SerializeField] GameObject tmpPauseText;
-
+	[SerializeField] float xPositionPlayerStopsRun = 28f;
 	void Start()
 	{
 		firefly.SetActive(false);
@@ -43,6 +42,9 @@ public class TutoGameManager : MonoBehaviour
 
 		if (pause)
 			return;
+
+		if (player.transform.position.x >= xPositionPlayerStopsRun && firefly.activeSelf)
+			firefly.SetActive(false);
 
 		if (!textFinishedToDisplay)
 			return;

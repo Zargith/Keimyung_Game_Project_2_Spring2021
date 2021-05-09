@@ -425,6 +425,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1490331525179828362, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
   m_PrefabInstance: {fileID: 426940818}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &426940820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1490331525179828358, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+  m_PrefabInstance: {fileID: 426940818}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &426940821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 426940820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b528e982cd6744caadf6299141f3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elemDisplayed: {fileID: 784259316}
+  sceneName: LevelsHub
 --- !u!1 &439108088
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +712,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -3
+  m_SortingOrder: -4
   m_Sprite: {fileID: 21300000, guid: a0cd5638c43c0b248ab19a81d2768b28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -768,6 +787,11 @@ MonoBehaviour:
   desk: {fileID: 1254281364}
   deskOthersFearFinished: {fileID: 21300000, guid: c04ee9a97bc540740b679747d5d011f0, type: 3}
   deskOthersFearNotFinished: {fileID: 21300000, guid: a36e23103fa77ca41b89033f92c5b3f7, type: 3}
+--- !u!1 &784259316 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7342934907680251584, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+  m_PrefabInstance: {fileID: 426940818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &880624752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1150,7 +1174,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -4
+  m_SortingOrder: -5
   m_Sprite: {fileID: 21300000, guid: a36e23103fa77ca41b89033f92c5b3f7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

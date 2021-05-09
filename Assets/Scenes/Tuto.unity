@@ -4314,6 +4314,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &882918505 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7342934907680251584, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+  m_PrefabInstance: {fileID: 1341765312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &914422820
 GameObject:
   m_ObjectHideFlags: 0
@@ -7851,6 +7856,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1469917101 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1490331525179828358, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+  m_PrefabInstance: {fileID: 1341765312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1469917102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1469917101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21b528e982cd6744caadf6299141f3f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elemDisplayed: {fileID: 882918505}
+  sceneName: Room
 --- !u!1001 &1494405038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9682,7 +9706,7 @@ MonoBehaviour:
   respawnPosition: {x: -6, y: -0.7}
   pause: 0
   pauseMenu: {fileID: 406823732}
-  tmpPauseText: {fileID: 0}
+  xPositionPlayerStopsRun: 28
 --- !u!1 &1832887734
 GameObject:
   m_ObjectHideFlags: 0
@@ -10489,7 +10513,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922259747}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.532379, y: -1.9019899, z: 4.0331497}
+  m_LocalPosition: {x: -9.27, y: -2.05, z: 4.0331497}
   m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children: []
   m_Father: {fileID: 614171051}
