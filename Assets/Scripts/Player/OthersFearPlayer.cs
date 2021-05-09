@@ -5,11 +5,14 @@ using UnityEngine;
 public class OthersFearPlayer : MonoBehaviour
 {
     [SerializeField] float playerSpeed = 2.0f;
+    [SerializeField] float jumpStrenght = 2.0f;
     Rigidbody2D rb;
     Animator anim;
     bool groundedPlayer;
     AudioSource audioSource;
     [SerializeField] AudioClip footsteps;
+    public List<OthersFear_Item> inventory;
+
 
     void Start()
     {
@@ -26,29 +29,48 @@ public class OthersFearPlayer : MonoBehaviour
         anim.SetBool("isGrounded", groundedPlayer);
         anim.SetFloat("yVelocity", rb.velocity.y);
 
-        if (groundedPlayer && rb.velocity.y < 0)
-            rb.velocity = new Vector2(rb.velocity.x, 0f);
-
         if (groundedPlayer)
         {
-            Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-            transform.position += move * Time.deltaTime * playerSpeed;
-            if (move.x == 0)
+            if (Input.GetButton("Jump"))
             {
-                anim.SetBool("isRunning", false);
-                audioSource.Pause();
+                rb.AddForce(new Vector2(0, jumpStrenght), ForceMode2D.Impulse);
             }
             else
             {
-                anim.SetBool("isRunning", true);
-                audioSource.UnPause();
+                Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0);
+                rb.velocity = new Vector2(move.x * playerSpeed, rb.velocity.y);
+                Move();
             }
+        }
+    }
+
+    private void Move()
+    {
+        if (Mathf.Abs(rb.velocity.x) == 0)
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isRunning", false);
+            audioSource.Pause();
+        }
+        else if (Mathf.Abs(rb.velocity.x) <= 1.5f)
+        {
+            anim.SetBool("isWalking", true);
+            anim.SetBool("isRunning", false);
+            audioSource.UnPause();
+        }
+        else
+        {
+            anim.SetBool("isWalking", false);
+            anim.SetBool("isRunning", true);
+            audioSource.UnPause();
         }
     }
 
     public LayerMask groundLayer;
     bool IsGrounded()
     {
+        return rb.velocity.y == 0;
+        /*
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
         float distance = 0.1f;
@@ -58,6 +80,6 @@ public class OthersFearPlayer : MonoBehaviour
         if (hit.collider != null)
             return true;
         return false;
+        */
     }
-
 }

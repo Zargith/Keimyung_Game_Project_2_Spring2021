@@ -1864,7 +1864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3263612281684564399, guid: 5a403dc003073a5479f6971f0026bbd9, type: 3}
       propertyPath: playerSpeed
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3263612281684564399, guid: 5a403dc003073a5479f6971f0026bbd9, type: 3}
       propertyPath: playerClimbSpeed

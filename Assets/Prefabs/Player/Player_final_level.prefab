@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 1258525130001243497}
   - component: {fileID: 3600061748133272847}
   m_Layer: 0
-  m_Name: Player_End
+  m_Name: Player_final_level
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,13 +187,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4c834c0df17d294ba0f3389925fb0b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  playerSpeed: 2
-  canJump: 1
-  jumpHeight: 1
+  playerSpeed: 1.5
   forestFootsteps: {fileID: 0}
   otherFootsteps: {fileID: 0}
-  xPositionToChangeFootstepAudioClip: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
