@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board : MonoBehaviour, PositionableGraphic
 {
     public GameObject pathSquarePrefab;
 
@@ -10,14 +10,15 @@ public class Board : MonoBehaviour
 
     public GameObject endSquarePrefab;
 
+    public GameObject playerPrefab;
+
+    public GameObject virusPrefab;
+
     private Transform boardOriginTransform;
 
-    private byte[,] map;
+    private PositionProvider _pp;
 
-    private int rows;
-
-    private int cols;
-
+    public byte[,] Map { private get; set; }
     public Vector2 playerStartPos { get; private set; }
 
     // Start is called before the first frame update
@@ -26,52 +27,51 @@ public class Board : MonoBehaviour
         boardOriginTransform = GameObject.Find("Board").GetComponent<Transform>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetupPositionProvider(PositionProvider pp)
     {
-        
+        _pp = pp;
     }
-
-    public void SetMap(byte[,] mapp, int row, int col)
+    public void Draw()
     {
-        map = mapp;
-        rows = row;
-        cols = col;
-        Draw();
-    }
+        int rows = _pp.MapSize.x;
+        int cols = _pp.MapSize.y;
 
-    private void Draw()
-    {
-        Debug.Log("Start drawing map: i: " + rows + " j: " + cols);
+        Debug.Log("Start drawing map: rows: " + rows + " cols: " + cols);
         GameObject newObj;
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
             {
-                if (map[i, j] == 0)
+                if (Map[i, j] == 0)
                 {
                     newObj = Instantiate(blockSquarePrefab, new Vector2(i, j), Quaternion.identity, boardOriginTransform);
                     newObj.transform.parent = boardOriginTransform;
                     
-                } else if (map[i, j] == 1 || map[i, j] == 4)
+                } else if (Map[i, j] == 1 || Map[i, j] == 4)
                 {
                    newObj = Instantiate(pathSquarePrefab, new Vector2(i, j), Quaternion.identity, boardOriginTransform);
-                   if (map[i, j] == 4)
+                   if (Map[i, j] == 4)
                     {
                         playerStartPos = new Vector2(i, j);
                     }
                    
-                } else if (map[i, j] == 2)
+                } else if (Map[i, j] == 2)
                 {
                     newObj = Instantiate(endSquarePrefab, new Vector2(i, j), Quaternion.identity, boardOriginTransform);
                     //newObj.transform.position = new Vector3(i, 0, j);
                 }
                 else
                 {
-                    Debug.Log("Problem in a square value of the map: " + map[i, j]);
+                    Debug.Log("Problem in a square value of the map: " + Map[i, j]);
                 }
             }
         }
         Debug.Log("Finished");
     }
+
+    public void playerSpawn()
+    {
+        Instantiate(playerPrefab, playerStartPos, Quaternion.identity);
+    }
+
 }

@@ -13,12 +13,13 @@ public class MapProvider : ScriptableObject
 
     public byte[,] Map { get; private set; }
 
+    /*
     public void generate(MapManager.GeneratedMapOptions options)
     {
         RowsLength = options.rows;
         ColumnsLength = options.columns;
         //TODO
-    }
+    }*/
     public void LoadFromDisk(string name)
     {
         FileInfo info = new FileInfo(mapDir + name + ".txt");
