@@ -77,7 +77,7 @@ public class PlayerSportController : MonoBehaviour
     public void revive()
     {
         isded = false;
-        transform.position = new Vector3(-4, -2.4f, 0);
+        transform.position = new Vector3(-3.3f, -2.4f, 0);
         anim.SetBool("isRunning", true);
         deadByRock = false;
     }
