@@ -13,12 +13,13 @@ public class MapProvider : ScriptableObject
 
     public byte[,] Map { get; private set; }
 
+    /*
     public void generate(MapManager.GeneratedMapOptions options)
     {
         RowsLength = options.rows;
         ColumnsLength = options.columns;
         //TODO
-    }
+    }*/
     public void LoadFromDisk(string name)
     {
         FileInfo info = new FileInfo(mapDir + name + ".txt");
@@ -53,6 +54,13 @@ public class MapProvider : ScriptableObject
                     }
                 }
             }
+            /*string e = "";
+            for (int i = 0; i < RowsLength; i++) {
+                for (int j = 0; j < ColumnsLength; j++)
+                    e += (char)(Map[i, j] + '0');
+                Debug.Log(e);
+                e = "";
+            }*/
         } catch (System.Exception e)
         {
             Debug.Log(e);

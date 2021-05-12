@@ -11,13 +11,13 @@ public class PositionProvider
 
     public Vector2 Middle { get; private set; }
 
-    public Vector2 MapSize { get; private set; }
+    public Vector2Int MapSize { get; private set; }
 
     public float SquareSize { get; private set; }
 
     private PositionProvider() { }
 
-    public PositionProvider(Vector2 origin, Vector2 mapSize, float squareSize)
+    public PositionProvider(Vector2 origin, Vector2Int mapSize, float squareSize)
     {
         Origin = origin;
         MapSize = mapSize;
@@ -30,7 +30,7 @@ public class PositionProvider
         return SquareSize * (side == Side.X ? MapSize.x : MapSize.y);
     }
 
-    public Vector2 getSideAxisRelativeToOrigin(Side side, bool min = false)
+    public Vector2 getSidePointRelativeToMiddle(Side side, bool min = false)
     {
         Vector2 tmp;
 
@@ -42,6 +42,6 @@ public class PositionProvider
         {
             tmp = new Vector2(0, getSideLength(side) / 2);
         }
-        return (min == true ? Origin - tmp : Origin + tmp);
+        return (min == true ? Middle - tmp : Middle + tmp);
     }
 }
