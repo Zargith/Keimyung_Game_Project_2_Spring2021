@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private Camera cam;
+
     private bool quit;
 
     private MapProvider mapProvider;
@@ -105,5 +107,15 @@ public class LevelManager : MonoBehaviour
         environment.Draw();
 
         //Init action queue
+
+        //
+
+        PositionCamera(pp);
+    }
+
+    private void PositionCamera(PositionProvider pp)
+    {
+        cam.transform.position = new Vector3(pp.Middle.x, pp.Middle.y - 0.5f, cam.transform.position.z);
+        cam.orthographicSize = (pp.MapSize.x + pp.MapSize.y) / 2 * 0.8f;
     }
 }
