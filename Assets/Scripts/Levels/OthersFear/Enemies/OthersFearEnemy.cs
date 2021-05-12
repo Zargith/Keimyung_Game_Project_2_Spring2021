@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class Enemy : MonoBehaviour
+public class OthersFearEnemy : MonoBehaviour
 {
 
-    public Vector2 distractedPos = new Vector2(0, 1);
+    [SerializeField] Vector2 distractedPos = new Vector2(0, 1);
     [SerializeField] float speed = 1.0f;
     [SerializeField] TaskGoTowards.Direction direction = TaskGoTowards.Direction.LEFT;
     Rigidbody2D rb;
@@ -32,20 +32,19 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float d = SeePlayer();
         if (activity == EnemyState.DISTRACTED)
         {
             rb.velocity = Vector2.zero;
         } else
         {
+            SeePlayer();
             Movement(direction);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        TaskGoTowards task;
-        if (collision.gameObject.TryGetComponent<TaskGoTowards>(out task))
+        if (collision.gameObject.TryGetComponent<TaskGoTowards>(out TaskGoTowards task))
         {
             Movement(task.GetDirection());
         }
@@ -75,11 +74,11 @@ public class Enemy : MonoBehaviour
         rb.velocity = n_v;
     }
 
-    private OthersFearPlayer lastPhit;
-    public float SeePlayer()
+    OthersFearPlayer lastPhit;
+    float SeePlayer()
     {
         RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius, LayerMask.GetMask("Player"));        // If it hits something...
-        if (hit.collider != null && hit.collider.gameObject.tag == "Player")
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
         {
             activity = EnemyState.WATCHING_PALYER;
             lastPhit = hit.collider.gameObject.GetComponent<OthersFearPlayer>();
@@ -119,5 +118,10 @@ public class Enemy : MonoBehaviour
     public float GetSpeed()
     {
         return rb.velocity.x;
+    }
+
+    public Vector3 GetDistractPos()
+    {
+        return transform.position + new Vector3(distractedPos.x * transform.localScale.x, distractedPos.y * transform.localScale.y, 0);
     }
 }

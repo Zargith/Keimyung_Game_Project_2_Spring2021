@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a5ef4557c13f54c832a908729d2c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distractedPos: {x: 0, y: 1}
+  distractedPos: {x: 2, y: 1.5}
   speed: 1
   direction: 0
   fov: {fileID: 1524178374192829077}
