@@ -54,6 +54,13 @@ public class MapProvider : ScriptableObject
                     }
                 }
             }
+            /*string e = "";
+            for (int i = 0; i < RowsLength; i++) {
+                for (int j = 0; j < ColumnsLength; j++)
+                    e += (char)(Map[i, j] + '0');
+                Debug.Log(e);
+                e = "";
+            }*/
         } catch (System.Exception e)
         {
             Debug.Log(e);
