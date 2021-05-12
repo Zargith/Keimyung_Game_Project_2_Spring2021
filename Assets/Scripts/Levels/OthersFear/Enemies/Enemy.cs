@@ -32,14 +32,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + 0.6f * transform.localScale.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius, LayerMask.GetMask("Player"));        // If it hits something...
-        if (hit.collider != null && hit.collider.gameObject.tag == "Player")
+        float d = SeePlayer();
+        if (activity == EnemyState.DISTRACTED)
         {
-            SeePlayer(true);
-        }
-        else
+            rb.velocity = Vector2.zero;
+        } else
         {
-            SeePlayer(false);
+            Movement(direction);
         }
     }
 
@@ -76,17 +75,26 @@ public class Enemy : MonoBehaviour
         rb.velocity = n_v;
     }
 
-    public void SeePlayer(bool player_in_fov)
+    private OthersFearPlayer lastPhit;
+    public float SeePlayer()
     {
-        if (player_in_fov)
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius, LayerMask.GetMask("Player"));        // If it hits something...
+        if (hit.collider != null && hit.collider.gameObject.tag == "Player")
         {
             activity = EnemyState.WATCHING_PALYER;
-            rb.velocity = Vector2.zero;
-        } else
+            lastPhit = hit.collider.gameObject.GetComponent<OthersFearPlayer>();
+            lastPhit.scaredOf = this;
+        }
+        else
         {
             activity = EnemyState.PATROLLING;
-            Movement(direction);
+            if (lastPhit != null)
+            {
+                lastPhit.scaredOf = null;
+                lastPhit = null;
+            }
         }
+        return hit.distance / fov.pointLightOuterRadius;
     }
 
     public void Distracted(bool is_distracted)
@@ -95,13 +103,21 @@ public class Enemy : MonoBehaviour
         {
             activity = EnemyState.DISTRACTED;
             fov.color = Color.white;
-            rb.velocity = Vector2.zero;
         }
         else
         {
             activity = EnemyState.PATROLLING;
             fov.color = Color.red;
-            Movement(direction);
         }
+    }
+
+    public EnemyState GetState()
+    {
+        return activity;
+    }
+
+    public float GetSpeed()
+    {
+        return rb.velocity.x;
     }
 }
