@@ -8,6 +8,7 @@ public class CollectItem : MonoBehaviour
     MapScroller map;
     Animator anim;
     CameraFollowPLayerSmooth cam;
+    public GameObject ToShow;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class CollectItem : MonoBehaviour
             map.stop();
             anim.SetBool("collected", true);
             Invoke("selfDestroy", 3);
+            ToShow.SetActive(true);
         }
     }
 
