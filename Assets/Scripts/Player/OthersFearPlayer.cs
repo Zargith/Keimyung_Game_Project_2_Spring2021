@@ -11,8 +11,8 @@ public class OthersFearPlayer : MonoBehaviour
     bool groundedPlayer;
     AudioSource audioSource;
     [SerializeField] AudioClip footsteps;
-    public List<OthersFear_Item> inventory;
-    public Enemy scaredOf;
+    public List<OthersFear_Item.EnumOthersFearItemType> inventory;
+    public OthersFearEnemy scaredOf;
 
     void Start()
     {
@@ -77,14 +77,15 @@ public class OthersFearPlayer : MonoBehaviour
     public LayerMask groundLayer;
     bool IsGrounded()
     {
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float distance = 0.1f;
+        return rb.velocity.y == 0;
+        /*
+                Vector2 position = transform.position;
+                Vector2 direction = Vector2.down;
+                float distance = 0.1f;
 
-        Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        if (hit.distance < 0.05f)
-            return rb.velocity.y == 0;
-        return false;
+                Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
+                RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+                return hit.collider != null;
+        */
     }
 }
