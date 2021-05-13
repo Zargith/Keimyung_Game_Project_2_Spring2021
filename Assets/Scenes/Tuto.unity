@@ -3105,7 +3105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe76f40d3c6815641bed6290b7b315b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0.01
+  moveSpeed: 0.005
   limitXmin: -8.9
   limitXmax: 90
   player: {fileID: 4593169659043953973}
