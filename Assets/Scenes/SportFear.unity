@@ -2728,6 +2728,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: anim_Trigger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7268135569470237476, guid: 0c83bb244d1136949b9f488fee373da4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0d758c9bdeb23f84b992b8b4618acd46, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c83bb244d1136949b9f488fee373da4, type: 3}
 --- !u!4 &1037934777 stripped
