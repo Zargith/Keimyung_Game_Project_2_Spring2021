@@ -1593,6 +1593,7 @@ GameObject:
   - component: {fileID: 825687910}
   - component: {fileID: 825687909}
   - component: {fileID: 825687908}
+  - component: {fileID: 825687913}
   m_Layer: 0
   m_Name: OtherFear_door
   m_TagString: Untagged
@@ -1722,6 +1723,20 @@ Transform:
   m_Father: {fileID: 615267248}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &825687913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825687907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d17f33a1b54f44289b8487a7580106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefName: OthersFear
+  light: {fileID: 2033871571}
 --- !u!1 &831227317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2001,7 +2016,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 850759549777606520, guid: 74e7087704874454b9b15438db42ae02, type: 3}
       propertyPath: canJump
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 850759549777606520, guid: 74e7087704874454b9b15438db42ae02, type: 3}
       propertyPath: jumpHeight
@@ -2595,6 +2610,7 @@ GameObject:
   - component: {fileID: 1293798273}
   - component: {fileID: 1293798276}
   - component: {fileID: 1293798277}
+  - component: {fileID: 1293798274}
   m_Layer: 0
   m_Name: SportFear_door
   m_TagString: Untagged
@@ -2628,6 +2644,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.29, y: 11.84}
   m_EdgeRadius: 0
+--- !u!114 &1293798274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1293798272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d17f33a1b54f44289b8487a7580106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefName: SportFear
+  light: {fileID: 563414818}
 --- !u!4 &1293798275
 Transform:
   m_ObjectHideFlags: 0
@@ -2991,6 +3021,7 @@ GameObject:
   - component: {fileID: 1604219573}
   - component: {fileID: 1604219572}
   - component: {fileID: 1604219571}
+  - component: {fileID: 1604219574}
   m_Layer: 0
   m_Name: SelfFear_door
   m_TagString: Untagged
@@ -3053,6 +3084,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.29, y: 11.84}
   m_EdgeRadius: 0
+--- !u!114 &1604219574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604219570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d17f33a1b54f44289b8487a7580106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefName: SelfFear
+  light: {fileID: 681702172}
 --- !u!4 &1604219575
 Transform:
   m_ObjectHideFlags: 0
@@ -3353,6 +3398,7 @@ GameObject:
   - component: {fileID: 1944938930}
   - component: {fileID: 1944938929}
   - component: {fileID: 1944938928}
+  - component: {fileID: 1944938931}
   m_Layer: 0
   m_Name: HypoFear_door
   m_TagString: Untagged
@@ -3415,6 +3461,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.29, y: 11.84}
   m_EdgeRadius: 0
+--- !u!114 &1944938931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944938927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00d17f33a1b54f44289b8487a7580106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefName: HypochondriacFear
+  light: {fileID: 1137871988}
 --- !u!4 &1944938932
 Transform:
   m_ObjectHideFlags: 0
