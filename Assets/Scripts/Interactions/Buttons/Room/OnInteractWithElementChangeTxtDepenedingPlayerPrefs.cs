@@ -28,12 +28,6 @@ public class OnInteractWithElementChangeTxtDepenedingPlayerPrefs : MonoBehaviour
 		}
 	}
 
-	void debugList(List<string> arr)
-	{
-		foreach (string arrItem in arr)
-			Debug.Log(arrItem);
-	}
-
 	List<string> stringArrayToStringList(string[] arr)
 	{
 		List<string> openItems = new List<string>();
@@ -76,7 +70,7 @@ public class OnInteractWithElementChangeTxtDepenedingPlayerPrefs : MonoBehaviour
 
 	void Update()
 	{
-		if (textFinishedToDisplay && elemToHide.activeSelf && Input.GetButtonDown("Interact")) {
+		if (textMesh.text == "" && textFinishedToDisplay && elemToHide.activeSelf && Input.GetButtonDown("Interact")) {
 			textFinishedToDisplay = false;
 			StartCoroutine(displayText());
 			elemToHide.SetActive(false);
@@ -93,8 +87,6 @@ public class OnInteractWithElementChangeTxtDepenedingPlayerPrefs : MonoBehaviour
 
 	IEnumerator displayText()
 	{
-		yield return new WaitForSeconds(0.5f);
-
 		if (PlayerPrefs.GetInt(playerPrefName, 0) == 0 && isTextIfPlayerPrefFalseTooLong) {
 			for (int i = 0; i < splittedTextIfPlayerPrefFalse.Count; i++) {
 				textMesh.text = splittedTextIfPlayerPrefFalse[i];

@@ -322,6 +322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bed
       objectReference: {fileID: 0}
+    - target: {fileID: 1490331525179828360, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+      propertyPath: playerThoughts
+      value: 
+      objectReference: {fileID: 275465117}
     - target: {fileID: 1490331525179828362, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -780,7 +784,7 @@ MonoBehaviour:
   hypochondriacFearNotFinished: {fileID: 21300000, guid: 911171137370cb14cb673212a4415660, type: 3}
   cupboard: {fileID: 922396692}
   sportFearFinished: {fileID: 21300000, guid: 12a878c88213ac84e96592ea3d40e67b, type: 3}
-  sportFearNotFinished: {fileID: 21300000, guid: 7610ff3c19f31ed45afd11e71bb332cd, type: 3}
+  sportFearNotFinished: {fileID: 21300000, guid: 5e82b35855797a744bbaf5036f97dbd1, type: 3}
   pc: {fileID: 661607076}
   pcOthersFearFinished: {fileID: 21300000, guid: 49de563b305e7fe489d24e7724eec6b3, type: 3}
   pcOthersFearNotFinished: {fileID: 21300000, guid: a0cd5638c43c0b248ab19a81d2768b28, type: 3}
@@ -1452,6 +1456,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cupboard
       objectReference: {fileID: 0}
+    - target: {fileID: 1490331525179828360, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+      propertyPath: playerThoughts
+      value: 
+      objectReference: {fileID: 275465117}
     - target: {fileID: 1490331525179828362, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1736,6 +1744,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mirror
       objectReference: {fileID: 0}
+    - target: {fileID: 1490331525179828360, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
+      propertyPath: playerThoughts
+      value: 
+      objectReference: {fileID: 275465117}
     - target: {fileID: 1490331525179828362, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
       propertyPath: m_RootOrder
       value: 1
