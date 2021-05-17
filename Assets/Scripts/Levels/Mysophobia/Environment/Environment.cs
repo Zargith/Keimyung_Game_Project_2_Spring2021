@@ -44,6 +44,30 @@ public class Environment : PositionableGraphic
             viruses[positionIndex].Instanciat(new EnvironmentPosition(elem, positionHelper.getPosition(elem), rotationHelper.getRotation(elem)));
             positionIndex++;
         }
-        
+    }
+
+    public void SwapVirusPlace(EnvironmentVirus.Type type)
+    {
+        EnvironmentVirus virus = GetVirus(type);
+        EnvironmentVirus installer = GetVirus(EnvironmentVirus.Type.INSTALLER);
+        EnvironmentPosition savedPos = virus._pos;
+
+        virus.Move(installer._pos);
+        installer.Move(savedPos);
+    }
+
+    public EnvironmentPosition.Placeholder getInstallerPlace()
+    {
+        return GetVirus(EnvironmentVirus.Type.INSTALLER)._pos.placeholder;
+    }
+
+    private EnvironmentVirus GetVirus(EnvironmentVirus.Type type)
+    {
+        foreach (EnvironmentVirus virus in viruses)
+        {
+            if (virus.type == type)
+                return (virus);
+        }
+        return (null);
     }
 }

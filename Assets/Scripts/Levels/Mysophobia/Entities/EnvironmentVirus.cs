@@ -12,9 +12,11 @@ public class EnvironmentVirus: ScriptableObject
 
     public Type type { get; private set; }
 
-    public EnvironmentPosition.Placeholder placeholder { get; private set; }
+    public EnvironmentPosition _pos { get; private set; }
 
-    private GameObject _prefab;
+    private readonly GameObject _prefab;
+
+    private GameObject _instance;
     public EnvironmentVirus(Type type, GameObject prefab)
     {
         this.type = type;
@@ -23,7 +25,13 @@ public class EnvironmentVirus: ScriptableObject
 
     public void Instanciat(EnvironmentPosition pos)
     {
-        placeholder = pos.placeholder;
-        Instantiate(_prefab, pos.position, pos.rotation);
+        _pos = pos;
+        _instance = Instantiate(_prefab, pos.position, pos.rotation);
+    }
+
+    public void Move(EnvironmentPosition pos)
+    {
+        _pos = pos;
+        _instance.GetComponent<Transform>().SetPositionAndRotation(pos.position, pos.rotation);
     }
 }

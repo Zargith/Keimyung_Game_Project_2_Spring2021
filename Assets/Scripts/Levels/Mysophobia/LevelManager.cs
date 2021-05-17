@@ -14,9 +14,13 @@ public class LevelManager : MonoBehaviour
 
     private Environment environment;
 
+    private ActionQueue actionQueue;
+
     [SerializeField] private string mapName;
 
-    int turn;
+    private int turn;
+
+   // private EnvironmentVirus.Type _nextVirusAction;
 
     // Start is called before the first frame update
     void Start()
@@ -60,6 +64,7 @@ public class LevelManager : MonoBehaviour
     private void playerTurn()
     {
         bool ret = false;
+        bool acceleration = false;
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
             ret = board._player.Move(Player.Movement.DOWN);
@@ -69,14 +74,29 @@ public class LevelManager : MonoBehaviour
             ret = board._player.Move(Player.Movement.LEFT);
         if (Input.GetKeyDown(KeyCode.RightArrow))
             ret = board._player.Move(Player.Movement.RIGHT);
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ret = true;
+            acceleration = true;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            ret = board._player.Move(Player.Movement.RIGHT);
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+            ret = board._player.Move(Player.Movement.RIGHT);
         if (ret)
         {
-            turn = 1;
+            if (!acceleration)
+                turn = 1;
         }
     }
     private void virusTurn()
     {
         Debug.Log("Ennemy turn");
+        EnvironmentVirus.Type type = actionQueue.Peek();
+
+        environment.SwapVirusPlace(type);
+        board.spawnVirus(environment.getInstallerPlace());
+        actionQueue.Next();
         turn = 0;
     }
 
@@ -96,8 +116,9 @@ public class LevelManager : MonoBehaviour
 
         board = new Board(pp);
         environment = new Environment(pp);
+        actionQueue = new ActionQueue(pp, 50);
 
-        /*LINK GRAPHIC AND INTERN*/
+        /*LINK GRAPHIC AND MAP*/
 
         board.Map = mapProvider.Map;
 
@@ -105,10 +126,7 @@ public class LevelManager : MonoBehaviour
 
         board.Draw();
         environment.Draw();
-
-        //Init action queue
-
-        //
+        actionQueue.Draw();
 
         PositionCamera(pp);
     }
