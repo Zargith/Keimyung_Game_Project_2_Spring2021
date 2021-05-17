@@ -102,6 +102,7 @@ public class Board : PositionableGraphic
 
     public bool deleteVirus()
     {
+        Debug.Log("Delete virus");
         Vector2Int pos = getPlayerSidePos(_player._direction);
 
         if (Map[pos.x, pos.y] == 3)

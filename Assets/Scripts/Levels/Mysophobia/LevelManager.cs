@@ -20,6 +20,12 @@ public class LevelManager : MonoBehaviour
 
     private int turn;
 
+    private InputManager _inputManager;
+
+    private InputAction _inputAction;
+
+    private SpellManager _spellManager;
+
    // private EnvironmentVirus.Type _nextVirusAction;
 
     // Start is called before the first frame update
@@ -63,35 +69,49 @@ public class LevelManager : MonoBehaviour
 
     private void playerTurn()
     {
-        bool ret = false;
-        bool acceleration = false;
+        _inputManager.GetInput(_inputAction);
 
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            ret = board._player.Move(Player.Movement.DOWN);
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            ret = board._player.Move(Player.Movement.UP);
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
-            ret = board._player.Move(Player.Movement.LEFT);
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            ret = board._player.Move(Player.Movement.RIGHT);
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        switch (_inputAction._type)
         {
-            ret = true;
-            acceleration = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-            ret = board._player.Move(Player.Movement.RIGHT);
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-            ret = board._player.Move(Player.Movement.RIGHT);
-        if (ret)
-        {
-            if (!acceleration)
-                turn = 1;
+            case InputAction.Type.MOVE:
+                board._player.Move(_inputAction.getDirection());
+                if (!_spellManager.IsActivated(InputAction.Spell.ACCELERATION))
+                    turn = 1;
+                else
+                    _spellManager.Deactivate(InputAction.Spell.ACCELERATION);
+                break;
+            case InputAction.Type.SPELL:
+                var spell = _spellManager.Get(_inputAction.getSpell());
+
+                if (spell.activated) {
+                    spell.Deactivate();
+                    break;
+                }
+                if (!spell.isAvailable()) {
+                    break;
+                }
+                if (spell._instant)
+                {                //TODO a refaire dégueulasse
+                    if (spell._type == InputAction.Spell.DELETE_VIRUS)
+                    {
+                        board.deleteVirus();
+                    }
+                    spell.Use();
+                } else
+                {
+                    Debug.Log("Accel");
+                    spell.Activate();
+                }
+                break;
+            case InputAction.Type.RETRY:
+                break;
         }
     }
     private void virusTurn()
     {
         Debug.Log("Ennemy turn");
+        _spellManager.IncreaseTurn();
+
         EnvironmentVirus.Type type = actionQueue.Peek();
 
         environment.SwapVirusPlace(type);
@@ -121,6 +141,16 @@ public class LevelManager : MonoBehaviour
         /*LINK GRAPHIC AND MAP*/
 
         board.Map = mapProvider.Map;
+
+        /*INPUT*/
+
+        _inputManager = new InputManager();
+        _inputAction = new InputAction();
+
+        /*SPELL*/
+
+        _spellManager = new SpellManager();
+        
 
         /*DRAW*/
 
