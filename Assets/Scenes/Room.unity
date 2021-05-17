@@ -754,7 +754,8 @@ MonoBehaviour:
   textMesh: {fileID: 275465117}
   playerPrefName: HypochondriacFear
   textIfPlayerPrefFalse: Fast ! Fast ! I have to clean myself from bacterias !
-  textIfPlayerPrefTrue: A
+  textIfPlayerPrefTrue: If I open my window every day for 5 minutes, it should help
+    to kill bad bacterias.
   maxStringLength: 30
   timeInSecondsDisplayEachTextLine: 1
 --- !u!1 &750670902
@@ -2319,6 +2320,10 @@ PrefabInstance:
     - target: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
       propertyPath: m_Name
       value: PausePrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3290408229145627022, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
       propertyPath: m_RootOrder
