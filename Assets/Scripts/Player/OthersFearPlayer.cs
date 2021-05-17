@@ -11,8 +11,8 @@ public class OthersFearPlayer : MonoBehaviour
     bool groundedPlayer;
     AudioSource audioSource;
     [SerializeField] AudioClip footsteps;
-    public List<OthersFear_Item> inventory;
-
+    public List<OthersFear_Item.EnumOthersFearItemType> inventory;
+    public OthersFearEnemy scaredOf;
 
     void Start()
     {
@@ -31,17 +31,25 @@ public class OthersFearPlayer : MonoBehaviour
 
         if (groundedPlayer)
         {
-            if (Input.GetButton("Jump"))
+            if (scaredOf != null)
             {
-                rb.AddForce(new Vector2(0, jumpStrenght), ForceMode2D.Impulse);
+                float xdir = transform.position.x - scaredOf.transform.position.x;
+                rb.velocity = new Vector2(scaredOf.GetSpeed() * (xdir * scaredOf.GetSpeed() < 0 ? 0.8f : 1.2f), 0);
             }
             else
             {
-                Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0);
-                rb.velocity = new Vector2(move.x * playerSpeed, rb.velocity.y);
-                Move();
+                if (Input.GetButton("Jump"))
+                {
+                    rb.AddForce(new Vector2(0, jumpStrenght), ForceMode2D.Impulse);
+                }
+                else
+                {
+                    Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0);
+                    rb.velocity = new Vector2(move.x * playerSpeed, rb.velocity.y);
+                }
             }
         }
+        Move();
     }
 
     private void Move()
@@ -71,15 +79,13 @@ public class OthersFearPlayer : MonoBehaviour
     {
         return rb.velocity.y == 0;
         /*
-        Vector2 position = transform.position;
-        Vector2 direction = Vector2.down;
-        float distance = 0.1f;
+                Vector2 position = transform.position;
+                Vector2 direction = Vector2.down;
+                float distance = 0.1f;
 
-        Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        if (hit.collider != null)
-            return true;
-        return false;
+                Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
+                RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+                return hit.collider != null;
         */
     }
 }

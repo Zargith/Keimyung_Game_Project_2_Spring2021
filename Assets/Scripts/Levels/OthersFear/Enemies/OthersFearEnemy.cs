@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
-public class Enemy : MonoBehaviour
+public class OthersFearEnemy : MonoBehaviour
 {
 
-    public Vector2 distractedPos = new Vector2(0, 1);
+    [SerializeField] Vector2 distractedPos = new Vector2(0, 1);
     [SerializeField] float speed = 1.0f;
     [SerializeField] TaskGoTowards.Direction direction = TaskGoTowards.Direction.LEFT;
     Rigidbody2D rb;
@@ -32,21 +32,19 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x + 0.6f * transform.localScale.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius, LayerMask.GetMask("Player"));        // If it hits something...
-        if (hit.collider != null && hit.collider.gameObject.tag == "Player")
+        if (activity == EnemyState.DISTRACTED)
         {
-            SeePlayer(true);
-        }
-        else
+            rb.velocity = Vector2.zero;
+        } else
         {
-            SeePlayer(false);
+            SeePlayer();
+            Movement(direction);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        TaskGoTowards task;
-        if (collision.gameObject.TryGetComponent<TaskGoTowards>(out task))
+        if (collision.gameObject.TryGetComponent<TaskGoTowards>(out TaskGoTowards task))
         {
             Movement(task.GetDirection());
         }
@@ -76,17 +74,26 @@ public class Enemy : MonoBehaviour
         rb.velocity = n_v;
     }
 
-    public void SeePlayer(bool player_in_fov)
+    OthersFearPlayer lastPhit;
+    float SeePlayer()
     {
-        if (player_in_fov)
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius, LayerMask.GetMask("Player"));        // If it hits something...
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
         {
             activity = EnemyState.WATCHING_PALYER;
-            rb.velocity = Vector2.zero;
-        } else
+            lastPhit = hit.collider.gameObject.GetComponent<OthersFearPlayer>();
+            lastPhit.scaredOf = this;
+        }
+        else
         {
             activity = EnemyState.PATROLLING;
-            Movement(direction);
+            if (lastPhit != null)
+            {
+                lastPhit.scaredOf = null;
+                lastPhit = null;
+            }
         }
+        return hit.distance / fov.pointLightOuterRadius;
     }
 
     public void Distracted(bool is_distracted)
@@ -95,13 +102,26 @@ public class Enemy : MonoBehaviour
         {
             activity = EnemyState.DISTRACTED;
             fov.color = Color.white;
-            rb.velocity = Vector2.zero;
         }
         else
         {
             activity = EnemyState.PATROLLING;
             fov.color = Color.red;
-            Movement(direction);
         }
+    }
+
+    public EnemyState GetState()
+    {
+        return activity;
+    }
+
+    public float GetSpeed()
+    {
+        return rb.velocity.x;
+    }
+
+    public Vector3 GetDistractPos()
+    {
+        return transform.position + new Vector3(distractedPos.x * transform.localScale.x, distractedPos.y * transform.localScale.y, 0);
     }
 }

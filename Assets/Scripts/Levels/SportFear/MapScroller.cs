@@ -35,18 +35,22 @@ public class MapScroller : MonoBehaviour
         transform.position += Vector3.left * _speed * Time.deltaTime;
         foreach (Transform ch in _chunks)
         {
-                if (ch.position.x <= _drawLimits.y)
-                {
-                    ch.gameObject.SetActive(true);
-                }
-                else
-                {
-                    ch.gameObject.SetActive(false);
-                }
-                if (ch.position.x <= _drawLimits.x)
-                {
-                    ch.gameObject.SetActive(false);
-                }
+            if (ch.tag == "Text")
+            {
+                continue;
+            }
+            if (ch.position.x <= _drawLimits.y)
+            {
+                ch.gameObject.SetActive(true);
+            }
+            else
+            {
+                ch.gameObject.SetActive(false);
+            }
+            if (ch.position.x <= _drawLimits.x)
+            {
+                ch.gameObject.SetActive(false);
+            }
         }
     }
 
