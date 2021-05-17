@@ -13,7 +13,6 @@ public class DisplayIfPlayerIsClose : MonoBehaviour
 	{
 		playerPosition = player.transform.position;
 
-		Debug.Log(Vector2.Distance(playerPosition, this.transform.position));
 		if (Vector2.Distance(playerPosition, this.transform.position) <= distance)
 			elemToDisplay.SetActive(true);
 		else
