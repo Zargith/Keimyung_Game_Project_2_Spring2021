@@ -198,7 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1070797430}
   m_Layer: 0
-  m_Name: GPs
+  m_Name: PrefabProviders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -491,7 +491,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.41509432, g: 0.3700605, b: 0.3700605, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -532,7 +532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2118339736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5, y: 6, z: -20}
+  m_LocalPosition: {x: 0, y: 0, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -579,6 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2120201711}
+  - component: {fileID: 2120201712}
   m_Layer: 0
   m_Name: ActionQueue
   m_TagString: Untagged
@@ -600,6 +601,27 @@ Transform:
   m_Father: {fileID: 1070797430}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2120201712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120201710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa208fe442361ae44ac7cf0a8fd4a3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefabs:
+    m_keys:
+    - CoronaCard
+    - FluCard
+    - PlagueCard
+    m_values:
+    - {fileID: 7241402723994727330, guid: f4c4c5466917f4a448d82573df6e0270, type: 3}
+    - {fileID: 7433411542246923631, guid: 65b3aa834f8683f40895e3b7c9d4fe2f, type: 3}
+    - {fileID: 2132394382441537211, guid: ef4f491b47be93148bd1ac78d6d823ca, type: 3}
 --- !u!1 &2135140226
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour
 
     private Environment environment;
 
+    private ActionQueue actionQueue;
+
     [SerializeField] private string mapName;
 
     int turn;
@@ -96,8 +98,9 @@ public class LevelManager : MonoBehaviour
 
         board = new Board(pp);
         environment = new Environment(pp);
+        actionQueue = new ActionQueue(pp);
 
-        /*LINK GRAPHIC AND INTERN*/
+        /*LINK GRAPHIC AND MAP*/
 
         board.Map = mapProvider.Map;
 
@@ -105,6 +108,7 @@ public class LevelManager : MonoBehaviour
 
         board.Draw();
         environment.Draw();
+        actionQueue.Draw();
 
         //Init action queue
 
