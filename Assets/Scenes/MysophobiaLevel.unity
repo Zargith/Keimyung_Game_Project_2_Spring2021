@@ -342,6 +342,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PausePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3290408229145627022, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -618,10 +622,12 @@ MonoBehaviour:
     - CoronaCard
     - FluCard
     - PlagueCard
+    - Card
     m_values:
     - {fileID: 7241402723994727330, guid: f4c4c5466917f4a448d82573df6e0270, type: 3}
     - {fileID: 7433411542246923631, guid: 65b3aa834f8683f40895e3b7c9d4fe2f, type: 3}
     - {fileID: 2132394382441537211, guid: ef4f491b47be93148bd1ac78d6d823ca, type: 3}
+    - {fileID: 2525544710570309567, guid: ca2e47124198c434ea791f08f670a1a6, type: 3}
 --- !u!1 &2135140226
 GameObject:
   m_ObjectHideFlags: 0
