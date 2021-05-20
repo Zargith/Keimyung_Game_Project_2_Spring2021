@@ -19,6 +19,8 @@ public class PlayerSportController : MonoBehaviour
     Vector3 aaa;
     float elapsedtime;
 
+    AudioSource aud;
+
     private void OnEnable()
     {
         SportGameOver.OnGameOver += stop;
@@ -37,6 +39,7 @@ public class PlayerSportController : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetBool("isRunning", true);
         anim.SetBool("isGrounded", true);
+        aud = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -44,12 +47,21 @@ public class PlayerSportController : MonoBehaviour
     {
         if (!isded)
         {
+            bool wg = isGrounded;
             isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, layerForCheck) || Physics2D.OverlapCircle(groundCheck1.position, 0.1f, layerForCheck);
             if ((Input.GetButton("Jump") || Input.GetAxis("Vertical") > 0) && isGrounded)
             {
                 rb.velocity = new Vector2(rb.velocity.x, 0);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
+            }
+            if (wg && !isGrounded)
+            {
+                aud.Stop();
+            }
+            if (!wg && isGrounded)
+            {
+                aud.Play();
             }
         } else if (deadByRock)
         {
