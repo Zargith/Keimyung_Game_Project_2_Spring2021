@@ -1,23 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static InputAction;
 
 public class Player : ScriptableObject
 {
-    public enum Movement
-    {
-        UP,
-        DOWN,
-        RIGHT,
-        LEFT
-    }
-
-    public enum PowerUp
-    {
-        ONE,
-        TWO
-    }
-
     private GameObject _prefab;
 
     private GameObject _instance;
@@ -38,25 +23,25 @@ public class Player : ScriptableObject
     {
         _instance = Instantiate(_prefab, pos, Quaternion.identity);
     }
-    public bool Move(Movement move)
+    public bool Move(Direction move)
     {
         Debug.Log("Player Try move: " + move);
         Vector2Int newPos = new Vector2Int();
         switch (move)
         {
-            case Movement.DOWN:
+            case Direction.DOWN:
                 newPos = new Vector2Int(_boardPos.x + 1, _boardPos.y);
                 _direction = EnvironmentPosition.Placeholder.SOUTH;
                 break;
-            case Movement.UP:
+            case Direction.UP:
                 newPos = new Vector2Int(_boardPos.x - 1, _boardPos.y);
                 _direction = EnvironmentPosition.Placeholder.NORTH;
                 break;
-            case Movement.RIGHT:
+            case Direction.RIGHT:
                 newPos = new Vector2Int(_boardPos.x, _boardPos.y + 1);
                 _direction = EnvironmentPosition.Placeholder.EAST;
                 break;
-            case Movement.LEFT:
+            case Direction.LEFT:
                 newPos = new Vector2Int(_boardPos.x, _boardPos.y - 1);
                 _direction = EnvironmentPosition.Placeholder.WEST;
                 break;
