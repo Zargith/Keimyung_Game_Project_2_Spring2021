@@ -20,9 +20,9 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (perso.GetComponent<ButtonColision>().GetCollideNmyState() || clone.GetComponent<ButtonColision>().GetCollideNmyState()) {
-            RestartGame();
-        }
+        // if (perso.GetComponent<ButtonColision>().GetCollideNmyState() || clone.GetComponent<ButtonColision>().GetCollideNmyState()) {
+        //     RestartGame();
+        // }
     }
 
     private void RestartGame()
