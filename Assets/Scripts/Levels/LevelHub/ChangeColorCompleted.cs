@@ -7,14 +7,14 @@ public class ChangeColorCompleted : MonoBehaviour
 {
 
     [SerializeField] string playerPrefName;
-    [SerializeField] Light2D light;
+    [SerializeField] Light2D _light;
 
     // Start is called before the first frame update
     void Start()
     {
         if (PlayerPrefs.GetInt(playerPrefName, 0) == 1)
         {
-            light.color = new Color(0, 1, 0);
+            _light.color = new Color(0, 1, 0);
         }
     }
 

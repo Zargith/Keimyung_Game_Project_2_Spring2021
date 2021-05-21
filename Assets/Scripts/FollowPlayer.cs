@@ -16,12 +16,12 @@ public class FollowPlayer : MonoBehaviour
 	}
 
 	public void SetTarget(Transform target)
-    {
+	{
 		_playerTransform = target;
-    }
+	}
 
 	public void SetY(float y)
-    {
+	{
 		changeY = y;
-    }
+	}
 }
