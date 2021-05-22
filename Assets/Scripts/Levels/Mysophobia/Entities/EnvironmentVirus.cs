@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnvironmentVirus: ScriptableObject
+public class EnvironmentVirus
 {
     public enum Type
     {
@@ -14,20 +14,25 @@ public class EnvironmentVirus: ScriptableObject
 
     public EnvironmentPosition _pos { get; private set; }
 
-    private readonly GameObject _prefab;
+    public GameObject _prefab { get; private set; }
 
-    private GameObject _instance;
+    public GameObject _instance;
     public EnvironmentVirus(Type type, GameObject prefab)
     {
         this.type = type;
         _prefab = prefab;
     }
 
-    public void Instanciat(EnvironmentPosition pos)
+    public void InitPosition(EnvironmentPosition pos)
+    {
+        _pos = pos;
+    }
+
+    /*public void Instanciat(EnvironmentPosition pos)
     {
         _pos = pos;
         _instance = Instantiate(_prefab, pos.position, pos.rotation);
-    }
+    }*/
 
     public void Move(EnvironmentPosition pos)
     {

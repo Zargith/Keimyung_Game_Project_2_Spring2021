@@ -17,12 +17,12 @@ public class ActionQueue : PositionableGraphic
     private int _index;
 
     private Vector2 _queueOriginPos;
+    public override void Init(PositionProvider pp)
+    {
+        _pp = pp;
 
-    public ActionQueue(PositionProvider pp, int maxActions) : base(pp) {
         ReceivePrefab("ActionQueue");
-        _maxActions = maxActions + _actionsSize;
-        _actions = new List<EnvironmentVirus.Type>(_maxActions);
-        _actionObjects = new List<GameObject>(_maxActions);
+
         _queueOriginPos = new Vector2(pp.Middle.x - pp.MapSize.x * 1.2f, pp.Middle.y + pp.MapSize.y * 0.6f);
         _index = 0;
     }
@@ -42,6 +42,13 @@ public class ActionQueue : PositionableGraphic
         _actionObjects[0].transform.Find("Frame").gameObject.SetActive(true);
     }
 
+    public void SetMaxAction(int maxActions)
+    {
+        _maxActions = maxActions + _actionsSize;
+
+        _actions = new List<EnvironmentVirus.Type>(_maxActions);
+        _actionObjects = new List<GameObject>(_maxActions);
+    }
     public EnvironmentVirus.Type Peek()
     {
         return (_actions[_index]);

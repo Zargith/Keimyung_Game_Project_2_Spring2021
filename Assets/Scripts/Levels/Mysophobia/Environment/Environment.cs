@@ -13,12 +13,17 @@ public class Environment : PositionableGraphic
     private EnvironmentPositionHelper positionHelper;
 
     private EnvironmentRotationHelper rotationHelper;
-    
-    public Environment(PositionProvider pp) : base(pp) {
+
+    public override void Init(PositionProvider pp)
+    {
+        _pp = pp;
+
+        ReceivePrefab("Environment");
+
         positionHelper = new EnvironmentPositionHelper(pp);
         rotationHelper = new EnvironmentRotationHelper();
-        ReceivePrefab("Environment");
-        viruses = new List<EnvironmentVirus>() { 
+
+        viruses = new List<EnvironmentVirus>() {
             new EnvironmentVirus(EnvironmentVirus.Type.INSTALLER, GetPrefab("Installer")),
             new EnvironmentVirus(EnvironmentVirus.Type.CORONA, GetPrefab("Corona")),
             new EnvironmentVirus(EnvironmentVirus.Type.FLU, GetPrefab("Flu")),
@@ -28,20 +33,29 @@ public class Environment : PositionableGraphic
 
     public override void Draw()
     {
-        var posList = new List<Placeholder>() { Placeholder.EAST, Placeholder.NORTH, Placeholder.SOUTH, Placeholder.WEST };
         Random.InitState((int)DateTime.Now.Ticks);
 
-        int rand;
-        Placeholder elem;
-        int positionIndex = 0;
-        Quaternion demiAngle = Quaternion.Euler(0, 0, 90);
+        var placeholderList = new List<Placeholder>() { Placeholder.EAST, Placeholder.NORTH, Placeholder.SOUTH, Placeholder.WEST };
+        Placeholder actualPlaceholder;
 
-        while (posList.Count > 0)
+        int rand;
+        int positionIndex = 0;
+        EnvironmentPosition actualPos;
+        EnvironmentVirus actualVirus;
+
+        while (placeholderList.Count > 0)
         {
-            rand = Random.Range(0, posList.Count - 1);
-            elem = posList[rand];
-            posList.RemoveAt(rand);
-            viruses[positionIndex].Instanciat(new EnvironmentPosition(elem, positionHelper.getPosition(elem), rotationHelper.getRotation(elem)));
+            rand = Random.Range(0, placeholderList.Count - 1);
+            actualPlaceholder = placeholderList[rand];
+            placeholderList.RemoveAt(rand);
+
+            actualVirus = viruses[positionIndex];
+            actualPos = new EnvironmentPosition(actualPlaceholder, positionHelper.getPosition(actualPlaceholder), rotationHelper.getRotation(actualPlaceholder));
+
+            actualVirus.InitPosition(actualPos);
+            actualVirus._instance = Instantiate(actualVirus._prefab, actualPos.position, actualPos.rotation);
+
+            //viruses[positionIndex].Instanciat(new EnvironmentPosition(actualPlaceholder, positionHelper.getPosition(actualPlaceholder), rotationHelper.getRotation(actualPlaceholder)));
             positionIndex++;
         }
     }
