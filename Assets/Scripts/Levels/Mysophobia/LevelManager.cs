@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -18,6 +16,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private string mapName;
 
+    private int maxTurn = 50;
+
     private int turn;
 
     private InputManager _inputManager;
@@ -26,7 +26,7 @@ public class LevelManager : MonoBehaviour
 
     private SpellManager _spellManager;
 
-   // private EnvironmentVirus.Type _nextVirusAction;
+    private DisplayManager _displayManager;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +36,9 @@ public class LevelManager : MonoBehaviour
         turn = 0;
 
         mapProvider = ScriptableObject.CreateInstance<MapProvider>();
+        board = ScriptableObject.CreateInstance<Board>();
+        environment = ScriptableObject.CreateInstance<Environment>();
+        actionQueue = ScriptableObject.CreateInstance<ActionQueue>();
 
         //board = GameObject.Find("Board").GetComponent<Board>();
         //environment = GameObject.Find("Environment").GetComponent<Environment>();
@@ -53,18 +56,6 @@ public class LevelManager : MonoBehaviour
         {
             virusTurn();
         }
-
-            
-        // Input
-        // Activated power ?
-        // Wait move
-        // Virus turn
-        // Pop back queue
-        // Visual env effect
-        // Apply (virus pop or not)
-        // Visual maj queue
-        // decrease max turn (?)
-        // next turn
     }
 
     private void playerTurn()
@@ -74,11 +65,13 @@ public class LevelManager : MonoBehaviour
         switch (_inputAction._type)
         {
             case InputAction.Type.MOVE:
-                board._player.Move(_inputAction.getDirection());
+                if (!board.MovePlayer((Board.Direction)_inputAction.getDirection()))
+                    break;
                 if (!_spellManager.IsActivated(InputAction.Spell.ACCELERATION))
                     turn = 1;
                 else
                     _spellManager.Deactivate(InputAction.Spell.ACCELERATION);
+                decreaseTurn();
                 break;
             case InputAction.Type.SPELL:
                 var spell = _spellManager.Get(_inputAction.getSpell());
@@ -94,7 +87,7 @@ public class LevelManager : MonoBehaviour
                 {                //TODO a refaire dégueulasse
                     if (spell._type == InputAction.Spell.DELETE_VIRUS)
                     {
-                        board.deleteVirus();
+                        board.DeleteVirus();
                     }
                     spell.Use();
                 } else
@@ -115,9 +108,15 @@ public class LevelManager : MonoBehaviour
         EnvironmentVirus.Type type = actionQueue.Peek();
 
         environment.SwapVirusPlace(type);
-        board.spawnVirus(environment.getInstallerPlace());
+        board.SpawnVirus((Board.Direction)environment.getInstallerPlace());
         actionQueue.Next();
         turn = 0;
+    }
+
+    private void decreaseTurn()
+    {
+        maxTurn--;
+        _displayManager.Texts["MaxTurn"].Update(maxTurn.ToString());
     }
 
 
@@ -134,9 +133,11 @@ public class LevelManager : MonoBehaviour
 
         pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(mapProvider.RowsLength, mapProvider.ColumnsLength), 1); // tmp
 
-        board = new Board(pp);
-        environment = new Environment(pp);
-        actionQueue = new ActionQueue(pp, 50);
+        board.Init(pp);
+        environment.Init(pp);
+        actionQueue.Init(pp);
+
+        actionQueue.SetMaxAction(50);
 
         /*LINK GRAPHIC AND MAP*/
 
@@ -158,7 +159,14 @@ public class LevelManager : MonoBehaviour
         environment.Draw();
         actionQueue.Draw();
 
+        /*CAMERA*/
+
         PositionCamera(pp);
+
+        /*DISPLAY*/
+        
+        _displayManager = new DisplayManager();
+        _displayManager.AddText("MaxTurnText", "MaxTurn");
     }
 
     private void PositionCamera(PositionProvider pp)

@@ -11,16 +11,16 @@ public class InputAction
     }
 
     public enum Direction {
-        UP = 1,
-        DOWN = 2,
-        RIGHT = 3,
-        LEFT = 4
+        UP = 0,
+        DOWN = 1,
+        RIGHT = 2,
+        LEFT = 3
     }
 
     public enum Spell
     {
-        ACCELERATION = 5,
-        DELETE_VIRUS = 6
+        ACCELERATION = 4,
+        DELETE_VIRUS = 5
     }
     public Type _type { get; private set; }
 
@@ -36,11 +36,11 @@ public class InputAction
             case Type.NONE:
                 break;
             case Type.MOVE:
-                if (data < 1 || data > 4)
+                if (data < 0 || data > 3)
                     throw new Exception("Data error for move input");
                 break;
             case Type.SPELL:
-                if (data < 5 || data > 6)
+                if (data < 4 || data > 5)
                     throw new Exception("Data error for spell input");
                 break;
         }
@@ -56,11 +56,11 @@ public class InputAction
             case Type.NONE:
                 break;
             case Type.MOVE:
-                if (data < 1 || data > 4)
+                if (data < 0 || data > 3)
                     throw new Exception("Data error for move input");
                 break;
             case Type.SPELL:
-                if (data < 5 || data > 6)
+                if (data < 4 || data > 5)
                     throw new Exception("Data error for spell input");
                 break;
         }
