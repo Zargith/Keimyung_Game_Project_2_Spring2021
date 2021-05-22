@@ -8,17 +8,20 @@ public class TriggerCameraShake : MonoBehaviour
     public float amount;
     CameraShake cam;
     PlayerSportController psc;
+    AudioSource aud;
 
     private void Start()
     {
         cam = GameObject.FindObjectOfType<CameraShake>();
         psc = GameObject.FindObjectOfType<PlayerSportController>();
+        aud = GetComponent<AudioSource>();
     }
 
     void Shake()
     {
         StartCoroutine(cam.Shake(duration, amount));
         psc.shake();
+        aud.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

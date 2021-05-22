@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CameraFollowPLayerSmooth : MonoBehaviour
 {
-    float MAX = 0.80f;
     float MIN = 0;
 
     Camera cam;
@@ -15,15 +14,6 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
 
     Vector3 origin;
 
-    //CAM UP 
-    float elapsedTimeU;
-    bool haveRisen= false;
-
-    //lerp var
-    float elapsedTimeHaveToMoveU;
-    bool haveToMoveU = false;
-
-
     //CAM DOWN 
     float elapsedTimeB;
     bool haveFallen = false;
@@ -31,6 +21,13 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
     //lerp var
     float elapsedTimeHaveToMoveB;
     bool haveToMoveB = false;
+
+
+    //ok
+    bool isPositioning = false;
+    Vector3 va;
+    Vector3 vb;
+    float vt;
 
     private void OnEnable()
     {
@@ -53,42 +50,19 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 viewPos = cam.WorldToViewportPoint(player.position);
-        adjustDownCam(viewPos);
-        adjustDUpCam(viewPos);
 
-        prevOffset = transform.position.y - player.position.y;
-    }
+        if (isPositioning)
+        {
+            transform.position = Vector3.Lerp(va, vb, vt / 6);
+            if (vt/6 > 1) isPositioning = false;
+            vt += Time.deltaTime;
+        } else
+        {
+            Vector3 viewPos = cam.WorldToViewportPoint(player.position);
+            adjustDownCam(viewPos);
+            prevOffset = transform.position.y - player.position.y;
+        }
 
-    void adjustDUpCam(Vector3 viewPos)
-    {
-        if (viewPos.y > MAX)
-        {
-            transform.position = new Vector3(0, player.position.y + prevOffset, -10);
-            elapsedTimeB = 0;
-            elapsedTimeHaveToMoveU = 0;
-            haveRisen = true;
-            haveToMoveU = false;
-        }
-        else if (viewPos.y < MAX && haveRisen)
-        {
-            if (elapsedTimeHaveToMoveU > 1)
-            {
-                haveRisen = false;
-            }
-            elapsedTimeU += Time.deltaTime;
-            if (elapsedTimeU > 1 && !haveToMoveU)
-            {
-                origin = transform.position;
-                haveToMoveU = true;
-                elapsedTimeHaveToMoveU = 0;
-            }
-            if (haveToMoveU)
-            {
-                transform.position = Vector3.Lerp(origin, new Vector3(0, player.position.y + playerOffset, -10), elapsedTimeHaveToMoveU);
-                elapsedTimeHaveToMoveU += Time.deltaTime;
-            }
-        }
     }
 
     void adjustDownCam(Vector3 viewPos)
@@ -120,6 +94,15 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
                 elapsedTimeHaveToMoveB += Time.deltaTime;
             }
         }
+    }
+
+
+    public void setPosition(Vector3 b)
+    {
+        va = transform.position;
+        vb = b;
+        isPositioning = true;
+        vt = 0;
     }
 
     public void replace()

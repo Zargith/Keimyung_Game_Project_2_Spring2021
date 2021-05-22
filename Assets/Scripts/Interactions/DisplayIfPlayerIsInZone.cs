@@ -9,7 +9,7 @@ public class DisplayIfPlayerIsInZone : MonoBehaviour
 	[SerializeField] TextMesh playerThoughts;
 	bool isPlayerStayingInZone = false;
 
-	private void Start() {/*only here to have an enablable script*/}
+	void Start() {/*only here to have an enablable script*/}
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
