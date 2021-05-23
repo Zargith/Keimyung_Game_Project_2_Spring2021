@@ -1,3 +1,5 @@
+using UnityEngine;
+using UnityEngine.UI;
 public class Spell
 {
     public enum ReloadType
@@ -16,6 +18,10 @@ public class Spell
     public bool activated { get; private set; }
     public bool _instant { get; private set; }
 
+    private Image _icon;
+
+    private Text _dataDisplay;
+
     public Spell(InputAction.Spell type, ReloadType reloadType, int reloadData, bool instant)
     {
         _type = type;
@@ -23,6 +29,8 @@ public class Spell
         _reloadData = reloadData;
         _instant = instant;
         _actualReloadData = reloadData;
+        _icon = null;
+        _dataDisplay = null;
         switch (_reloadType)
         {
             case ReloadType.USAGE:
@@ -34,12 +42,32 @@ public class Spell
         }
     }
 
+    public void AttachDisplay(string containerName)
+    {
+        GameObject container = GameObject.Find(containerName);
+        Image image = container.GetComponentInChildren<Image>();
+        Text text = container.GetComponentInChildren<Text>();
+
+        if (image != null)
+        {
+            _icon = image;
+        }
+        if (text != null)
+        {
+            _dataDisplay = text;
+            if (_reloadType == ReloadType.COOLDOWN)
+                _dataDisplay.text = "";
+            else
+                _dataDisplay.text = _actualReloadData.ToString();
+        }
+    }
+
     public void Reset()
     {
         _actualReloadData = 0;
     }
 
-    public bool isAvailable()
+    public bool IsAvailable()
     {
         switch (_reloadType)
         {
@@ -61,7 +89,7 @@ public class Spell
 
     public bool Activate()
     {
-        if (isAvailable())
+        if (IsAvailable())
         {
             activated = true;
             return true;
@@ -88,13 +116,16 @@ public class Spell
                 if (_actualReloadData > 0)
                 {
                     _actualReloadData--;
+                    _dataDisplay.text = _actualReloadData.ToString();
                     return true;
                 }
                 break;
             case ReloadType.COOLDOWN:
                 if (_actualReloadData == 0) {
                     _actualReloadData = _reloadData;
-                    return (true);
+                    _dataDisplay.text = _actualReloadData.ToString();
+                    _icon.color = Color.black;
+                    return true;
                 }
                 break;
         }
@@ -104,7 +135,17 @@ public class Spell
     public void IncreaseTurn()
     {
         if (_reloadType == ReloadType.COOLDOWN && _actualReloadData > 0)
+        {
             _actualReloadData--;
+            if (_actualReloadData == 0)
+            {
+                _dataDisplay.text = "";
+                _icon.color = Color.white;
+            } else
+            {
+                _dataDisplay.text = _actualReloadData.ToString();
+            }
+        }
     }
         
 }

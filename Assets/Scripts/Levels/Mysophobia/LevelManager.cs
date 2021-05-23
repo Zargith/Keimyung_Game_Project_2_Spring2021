@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
         //board = GameObject.Find("Board").GetComponent<Board>();
         //environment = GameObject.Find("Environment").GetComponent<Environment>();
 
-        launchGame(mapName);
+        LaunchGame(mapName);
     }
 
     // Update is called once per frame
@@ -80,7 +80,7 @@ public class LevelManager : MonoBehaviour
                     spell.Deactivate();
                     break;
                 }
-                if (!spell.isAvailable()) {
+                if (!spell.IsAvailable()) {
                     break;
                 }
                 if (spell._instant)
@@ -97,6 +97,7 @@ public class LevelManager : MonoBehaviour
                 }
                 break;
             case InputAction.Type.RETRY:
+                board.Reset();
                 break;
         }
     }
@@ -108,7 +109,7 @@ public class LevelManager : MonoBehaviour
         EnvironmentVirus.Type type = actionQueue.Peek();
 
         environment.SwapVirusPlace(type);
-        board.SpawnVirus((Board.Direction)environment.getInstallerPlace());
+        board.SpawnVirus((Board.Direction)environment.GetInstallerPlace());
         actionQueue.Next();
         turn = 0;
     }
@@ -119,9 +120,12 @@ public class LevelManager : MonoBehaviour
         _displayManager.Texts["MaxTurn"].Update(maxTurn.ToString());
     }
 
+    private void ResetGame()
+    {
+        
+    }
 
-
-    public void launchGame(string mapName)
+    public void LaunchGame(string mapName)
     {
         PositionProvider pp; 
         
@@ -172,6 +176,8 @@ public class LevelManager : MonoBehaviour
     private void PositionCamera(PositionProvider pp)
     {
         cam.transform.position = new Vector3(pp.Middle.x, pp.Middle.y - 0.5f, cam.transform.position.z);
-        cam.orthographicSize = (pp.MapSize.x + pp.MapSize.y) / 2 * 0.8f;
+
+        float scaleOrthoSize = (pp.MapSize.x + pp.MapSize.y) / 2 * 0.9f ;
+        cam.orthographicSize = 11 < scaleOrthoSize ? scaleOrthoSize : 11;
     }
 }

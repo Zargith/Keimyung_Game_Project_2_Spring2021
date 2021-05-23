@@ -11,6 +11,8 @@ public class SpellManager
             {InputAction.Spell.ACCELERATION, new Spell(InputAction.Spell.ACCELERATION, ReloadType.COOLDOWN, 10, false) },
             {InputAction.Spell.DELETE_VIRUS, new Spell(InputAction.Spell.DELETE_VIRUS, ReloadType.USAGE, 2, true) }
         };
+        spellDict[InputAction.Spell.ACCELERATION].AttachDisplay("AccelerationSpell");
+        spellDict[InputAction.Spell.DELETE_VIRUS].AttachDisplay("AntivirusSpraySpell");
     }
 
     public Spell Get(InputAction.Spell spell)
@@ -24,7 +26,7 @@ public class SpellManager
 
     public bool isAvailable(InputAction.Spell spell)
     {
-        return spellDict[spell].isAvailable();
+        return spellDict[spell].IsAvailable();
     }
 
     public void Cancel(InputAction.Spell spell)

@@ -6,8 +6,6 @@ using Random = UnityEngine.Random;
 
 public class Environment : PositionableGraphic
 {
-    //private Transform boardTranform; // useful ?
-
     private List<EnvironmentVirus> viruses;
 
     private EnvironmentPositionHelper positionHelper;
@@ -53,9 +51,9 @@ public class Environment : PositionableGraphic
             actualPos = new EnvironmentPosition(actualPlaceholder, positionHelper.getPosition(actualPlaceholder), rotationHelper.getRotation(actualPlaceholder));
 
             actualVirus.InitPosition(actualPos);
+            Debug.Log(actualVirus.type + " at " + actualPlaceholder + " place");
             actualVirus._instance = Instantiate(actualVirus._prefab, actualPos.position, actualPos.rotation);
 
-            //viruses[positionIndex].Instanciat(new EnvironmentPosition(actualPlaceholder, positionHelper.getPosition(actualPlaceholder), rotationHelper.getRotation(actualPlaceholder)));
             positionIndex++;
         }
     }
@@ -70,7 +68,7 @@ public class Environment : PositionableGraphic
         installer.Move(savedPos);
     }
 
-    public EnvironmentPosition.Placeholder getInstallerPlace()
+    public Placeholder GetInstallerPlace()
     {
         return GetVirus(EnvironmentVirus.Type.INSTALLER)._pos.placeholder;
     }

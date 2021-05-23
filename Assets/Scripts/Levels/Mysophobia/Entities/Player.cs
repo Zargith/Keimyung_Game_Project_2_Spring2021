@@ -6,14 +6,15 @@ public class Player
     public GameObject _prefab { get; private set; }
 
     public GameObject _instance;
-
     public Board.Direction Direction { get; private set; }
 
+    public Vector2Int InitialPos { get; private set; }
     public Vector2Int BoardPos { get; private set; }
     public Player(GameObject prefab, Vector2Int boardPos)
     {
         _prefab = prefab;
         BoardPos = boardPos;
+        InitialPos = boardPos;
         Direction = Board.Direction.UP;
     }
 

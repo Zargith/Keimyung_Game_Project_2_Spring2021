@@ -17,7 +17,7 @@ public class Board : PositionableGraphic
 
     private GameObject _virusPrefab;
 
-    private Dictionary<Vector2, GameObject> _virusInstances;
+    private Dictionary<Vector2Int, GameObject> _virusInstances;
 
     public override void Init(PositionProvider pp)
     {
@@ -26,7 +26,7 @@ public class Board : PositionableGraphic
         ReceivePrefab("Board");
 
         _virusPrefab = GetPrefab("Virus");
-        _virusInstances = new Dictionary<Vector2, GameObject>();
+        _virusInstances = new Dictionary<Vector2Int, GameObject>();
     }
 
     public override void Draw()
@@ -69,7 +69,16 @@ public class Board : PositionableGraphic
         Debug.Log("Finished");
     }
 
-
+    public void Reset()
+    {
+        moveEntity(_player._instance, _player.InitialPos);
+        foreach (KeyValuePair<Vector2Int, GameObject> kvp in _virusInstances)
+        {
+            Map[kvp.Key.x, kvp.Key.y] = 1;
+            Destroy(kvp.Value);
+        }
+        _virusInstances.Clear();
+    }
 
     public bool MovePlayer(Direction direction)
     {
