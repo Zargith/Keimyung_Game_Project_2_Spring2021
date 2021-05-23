@@ -7,16 +7,16 @@ public class Spell
         USAGE,
         COOLDOWN
     }
-    public InputAction.Spell _type { get; private set; }
+    public InputAction.Spell type { get; private set; }
 
-    public ReloadType _reloadType { get; private set; }
+    public ReloadType reloadType { get; private set; }
 
-    public int _reloadData { get; private set; }
+    public int ReloadData { get; private set; }
 
     private int _actualReloadData;
 
-    public bool activated { get; private set; }
-    public bool _instant { get; private set; }
+    public bool Activated { get; private set; }
+    public bool Instant { get; private set; }
 
     private Image _icon;
 
@@ -24,14 +24,14 @@ public class Spell
 
     public Spell(InputAction.Spell type, ReloadType reloadType, int reloadData, bool instant)
     {
-        _type = type;
-        _reloadType = reloadType;
-        _reloadData = reloadData;
-        _instant = instant;
+        this.type = type;
+        this.reloadType = reloadType;
+        ReloadData = reloadData;
+        Instant = instant;
         _actualReloadData = reloadData;
         _icon = null;
         _dataDisplay = null;
-        switch (_reloadType)
+        switch (reloadType)
         {
             case ReloadType.USAGE:
                 _actualReloadData = reloadData;
@@ -55,7 +55,7 @@ public class Spell
         if (text != null)
         {
             _dataDisplay = text;
-            if (_reloadType == ReloadType.COOLDOWN)
+            if (reloadType == ReloadType.COOLDOWN)
                 _dataDisplay.text = "";
             else
                 _dataDisplay.text = _actualReloadData.ToString();
@@ -69,7 +69,7 @@ public class Spell
 
     public bool IsAvailable()
     {
-        switch (_reloadType)
+        switch (reloadType)
         {
             case ReloadType.USAGE:
                 if (_actualReloadData > 0)
@@ -91,7 +91,7 @@ public class Spell
     {
         if (IsAvailable())
         {
-            activated = true;
+            Activated = true;
             return true;
         }
         return false;
@@ -99,18 +99,18 @@ public class Spell
 
     public void Cancel()
     {
-        activated = false;
+        Activated = false;
     }
 
     public void Deactivate()
     {
         Use();
-        activated = false;
+        Activated = false;
     }
 
     public bool Use()
     {
-        switch (_reloadType)
+        switch (reloadType)
         {
             case ReloadType.USAGE:
                 if (_actualReloadData > 0)
@@ -122,7 +122,7 @@ public class Spell
                 break;
             case ReloadType.COOLDOWN:
                 if (_actualReloadData == 0) {
-                    _actualReloadData = _reloadData;
+                    _actualReloadData = ReloadData;
                     _dataDisplay.text = _actualReloadData.ToString();
                     _icon.color = Color.black;
                     return true;
@@ -134,7 +134,7 @@ public class Spell
 
     public void IncreaseTurn()
     {
-        if (_reloadType == ReloadType.COOLDOWN && _actualReloadData > 0)
+        if (reloadType == ReloadType.COOLDOWN && _actualReloadData > 0)
         {
             _actualReloadData--;
             if (_actualReloadData == 0)

@@ -1,14 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class ActionQueue : PositionableGraphic
 {
-    private int _maxActions;
+    private const int DEFAULT_ACTION_SIZE = 5;
 
-    private const int _actionsSize = 5;
+    private int _actionsSize;
+
+    private int _maxActions;
 
     private List<EnvironmentVirus.Type> _actions;
 
@@ -25,6 +26,7 @@ public class ActionQueue : PositionableGraphic
 
         _queueOriginPos = new Vector2(pp.Middle.x - pp.MapSize.x * 1.2f, pp.Middle.y + pp.MapSize.y * 0.6f);
         _index = 0;
+        _actionsSize = DEFAULT_ACTION_SIZE;
     }
     public override void Draw()
     {
@@ -49,6 +51,14 @@ public class ActionQueue : PositionableGraphic
         _actions = new List<EnvironmentVirus.Type>(_maxActions);
         _actionObjects = new List<GameObject>(_maxActions);
     }
+
+    public void SetActionSize(int actionsSize)
+    {
+        int initialMaxActions = _maxActions - _actionsSize;
+
+        _actionsSize = actionsSize;
+        SetMaxAction(initialMaxActions);
+    }
     public EnvironmentVirus.Type Peek()
     {
         return (_actions[_index]);
@@ -59,20 +69,6 @@ public class ActionQueue : PositionableGraphic
         ReloadDisplay();
     }
 
-    /*private GameObject GetPrefabFromType(EnvironmentVirus.Type type)
-    {
-        switch (type)
-        {
-            case EnvironmentVirus.Type.CORONA:
-                return (GetPrefab("CoronaCard"));
-            case EnvironmentVirus.Type.FLU:
-                return (GetPrefab("FluCard"));
-            case EnvironmentVirus.Type.PLAGUE:
-                return (GetPrefab("PlagueCard"));
-        }
-        return null;
-    }*/
-
     private EnvironmentVirus.Type GetRandomType()
     {
         return (EnvironmentVirus.Type)Random.Range(1, 4);
@@ -80,25 +76,20 @@ public class ActionQueue : PositionableGraphic
 
     private void ReloadDisplay()
     {
-       // Debug.Log("Display from " + _index + " to " + (_index + _actionsSize));
-
         for (int i = 0; i < _actionsSize; i++)
          {
-             _actionObjects[i].GetComponentInChildren<SpriteRenderer>().color = getColorFromType(_actions[_index + i]);
+             _actionObjects[i].GetComponentInChildren<SpriteRenderer>().color = GetColorFromType(_actions[_index + i]);
          }
     }
 
-    private Color getColorFromType(EnvironmentVirus.Type type)
+    private Color GetColorFromType(EnvironmentVirus.Type type)
     {
-        switch (type)
+        return type switch
         {
-            case EnvironmentVirus.Type.CORONA:
-                return Color.red;
-            case EnvironmentVirus.Type.FLU:
-                return Color.blue;
-            case EnvironmentVirus.Type.PLAGUE:
-                return Color.green;
-        }
-        return Color.black;
+            EnvironmentVirus.Type.CORONA => Color.red,
+            EnvironmentVirus.Type.FLU => Color.blue,
+            EnvironmentVirus.Type.PLAGUE => Color.green,
+            _ => throw new Exception("Invalid environment virus type (or installer which is forbidden here): " + type),
+        };
     }
 }

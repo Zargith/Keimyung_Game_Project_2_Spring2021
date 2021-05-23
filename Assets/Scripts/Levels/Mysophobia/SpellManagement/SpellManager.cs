@@ -24,7 +24,7 @@ public class SpellManager
         return spellDict[spell].Activate();
     }
 
-    public bool isAvailable(InputAction.Spell spell)
+    public bool IsAvailable(InputAction.Spell spell)
     {
         return spellDict[spell].IsAvailable();
     }
@@ -35,7 +35,7 @@ public class SpellManager
     }
     public bool IsActivated(InputAction.Spell spell)
     {
-        return spellDict[spell].activated;
+        return spellDict[spell].Activated;
     }
 
     public void Deactivate(InputAction.Spell spell)

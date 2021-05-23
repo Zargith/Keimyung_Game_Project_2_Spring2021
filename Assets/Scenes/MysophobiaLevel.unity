@@ -307,8 +307,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f3434cb782f9ee4ca18517c451a3ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 2118339738}
-  mapName: true_map
+  _cam: {fileID: 2118339738}
+  _mapName: true_map
 --- !u!4 &339502585
 Transform:
   m_ObjectHideFlags: 0

@@ -25,22 +25,22 @@ public class PositionProvider
         Middle = Origin + new Vector2(mapSize.x * squareSize / 2, mapSize.y * squareSize / 2);
     }
 
-    public float getSideLength(Side side)
+    public float GetSideLength(Side side)
     {
         return SquareSize * (side == Side.X ? MapSize.x : MapSize.y);
     }
 
-    public Vector2 getSidePointRelativeToMiddle(Side side, bool min = false)
+    public Vector2 GetSidePointRelativeToMiddle(Side side, bool min = false)
     {
         Vector2 tmp;
 
         if (side == Side.X)
         {
-            tmp = new Vector2(getSideLength(side) / 2, 0);
+            tmp = new Vector2(GetSideLength(side) / 2, 0);
         }
         else
         {
-            tmp = new Vector2(0, getSideLength(side) / 2);
+            tmp = new Vector2(0, GetSideLength(side) / 2);
         }
         return (min == true ? Middle - tmp : Middle + tmp);
     }

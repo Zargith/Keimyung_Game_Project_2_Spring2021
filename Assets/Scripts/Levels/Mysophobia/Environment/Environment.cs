@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using static EnvironmentPosition;
 using Random = UnityEngine.Random;
 
 public class Environment : PositionableGraphic
 {
-    private List<EnvironmentVirus> viruses;
+    private List<EnvironmentVirus> _viruses;
 
-    private EnvironmentPositionHelper positionHelper;
+    private EnvironmentPositionHelper _positionHelper;
 
-    private EnvironmentRotationHelper rotationHelper;
+    private EnvironmentRotationHelper _rotationHelper;
 
     public override void Init(PositionProvider pp)
     {
@@ -18,10 +17,10 @@ public class Environment : PositionableGraphic
 
         ReceivePrefab("Environment");
 
-        positionHelper = new EnvironmentPositionHelper(pp);
-        rotationHelper = new EnvironmentRotationHelper();
+        _positionHelper = new EnvironmentPositionHelper(pp);
+        _rotationHelper = new EnvironmentRotationHelper();
 
-        viruses = new List<EnvironmentVirus>() {
+        _viruses = new List<EnvironmentVirus>() {
             new EnvironmentVirus(EnvironmentVirus.Type.INSTALLER, GetPrefab("Installer")),
             new EnvironmentVirus(EnvironmentVirus.Type.CORONA, GetPrefab("Corona")),
             new EnvironmentVirus(EnvironmentVirus.Type.FLU, GetPrefab("Flu")),
@@ -47,12 +46,12 @@ public class Environment : PositionableGraphic
             actualPlaceholder = placeholderList[rand];
             placeholderList.RemoveAt(rand);
 
-            actualVirus = viruses[positionIndex];
-            actualPos = new EnvironmentPosition(actualPlaceholder, positionHelper.getPosition(actualPlaceholder), rotationHelper.getRotation(actualPlaceholder));
+            actualVirus = _viruses[positionIndex];
+            actualPos = new EnvironmentPosition(actualPlaceholder, _positionHelper.GetPosition(actualPlaceholder), _rotationHelper.GetRotation(actualPlaceholder));
 
             actualVirus.InitPosition(actualPos);
-            Debug.Log(actualVirus.type + " at " + actualPlaceholder + " place");
-            actualVirus._instance = Instantiate(actualVirus._prefab, actualPos.position, actualPos.rotation);
+            //Debug.Log(actualVirus.type + " at " + actualPlaceholder + " place");
+            actualVirus.Instance = Instantiate(actualVirus.Prefab, actualPos.Position, actualPos.Rotation);
 
             positionIndex++;
         }
@@ -62,20 +61,20 @@ public class Environment : PositionableGraphic
     {
         EnvironmentVirus virus = GetVirus(type);
         EnvironmentVirus installer = GetVirus(EnvironmentVirus.Type.INSTALLER);
-        EnvironmentPosition savedPos = virus._pos;
+        EnvironmentPosition savedPos = virus.Pos;
 
-        virus.Move(installer._pos);
+        virus.Move(installer.Pos);
         installer.Move(savedPos);
     }
 
     public Placeholder GetInstallerPlace()
     {
-        return GetVirus(EnvironmentVirus.Type.INSTALLER)._pos.placeholder;
+        return GetVirus(EnvironmentVirus.Type.INSTALLER).Pos.placeholder;
     }
 
     private EnvironmentVirus GetVirus(EnvironmentVirus.Type type)
     {
-        foreach (EnvironmentVirus virus in viruses)
+        foreach (EnvironmentVirus virus in _viruses)
         {
             if (virus.type == type)
                 return (virus);

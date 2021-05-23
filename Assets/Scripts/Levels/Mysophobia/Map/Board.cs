@@ -45,7 +45,7 @@ public class Board : PositionableGraphic
         {
             for (int j = 0; j < cols; j++)
             {
-                worldPos = boardToWorldPos(new Vector2Int(i, j));
+                worldPos = BoardToWorldPos(new Vector2Int(i, j));
                 if (Map[i, j] == 0){
                     Instantiate(blockSquarePrefab, worldPos, Quaternion.identity);                    
                 } else if (Map[i, j] == 1 || Map[i, j] == 4)
@@ -55,7 +55,7 @@ public class Board : PositionableGraphic
                     {
                         obj.GetComponentInChildren<SpriteRenderer>().color = Color.gray;
                         _player = new Player(GetPrefab("Player"), new Vector2Int(i, j));
-                        _player._instance = Instantiate(_player._prefab, worldPos, Quaternion.identity);
+                        _player.Instance = Instantiate(_player.Prefab, worldPos, Quaternion.identity);
                     }
                 } else if (Map[i, j] == 2)
                 {
@@ -71,7 +71,7 @@ public class Board : PositionableGraphic
 
     public void Reset()
     {
-        moveEntity(_player._instance, _player.InitialPos);
+        MoveEntity(_player.Instance, _player.InitialPos);
         foreach (KeyValuePair<Vector2Int, GameObject> kvp in _virusInstances)
         {
             Map[kvp.Key.x, kvp.Key.y] = 1;
@@ -82,29 +82,29 @@ public class Board : PositionableGraphic
 
     public bool MovePlayer(Direction direction)
     {
-        return _player.Move(direction, moveEntity);
+        return _player.Move(direction, MoveEntity);
     }
 
     public void SpawnVirus(Direction directionFromPlayer)
     {
-        Vector2Int pos = getPlayerSidePos(directionFromPlayer);
+        Vector2Int pos = GetPlayerSidePos(directionFromPlayer);
 
-        if (isPositionAvailable(pos))
+        if (IsPositionAvailable(pos))
         {
             Debug.Log("Spawn virus: " + pos);
             Map[pos.x, pos.y] = 3;
-            _virusInstances.Add(pos, Instantiate(_virusPrefab, boardToWorldPos(pos), Quaternion.identity));
+            _virusInstances.Add(pos, Instantiate(_virusPrefab, BoardToWorldPos(pos), Quaternion.identity));
         }
     }
 
     public bool DeleteVirus()
     {
         Debug.Log("Delete virus");
-        Vector2Int pos = getPlayerSidePos(_player.Direction);
+        Vector2Int pos = GetPlayerSidePos(_player.Direction);
         GameObject obj;
 
         Debug.Log(pos); 
-        if (isPositionAVirus(pos))
+        if (IsPositionAVirus(pos))
         {
             Debug.Log("lol");
             obj = _virusInstances[pos];
@@ -117,7 +117,7 @@ public class Board : PositionableGraphic
         return (false);
     }
 
-    private bool moveEntity(GameObject entity, Vector2Int boardPos)
+    private bool MoveEntity(GameObject entity, Vector2Int boardPos)
     {
         Debug.Log("Entity try move: " + boardPos);
         if (boardPos.x < 0 || boardPos.x >= _pp.MapSize.x || boardPos.y < 0 || boardPos.y >= _pp.MapSize.y)
@@ -136,25 +136,25 @@ public class Board : PositionableGraphic
             return (false);
         }
         Debug.Log("Move succeed");
-        entity.transform.position = boardToWorldPos(boardPos);
+        entity.transform.position = BoardToWorldPos(boardPos);
         return (true);
     }
 
-    private Vector2 boardToWorldPos(Vector2Int pos)
+    private Vector2 BoardToWorldPos(Vector2Int pos)
     {
         int tempOffset = _pp.MapSize.y - 1; // TODO regularize
 
         return (new Vector2(pos.y, -pos.x + tempOffset));
     }
 
-    private Vector2Int worldToBoardPos(Vector2 pos)
+    private Vector2Int WorldToBoardPos(Vector2 pos)
     {
         int tempOffset = _pp.MapSize.y - 1; // TODO regularize
 
         return (new Vector2Int(-((int)(pos.y - tempOffset)), (int)pos.x));
     }
 
-    private Vector2Int getPlayerSidePos(Direction direction)
+    private Vector2Int GetPlayerSidePos(Direction direction)
     {
         Vector2Int playerBoardPos = _player.BoardPos;
 
@@ -168,17 +168,17 @@ public class Board : PositionableGraphic
         };
     }
 
-    private bool isPositionAVirus(Vector2Int boardPos)
+    private bool IsPositionAVirus(Vector2Int boardPos)
     {
-        return isPositionValid(boardPos) && Map[boardPos.x, boardPos.y] == 3;
+        return IsPositionValid(boardPos) && Map[boardPos.x, boardPos.y] == 3;
     }
 
-    private bool isPositionAvailable(Vector2Int boardPos)
+    private bool IsPositionAvailable(Vector2Int boardPos)
     {
-        return isPositionValid(boardPos) && Map[boardPos.x, boardPos.y] == 1;
+        return IsPositionValid(boardPos) && Map[boardPos.x, boardPos.y] == 1;
     }
 
-    private bool isPositionValid(Vector2Int boardPos)
+    private bool IsPositionValid(Vector2Int boardPos)
     {
         return !(boardPos.x < 0 || boardPos.x >= _pp.MapSize.x || boardPos.y < 0 || boardPos.y >= _pp.MapSize.y);
     }

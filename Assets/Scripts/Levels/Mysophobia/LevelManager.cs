@@ -2,23 +2,21 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private Camera cam;
+    [SerializeField] private Camera _cam;
 
-    private bool quit;
+    private MapProvider _mapProvider;
 
-    private MapProvider mapProvider;
+    private Board _board;
 
-    private Board board;
+    private Environment _environment;
 
-    private Environment environment;
+    private ActionQueue _actionQueue;
 
-    private ActionQueue actionQueue;
+    [SerializeField] private string _mapName;
 
-    [SerializeField] private string mapName;
+    private int _maxTurn = 50;
 
-    private int maxTurn = 50;
-
-    private int turn;
+    private int _turn;
 
     private InputManager _inputManager;
 
@@ -31,63 +29,57 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        quit = false;
+        _turn = 0;
 
-        turn = 0;
+        _board = ScriptableObject.CreateInstance<Board>();
+        _environment = ScriptableObject.CreateInstance<Environment>();
+        _actionQueue = ScriptableObject.CreateInstance<ActionQueue>();
 
-        mapProvider = ScriptableObject.CreateInstance<MapProvider>();
-        board = ScriptableObject.CreateInstance<Board>();
-        environment = ScriptableObject.CreateInstance<Environment>();
-        actionQueue = ScriptableObject.CreateInstance<ActionQueue>();
-
-        //board = GameObject.Find("Board").GetComponent<Board>();
-        //environment = GameObject.Find("Environment").GetComponent<Environment>();
-
-        LaunchGame(mapName);
+        LaunchGame(_mapName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (turn == 0) 
+        if (_turn == 0) 
         {
-            playerTurn();
+            PlayerTurn();
         } else
         {
-            virusTurn();
+            VirusTurn();
         }
     }
 
-    private void playerTurn()
+    private void PlayerTurn()
     {
         _inputManager.GetInput(_inputAction);
 
-        switch (_inputAction._type)
+        switch (_inputAction.type)
         {
             case InputAction.Type.MOVE:
-                if (!board.MovePlayer((Board.Direction)_inputAction.getDirection()))
+                if (!_board.MovePlayer((Board.Direction)_inputAction.GetDirection()))
                     break;
                 if (!_spellManager.IsActivated(InputAction.Spell.ACCELERATION))
-                    turn = 1;
+                    _turn = 1;
                 else
                     _spellManager.Deactivate(InputAction.Spell.ACCELERATION);
-                decreaseTurn();
+                DecreaseTurn();
                 break;
             case InputAction.Type.SPELL:
-                var spell = _spellManager.Get(_inputAction.getSpell());
+                var spell = _spellManager.Get(_inputAction.GetSpell());
 
-                if (spell.activated) {
+                if (spell.Activated) {
                     spell.Deactivate();
                     break;
                 }
                 if (!spell.IsAvailable()) {
                     break;
                 }
-                if (spell._instant)
+                if (spell.Instant)
                 {                //TODO a refaire dégueulasse
-                    if (spell._type == InputAction.Spell.DELETE_VIRUS)
+                    if (spell.type == InputAction.Spell.DELETE_VIRUS)
                     {
-                        board.DeleteVirus();
+                        _board.DeleteVirus();
                     }
                     spell.Use();
                 } else
@@ -97,27 +89,27 @@ public class LevelManager : MonoBehaviour
                 }
                 break;
             case InputAction.Type.RETRY:
-                board.Reset();
+                _board.Reset();
                 break;
         }
     }
-    private void virusTurn()
+    private void VirusTurn()
     {
         Debug.Log("Ennemy turn");
         _spellManager.IncreaseTurn();
 
-        EnvironmentVirus.Type type = actionQueue.Peek();
+        EnvironmentVirus.Type type = _actionQueue.Peek();
 
-        environment.SwapVirusPlace(type);
-        board.SpawnVirus((Board.Direction)environment.GetInstallerPlace());
-        actionQueue.Next();
-        turn = 0;
+        _environment.SwapVirusPlace(type);
+        _board.SpawnVirus((Board.Direction)_environment.GetInstallerPlace());
+        _actionQueue.Next();
+        _turn = 0;
     }
 
-    private void decreaseTurn()
+    private void DecreaseTurn()
     {
-        maxTurn--;
-        _displayManager.Texts["MaxTurn"].Update(maxTurn.ToString());
+        _maxTurn--;
+        _displayManager.Texts["MaxTurn"].Update(_maxTurn.ToString());
     }
 
     private void ResetGame()
@@ -127,25 +119,26 @@ public class LevelManager : MonoBehaviour
 
     public void LaunchGame(string mapName)
     {
-        PositionProvider pp; 
-        
+        PositionProvider pp;
+
         /*LOAD MAP */
 
-        mapProvider.LoadFromDisk(mapName);
+        _mapProvider = new MapProvider();
+        _mapProvider.LoadFromDisk(mapName);
 
         /* SET POS */
 
-        pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(mapProvider.RowsLength, mapProvider.ColumnsLength), 1); // tmp
+        pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(_mapProvider.RowsLength, _mapProvider.ColumnsLength), 1); // tmp
 
-        board.Init(pp);
-        environment.Init(pp);
-        actionQueue.Init(pp);
+        _board.Init(pp);
+        _environment.Init(pp);
+        _actionQueue.Init(pp);
 
-        actionQueue.SetMaxAction(50);
+        _actionQueue.SetMaxAction(50);
 
         /*LINK GRAPHIC AND MAP*/
 
-        board.Map = mapProvider.Map;
+        _board.Map = _mapProvider.Map;
 
         /*INPUT*/
 
@@ -159,9 +152,9 @@ public class LevelManager : MonoBehaviour
 
         /*DRAW*/
 
-        board.Draw();
-        environment.Draw();
-        actionQueue.Draw();
+        _board.Draw();
+        _environment.Draw();
+        _actionQueue.Draw();
 
         /*CAMERA*/
 
@@ -175,9 +168,9 @@ public class LevelManager : MonoBehaviour
 
     private void PositionCamera(PositionProvider pp)
     {
-        cam.transform.position = new Vector3(pp.Middle.x, pp.Middle.y - 0.5f, cam.transform.position.z);
+        _cam.transform.position = new Vector3(pp.Middle.x, pp.Middle.y - 0.5f, _cam.transform.position.z);
 
         float scaleOrthoSize = (pp.MapSize.x + pp.MapSize.y) / 2 * 0.9f ;
-        cam.orthographicSize = 11 < scaleOrthoSize ? scaleOrthoSize : 11;
+        _cam.orthographicSize = 11 < scaleOrthoSize ? scaleOrthoSize : 11;
     }
 }

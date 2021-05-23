@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class Player
 {
-    public GameObject _prefab { get; private set; }
+    public GameObject Prefab { get; private set; }
 
-    public GameObject _instance;
+    public GameObject Instance;
     public Board.Direction Direction { get; private set; }
 
     public Vector2Int InitialPos { get; private set; }
     public Vector2Int BoardPos { get; private set; }
     public Player(GameObject prefab, Vector2Int boardPos)
     {
-        _prefab = prefab;
+        Prefab = prefab;
         BoardPos = boardPos;
         InitialPos = boardPos;
         Direction = Board.Direction.UP;
@@ -32,7 +32,7 @@ public class Player
             Board.Direction.LEFT => new Vector2Int(BoardPos.x, BoardPos.y - 1),
             _ => throw new Exception("Player move: Bad direction: " + direction),
         };
-        if (moveFunction(_instance, newPos))
+        if (moveFunction(Instance, newPos))
         {
             BoardPos = newPos;
             return (true);
