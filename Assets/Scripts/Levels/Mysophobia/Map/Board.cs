@@ -80,6 +80,13 @@ public class Board : PositionableGraphic
         _virusInstances.Clear();
     }
 
+    public bool isWin()
+    {
+        if (Map[_player.BoardPos.x, _player.BoardPos.y] == 2)
+            return true;
+        return false;
+    }
+
     public bool MovePlayer(Direction direction)
     {
         return _player.Move(direction, MoveEntity);

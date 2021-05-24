@@ -18,6 +18,8 @@ public class Spell
     public bool Activated { get; private set; }
     public bool Instant { get; private set; }
 
+    private Color gold = new Color(255, 215, 0);
+
     private Image _icon;
 
     private Text _dataDisplay;
@@ -64,7 +66,18 @@ public class Spell
 
     public void Reset()
     {
-        _actualReloadData = 0;
+        switch (reloadType)
+        {
+            case ReloadType.USAGE:
+                _actualReloadData = ReloadData;
+                _dataDisplay.text = _actualReloadData.ToString();
+                break;
+            case ReloadType.COOLDOWN:
+                _actualReloadData = 0;
+                _dataDisplay.text = "";
+                _icon.color = Color.white;
+                break;
+        }
     }
 
     public bool IsAvailable()
@@ -91,6 +104,7 @@ public class Spell
     {
         if (IsAvailable())
         {
+            _icon.color = gold;
             Activated = true;
             return true;
         }
@@ -99,6 +113,7 @@ public class Spell
 
     public void Cancel()
     {
+        _icon.color = Color.white;
         Activated = false;
     }
 

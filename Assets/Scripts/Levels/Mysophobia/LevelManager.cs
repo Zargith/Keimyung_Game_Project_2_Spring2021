@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    private const int DEFAULT_MAX_TURN = 20;
+
     [SerializeField] private Camera _cam;
 
     private MapProvider _mapProvider;
@@ -14,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private string _mapName;
 
-    private int _maxTurn = 50;
+    private int _maxTurn = DEFAULT_MAX_TURN;
 
     private int _turn;
 
@@ -46,6 +48,10 @@ public class LevelManager : MonoBehaviour
             PlayerTurn();
         } else
         {
+            if (_board.isWin())
+            {
+                FinishGame();
+            }
             VirusTurn();
         }
     }
@@ -69,10 +75,12 @@ public class LevelManager : MonoBehaviour
                 var spell = _spellManager.Get(_inputAction.GetSpell());
 
                 if (spell.Activated) {
-                    spell.Deactivate();
+                    Debug.Log("Cancel spell: " + spell.type);
+                    spell.Cancel();
                     break;
                 }
                 if (!spell.IsAvailable()) {
+                    Debug.Log("Spell not available: " + spell.type);
                     break;
                 }
                 if (spell.Instant)
@@ -84,12 +92,15 @@ public class LevelManager : MonoBehaviour
                     spell.Use();
                 } else
                 {
-                    Debug.Log("Accel");
+                    if (spell.type == InputAction.Spell.ACCELERATION)
+                    {
+                        Debug.Log("Activate Accel");
+                    }
                     spell.Activate();
                 }
                 break;
             case InputAction.Type.RETRY:
-                _board.Reset();
+                ResetGame();
                 break;
         }
     }
@@ -110,11 +121,27 @@ public class LevelManager : MonoBehaviour
     {
         _maxTurn--;
         _displayManager.Texts["MaxTurn"].Update(_maxTurn.ToString());
+        if (_maxTurn == 0)
+        {
+            Debug.Log("Looser");
+            ResetGame();
+        }
     }
 
     private void ResetGame()
     {
-        
+        Debug.Log("Retry");
+        _board.Reset();
+        _actionQueue.Reset();
+        _spellManager.Reset();
+        _maxTurn = DEFAULT_MAX_TURN;
+        _displayManager.Texts["MaxTurn"].Update(_maxTurn.ToString());
+    }
+
+    private void FinishGame()
+    {
+        Debug.Log("Game finished");
+        ResetGame();
     }
 
     public void LaunchGame(string mapName)
