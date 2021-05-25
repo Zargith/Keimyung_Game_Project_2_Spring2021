@@ -8,11 +8,16 @@ public class JumperBtn : MonoBehaviour
 	[SerializeField] GameObject btn2;
 	[SerializeField] GameObject jmp1;
 	[SerializeField] GameObject jmp2;
+	[SerializeField] float offset = 1f;
 	[SerializeField] GameObject playerClone;
 	[SerializeField] float jumpHeight = 5f;
-	private float time = 0f;
+	float time = 0f;
+	AudioSource audioSource;
 
-	void Start() {/*only here to have an enablable script*/}
+	void Start()
+	{
+		audioSource = GetComponent<AudioSource>();
+	}
 
 	void Update()
 	{
@@ -26,7 +31,7 @@ public class JumperBtn : MonoBehaviour
 			btn1.SetActive(true);
 			btn2.SetActive(false);
 			if (isPlayerCloneOnJumper())
-			StartCoroutine(activateJumper());
+				StartCoroutine(activateJumper());
 		}
 	}
 
@@ -38,6 +43,7 @@ public class JumperBtn : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 		Rigidbody2D playerRb = playerClone.GetComponent<Rigidbody2D>();
 		playerRb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+		audioSource.Play();
 
 		yield return new WaitForSeconds(0.25f);
 		jmp1.SetActive(true);
@@ -46,11 +52,11 @@ public class JumperBtn : MonoBehaviour
 
 	bool isPlayerCloneOnJumper()
 	{
-		IsGroundedScript _isGroundedScript = playerClone.GetComponent<IsGroundedScript>();
+		MirorLevelMoveClone2 _MirorLevelMoveCloneScript = playerClone.GetComponent<MirorLevelMoveClone2>();
 		Vector3 playerClonePos = playerClone.transform.position;
 		Vector3 jumperPos = jmp1.transform.position;
 
-		if (_isGroundedScript.IsGrounded() && playerClonePos.x >= jumperPos.x - 1 && playerClonePos.x <= jumperPos.x + 1)
+		if (_MirorLevelMoveCloneScript.isGrounded() && playerClonePos.x >= jumperPos.x - offset && playerClonePos.x <= jumperPos.x + offset)
 			return true;
 
 		return false;

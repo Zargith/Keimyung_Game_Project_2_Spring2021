@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnInteractDisable : MonoBehaviour
+public class OnInteractEnable : MonoBehaviour
 {
-
 	[SerializeField] GameObject elemDisplayed;
-	[SerializeField] public GameObject elemToDisable;
-	[SerializeField] public DisplayIfPlayerIsInZoneButOnlyOneActivation displayIfPlayerIsInZoneButOnlyOneActivationScript;
-
+	public GameObject elemToEnable;
+	public DisplayIfPlayerIsInZoneButOnlyOneActivation displayIfPlayerIsInZoneButOnlyOneActivationScript;
 	[SerializeField] SpriteRenderer _renderer;
 
 	void Start() {/*only here to have an enablable script*/}
@@ -16,7 +14,7 @@ public class OnInteractDisable : MonoBehaviour
 	void Update()
 	{
 		if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
-			elemToDisable.SetActive(false);
+			elemToEnable.SetActive(true);
 			_renderer.flipY = true;
 			displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = true;
 		}
