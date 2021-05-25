@@ -6,9 +6,8 @@ public class OnInteractDisable : MonoBehaviour
 {
 
 	[SerializeField] GameObject elemDisplayed;
-	[SerializeField] public GameObject elemToDisable;
-	[SerializeField] public DisplayIfPlayerIsInZoneButOnlyOneActivation displayIfPlayerIsInZoneButOnlyOneActivationScript;
-
+	public GameObject elemToDisable;
+	public DisplayIfPlayerIsInZoneButOnlyOneActivation displayIfPlayerIsInZoneButOnlyOneActivationScript;
 	[SerializeField] SpriteRenderer _renderer;
 
 	void Start() {/*only here to have an enablable script*/}

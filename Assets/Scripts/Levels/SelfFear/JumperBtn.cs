@@ -8,9 +8,10 @@ public class JumperBtn : MonoBehaviour
 	[SerializeField] GameObject btn2;
 	[SerializeField] GameObject jmp1;
 	[SerializeField] GameObject jmp2;
+	[SerializeField] float offset = 1f;
 	[SerializeField] GameObject playerClone;
 	[SerializeField] float jumpHeight = 5f;
-	private float time = 0f;
+	float time = 0f;
 
 	void Start() {/*only here to have an enablable script*/}
 
@@ -26,7 +27,7 @@ public class JumperBtn : MonoBehaviour
 			btn1.SetActive(true);
 			btn2.SetActive(false);
 			if (isPlayerCloneOnJumper())
-			StartCoroutine(activateJumper());
+				StartCoroutine(activateJumper());
 		}
 	}
 
@@ -46,11 +47,11 @@ public class JumperBtn : MonoBehaviour
 
 	bool isPlayerCloneOnJumper()
 	{
-		IsGroundedScript _isGroundedScript = playerClone.GetComponent<IsGroundedScript>();
+		MirorLevelMoveClone2 _MirorLevelMoveCloneScript = playerClone.GetComponent<MirorLevelMoveClone2>();
 		Vector3 playerClonePos = playerClone.transform.position;
 		Vector3 jumperPos = jmp1.transform.position;
 
-		if (_isGroundedScript.IsGrounded() && playerClonePos.x >= jumperPos.x - 1 && playerClonePos.x <= jumperPos.x + 1)
+		if (_MirorLevelMoveCloneScript.isGrounded() && playerClonePos.x >= jumperPos.x - offset && playerClonePos.x <= jumperPos.x + offset)
 			return true;
 
 		return false;
