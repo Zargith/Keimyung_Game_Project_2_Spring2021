@@ -12,30 +12,36 @@ public class OthersFear_Item : MonoBehaviour
     }
 
     [SerializeField] EnumOthersFearItemType item;
-    [SerializeField] Sprite[] sprites;
     [SerializeField] GameObject btn;
+    [SerializeField] List<Sprite> item_sprites;
 
-    private EnumOthersFearItemType Item { get => item;}
+    public EnumOthersFearItemType Item { get => item; }
 
     // Start is called before the first frame update
     void Start()
     {
-        SetSprite();   
+        SetSprite();
     }
 
     private void SetSprite()
     {
         SpriteRenderer spr = GetComponentInChildren<SpriteRenderer>();
         if (item != EnumOthersFearItemType.SIZE)
-            spr.sprite = sprites[(int)item];
+        {
+            spr.sprite = item_sprites[(int)item];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (btn.activeSelf && Input.GetButtonDown("Interact"))
+        if (Input.GetButtonDown("Interact"))
         {
-            FindObjectOfType<OthersFearPlayer>().inventory.Add(item);
+            if (btn && btn.activeSelf)
+            {
+                FindObjectOfType<OthersFearPlayer>().inventory.Add(item);
+                GameObject.Destroy(gameObject);
+            }
         }
     }
 }

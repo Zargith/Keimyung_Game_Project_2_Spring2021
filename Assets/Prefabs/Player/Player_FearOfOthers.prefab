@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2808693087317211341}
   - component: {fileID: 1557839933671658840}
   - component: {fileID: 6489023654510236167}
-  - component: {fileID: 1820761413951106562}
+  - component: {fileID: 3210851864996134069}
   m_Layer: 0
   m_Name: Player_FearOfOthers
   m_TagString: Player
@@ -190,7 +190,7 @@ MonoBehaviour:
   playerSpeed: 3
   jumpStrenght: 2
   footsteps: {fileID: 0}
-  inventory: []
+  inventory: 
   scaredOf: {fileID: 0}
   groundLayer:
     serializedVersion: 2
@@ -312,7 +312,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!70 &1820761413951106562
+--- !u!70 &3210851864996134069
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -325,6 +325,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.43913433, y: 5.7375016}
-  m_Size: {x: 5.538944, y: 11.955746}
+  m_Offset: {x: 0.43913433, y: 5.7}
+  m_Size: {x: 6.75, y: 11.67}
   m_Direction: 0
