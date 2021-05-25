@@ -107,6 +107,9 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
 
     public void replace()
     {
+        haveFallen = false;
+        haveToMoveB = false;
+        isPositioning = false;
         transform.position = new Vector3(0, 0, -10);
     }
 
