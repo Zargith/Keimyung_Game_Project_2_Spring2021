@@ -36,8 +36,9 @@ public class OthersFearHUD : MonoBehaviour
             else
             {
                 item.gameObject.SetActive(true);
-                item.transform.localPosition = new Vector3(-cam.orthographicSize * cam.aspect + caseSize.x * 0.6f + pos, cam.orthographicSize - caseSize.y * 0.6f, 0);
-                pos += caseSize.x * 1.1f;
+                item.transform.localPosition = new Vector3(-cam.orthographicSize * cam.aspect + caseSize.x * 0.6f + pos, cam.orthographicSize - caseSize.y * 0.6f, 10);
+                item.gameObject.GetComponentInChildren<UnityEngine.UI.Text>(true).text = amount.ToString();
+                pos += caseSize.x * 1.5f;
             }
         }
     }
