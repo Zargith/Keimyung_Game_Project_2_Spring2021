@@ -7,9 +7,15 @@ public class JumperButtonOpenDoor : MonoBehaviour
 	[SerializeField] GameObject btn1;
 	[SerializeField] GameObject btn2;
 	public GameObject doorToOpen;
+	public bool doorOpened = false;
 	float time = 0f;
+	AudioSource audioSource;
 
-	void Start() {/*only here to have an enablable script*/}
+	void Start()
+	{
+		audioSource = GetComponent<AudioSource>();
+	}
+
 
 	void Update()
 	{
@@ -24,8 +30,11 @@ public class JumperButtonOpenDoor : MonoBehaviour
 				btn1.SetActive(true);
 				btn2.SetActive(false);
 			}
-			if (doorToOpen.activeSelf)
+			if (doorToOpen.activeSelf && !doorOpened) {
 				doorToOpen.SetActive(false);
+				doorOpened = true;
+				audioSource.Play();
+			}
 		}
 	}
 }

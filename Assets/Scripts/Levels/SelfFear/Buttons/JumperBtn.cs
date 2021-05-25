@@ -12,8 +12,12 @@ public class JumperBtn : MonoBehaviour
 	[SerializeField] GameObject playerClone;
 	[SerializeField] float jumpHeight = 5f;
 	float time = 0f;
+	AudioSource audioSource;
 
-	void Start() {/*only here to have an enablable script*/}
+	void Start()
+	{
+		audioSource = GetComponent<AudioSource>();
+	}
 
 	void Update()
 	{
@@ -39,6 +43,7 @@ public class JumperBtn : MonoBehaviour
 		yield return new WaitForSeconds(1f);
 		Rigidbody2D playerRb = playerClone.GetComponent<Rigidbody2D>();
 		playerRb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
+		audioSource.Play();
 
 		yield return new WaitForSeconds(0.25f);
 		jmp1.SetActive(true);
