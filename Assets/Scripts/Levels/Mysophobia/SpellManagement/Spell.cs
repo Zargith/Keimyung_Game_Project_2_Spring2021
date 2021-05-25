@@ -1,3 +1,5 @@
+using UnityEngine;
+using UnityEngine.UI;
 public class Spell
 {
     public enum ReloadType
@@ -5,25 +7,33 @@ public class Spell
         USAGE,
         COOLDOWN
     }
-    public InputAction.Spell _type { get; private set; }
+    public InputAction.Spell type { get; private set; }
 
-    public ReloadType _reloadType { get; private set; }
+    public ReloadType reloadType { get; private set; }
 
-    public int _reloadData { get; private set; }
+    public int ReloadData { get; private set; }
 
     private int _actualReloadData;
 
-    public bool activated { get; private set; }
-    public bool _instant { get; private set; }
+    public bool Activated { get; private set; }
+    public bool Instant { get; private set; }
+
+    private Color gold = new Color(255, 215, 0);
+
+    private Image _icon;
+
+    private Text _dataDisplay;
 
     public Spell(InputAction.Spell type, ReloadType reloadType, int reloadData, bool instant)
     {
-        _type = type;
-        _reloadType = reloadType;
-        _reloadData = reloadData;
-        _instant = instant;
+        this.type = type;
+        this.reloadType = reloadType;
+        ReloadData = reloadData;
+        Instant = instant;
         _actualReloadData = reloadData;
-        switch (_reloadType)
+        _icon = null;
+        _dataDisplay = null;
+        switch (reloadType)
         {
             case ReloadType.USAGE:
                 _actualReloadData = reloadData;
@@ -34,14 +44,45 @@ public class Spell
         }
     }
 
-    public void Reset()
+    public void AttachDisplay(string containerName)
     {
-        _actualReloadData = 0;
+        GameObject container = GameObject.Find(containerName);
+        Image image = container.GetComponentInChildren<Image>();
+        Text text = container.GetComponentInChildren<Text>();
+
+        if (image != null)
+        {
+            _icon = image;
+        }
+        if (text != null)
+        {
+            _dataDisplay = text;
+            if (reloadType == ReloadType.COOLDOWN)
+                _dataDisplay.text = "";
+            else
+                _dataDisplay.text = _actualReloadData.ToString();
+        }
     }
 
-    public bool isAvailable()
+    public void Reset()
     {
-        switch (_reloadType)
+        switch (reloadType)
+        {
+            case ReloadType.USAGE:
+                _actualReloadData = ReloadData;
+                _dataDisplay.text = _actualReloadData.ToString();
+                break;
+            case ReloadType.COOLDOWN:
+                _actualReloadData = 0;
+                _dataDisplay.text = "";
+                _icon.color = Color.white;
+                break;
+        }
+    }
+
+    public bool IsAvailable()
+    {
+        switch (reloadType)
         {
             case ReloadType.USAGE:
                 if (_actualReloadData > 0)
@@ -61,9 +102,10 @@ public class Spell
 
     public bool Activate()
     {
-        if (isAvailable())
+        if (IsAvailable())
         {
-            activated = true;
+            _icon.color = gold;
+            Activated = true;
             return true;
         }
         return false;
@@ -71,30 +113,34 @@ public class Spell
 
     public void Cancel()
     {
-        activated = false;
+        _icon.color = Color.white;
+        Activated = false;
     }
 
     public void Deactivate()
     {
         Use();
-        activated = false;
+        Activated = false;
     }
 
     public bool Use()
     {
-        switch (_reloadType)
+        switch (reloadType)
         {
             case ReloadType.USAGE:
                 if (_actualReloadData > 0)
                 {
                     _actualReloadData--;
+                    _dataDisplay.text = _actualReloadData.ToString();
                     return true;
                 }
                 break;
             case ReloadType.COOLDOWN:
                 if (_actualReloadData == 0) {
-                    _actualReloadData = _reloadData;
-                    return (true);
+                    _actualReloadData = ReloadData;
+                    _dataDisplay.text = _actualReloadData.ToString();
+                    _icon.color = Color.black;
+                    return true;
                 }
                 break;
         }
@@ -103,8 +149,18 @@ public class Spell
 
     public void IncreaseTurn()
     {
-        if (_reloadType == ReloadType.COOLDOWN && _actualReloadData > 0)
+        if (reloadType == ReloadType.COOLDOWN && _actualReloadData > 0)
+        {
             _actualReloadData--;
+            if (_actualReloadData == 0)
+            {
+                _dataDisplay.text = "";
+                _icon.color = Color.white;
+            } else
+            {
+                _dataDisplay.text = _actualReloadData.ToString();
+            }
+        }
     }
         
 }

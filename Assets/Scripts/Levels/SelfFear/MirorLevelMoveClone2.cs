@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MirorLevelMove : MonoBehaviour
+public class MirorLevelMoveClone2 : MonoBehaviour
 {
 	Animator anim;
 	Rigidbody2D rb;
@@ -35,7 +35,7 @@ public class MirorLevelMove : MonoBehaviour
 			rb.AddForce(new Vector2(0, jumpHeight), ForceMode2D.Impulse);
 		} else {
 			var horizontalInput = Input.GetAxis("Horizontal");
-			Vector3 move = new Vector3(horizontalInput, 0, 0);
+			Vector3 move = new Vector3(-horizontalInput, 0, 0);
 
 			advance = move * Time.deltaTime * playerSpeed;
 			transform.position += advance;

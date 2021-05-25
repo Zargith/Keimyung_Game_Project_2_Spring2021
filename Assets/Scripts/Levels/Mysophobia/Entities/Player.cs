@@ -1,54 +1,40 @@
+using System;
 using UnityEngine;
-using static InputAction;
 
-public class Player : ScriptableObject
+public class Player
 {
-    private GameObject _prefab;
+    public GameObject Prefab { get; private set; }
 
-    private GameObject _instance;
+    public GameObject Instance;
+    public Board.Direction Direction { get; private set; }
 
-    private Board _boardRef;
-
-    public EnvironmentPosition.Placeholder _direction { get; private set; }
-
-    public Vector2Int _boardPos { get; set; }
-    public Player(GameObject prefab, Board boardRef)
+    public Vector2Int InitialPos { get; private set; }
+    public Vector2Int BoardPos { get; private set; }
+    public Player(GameObject prefab, Vector2Int boardPos)
     {
-        _prefab = prefab;
-        _boardRef = boardRef;
-        _direction = EnvironmentPosition.Placeholder.NORTH;
+        Prefab = prefab;
+        BoardPos = boardPos;
+        InitialPos = boardPos;
+        Direction = Board.Direction.UP;
     }
 
-    public void Instanciat(Vector2 pos)
+    public bool Move(Board.Direction direction, Func<GameObject, Vector2Int, bool> moveFunction)
     {
-        _instance = Instantiate(_prefab, pos, Quaternion.identity);
-    }
-    public bool Move(Direction move)
-    {
-        Debug.Log("Player Try move: " + move);
-        Vector2Int newPos = new Vector2Int();
-        switch (move)
+        Debug.Log("Player Try move: " + direction);
+        Vector2Int newPos;
+
+        Direction = direction;
+        newPos = direction switch
         {
-            case Direction.DOWN:
-                newPos = new Vector2Int(_boardPos.x + 1, _boardPos.y);
-                _direction = EnvironmentPosition.Placeholder.SOUTH;
-                break;
-            case Direction.UP:
-                newPos = new Vector2Int(_boardPos.x - 1, _boardPos.y);
-                _direction = EnvironmentPosition.Placeholder.NORTH;
-                break;
-            case Direction.RIGHT:
-                newPos = new Vector2Int(_boardPos.x, _boardPos.y + 1);
-                _direction = EnvironmentPosition.Placeholder.EAST;
-                break;
-            case Direction.LEFT:
-                newPos = new Vector2Int(_boardPos.x, _boardPos.y - 1);
-                _direction = EnvironmentPosition.Placeholder.WEST;
-                break;
-        }
-        if (_boardRef.moveEntity(_instance, newPos))
+            Board.Direction.UP => new Vector2Int(BoardPos.x - 1, BoardPos.y),
+            Board.Direction.DOWN => new Vector2Int(BoardPos.x + 1, BoardPos.y),
+            Board.Direction.RIGHT => new Vector2Int(BoardPos.x, BoardPos.y + 1),
+            Board.Direction.LEFT => new Vector2Int(BoardPos.x, BoardPos.y - 1),
+            _ => throw new Exception("Player move: Bad direction: " + direction),
+        };
+        if (moveFunction(Instance, newPos))
         {
-            _boardPos = newPos;
+            BoardPos = newPos;
             return (true);
         }
         return (false);

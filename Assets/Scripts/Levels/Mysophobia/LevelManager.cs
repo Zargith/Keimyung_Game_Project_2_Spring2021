@@ -1,24 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private Camera cam;
+    private const int DEFAULT_MAX_TURN = 20;
 
-    private bool quit;
+    [SerializeField] private Camera _cam;
 
-    private MapProvider mapProvider;
+    private MapProvider _mapProvider;
 
-    private Board board;
+    private Board _board;
 
-    private Environment environment;
+    private Environment _environment;
 
-    private ActionQueue actionQueue;
+    private ActionQueue _actionQueue;
 
-    [SerializeField] private string mapName;
+    [SerializeField] private string _mapName;
 
-    private int turn;
+    private int _maxTurn = DEFAULT_MAX_TURN;
+
+    private int _turn;
 
     private InputManager _inputManager;
 
@@ -26,121 +26,146 @@ public class LevelManager : MonoBehaviour
 
     private SpellManager _spellManager;
 
-   // private EnvironmentVirus.Type _nextVirusAction;
+    private DisplayManager _displayManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        quit = false;
+        _turn = 0;
 
-        turn = 0;
+        _board = ScriptableObject.CreateInstance<Board>();
+        _environment = ScriptableObject.CreateInstance<Environment>();
+        _actionQueue = ScriptableObject.CreateInstance<ActionQueue>();
 
-        mapProvider = ScriptableObject.CreateInstance<MapProvider>();
-
-        //board = GameObject.Find("Board").GetComponent<Board>();
-        //environment = GameObject.Find("Environment").GetComponent<Environment>();
-
-        launchGame(mapName);
+        LaunchGame(_mapName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (turn == 0) 
+        if (_turn == 0) 
         {
-            playerTurn();
+            PlayerTurn();
         } else
         {
-            virusTurn();
+            if (_board.isWin())
+            {
+                FinishGame();
+            }
+            VirusTurn();
         }
-
-            
-        // Input
-        // Activated power ?
-        // Wait move
-        // Virus turn
-        // Pop back queue
-        // Visual env effect
-        // Apply (virus pop or not)
-        // Visual maj queue
-        // decrease max turn (?)
-        // next turn
     }
 
-    private void playerTurn()
+    private void PlayerTurn()
     {
         _inputManager.GetInput(_inputAction);
 
-        switch (_inputAction._type)
+        switch (_inputAction.type)
         {
             case InputAction.Type.MOVE:
-                board._player.Move(_inputAction.getDirection());
+                if (!_board.MovePlayer((Board.Direction)_inputAction.GetDirection()))
+                    break;
                 if (!_spellManager.IsActivated(InputAction.Spell.ACCELERATION))
-                    turn = 1;
+                    _turn = 1;
                 else
                     _spellManager.Deactivate(InputAction.Spell.ACCELERATION);
+                DecreaseTurn();
                 break;
             case InputAction.Type.SPELL:
-                var spell = _spellManager.Get(_inputAction.getSpell());
+                var spell = _spellManager.Get(_inputAction.GetSpell());
 
-                if (spell.activated) {
-                    spell.Deactivate();
+                if (spell.Activated) {
+                    Debug.Log("Cancel spell: " + spell.type);
+                    spell.Cancel();
                     break;
                 }
-                if (!spell.isAvailable()) {
+                if (!spell.IsAvailable()) {
+                    Debug.Log("Spell not available: " + spell.type);
                     break;
                 }
-                if (spell._instant)
+                if (spell.Instant)
                 {                //TODO a refaire dégueulasse
-                    if (spell._type == InputAction.Spell.DELETE_VIRUS)
+                    if (spell.type == InputAction.Spell.DELETE_VIRUS)
                     {
-                        board.deleteVirus();
+                        _board.DeleteVirus();
                     }
                     spell.Use();
                 } else
                 {
-                    Debug.Log("Accel");
+                    if (spell.type == InputAction.Spell.ACCELERATION)
+                    {
+                        Debug.Log("Activate Accel");
+                    }
                     spell.Activate();
                 }
                 break;
             case InputAction.Type.RETRY:
+                ResetGame();
                 break;
         }
     }
-    private void virusTurn()
+    private void VirusTurn()
     {
         Debug.Log("Ennemy turn");
         _spellManager.IncreaseTurn();
 
-        EnvironmentVirus.Type type = actionQueue.Peek();
+        EnvironmentVirus.Type type = _actionQueue.Peek();
 
-        environment.SwapVirusPlace(type);
-        board.spawnVirus(environment.getInstallerPlace());
-        actionQueue.Next();
-        turn = 0;
+        _environment.SwapVirusPlace(type);
+        _board.SpawnVirus((Board.Direction)_environment.GetInstallerPlace());
+        _actionQueue.Next();
+        _turn = 0;
     }
 
-
-
-    public void launchGame(string mapName)
+    private void DecreaseTurn()
     {
-        PositionProvider pp; 
-        
+        _maxTurn--;
+        _displayManager.Texts["MaxTurn"].Update(_maxTurn.ToString());
+        if (_maxTurn == 0)
+        {
+            Debug.Log("Looser");
+            ResetGame();
+        }
+    }
+
+    private void ResetGame()
+    {
+        Debug.Log("Retry");
+        _board.Reset();
+        _actionQueue.Reset();
+        _spellManager.Reset();
+        _maxTurn = DEFAULT_MAX_TURN;
+        _displayManager.Texts["MaxTurn"].Update(_maxTurn.ToString());
+    }
+
+    private void FinishGame()
+    {
+        Debug.Log("Game finished");
+        ResetGame();
+    }
+
+    public void LaunchGame(string mapName)
+    {
+        PositionProvider pp;
+
         /*LOAD MAP */
 
-        mapProvider.LoadFromDisk(mapName);
+        _mapProvider = new MapProvider();
+        _mapProvider.LoadFromDisk(mapName);
 
         /* SET POS */
 
-        pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(mapProvider.RowsLength, mapProvider.ColumnsLength), 1); // tmp
+        pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(_mapProvider.RowsLength, _mapProvider.ColumnsLength), 1); // tmp
 
-        board = new Board(pp);
-        environment = new Environment(pp);
-        actionQueue = new ActionQueue(pp, 50);
+        _board.Init(pp);
+        _environment.Init(pp);
+        _actionQueue.Init(pp);
+
+        _actionQueue.SetMaxAction(50);
 
         /*LINK GRAPHIC AND MAP*/
 
-        board.Map = mapProvider.Map;
+        _board.Map = _mapProvider.Map;
 
         /*INPUT*/
 
@@ -154,16 +179,25 @@ public class LevelManager : MonoBehaviour
 
         /*DRAW*/
 
-        board.Draw();
-        environment.Draw();
-        actionQueue.Draw();
+        _board.Draw();
+        _environment.Draw();
+        _actionQueue.Draw();
+
+        /*CAMERA*/
 
         PositionCamera(pp);
+
+        /*DISPLAY*/
+        
+        _displayManager = new DisplayManager();
+        _displayManager.AddText("MaxTurnText", "MaxTurn");
     }
 
     private void PositionCamera(PositionProvider pp)
     {
-        cam.transform.position = new Vector3(pp.Middle.x, pp.Middle.y - 0.5f, cam.transform.position.z);
-        cam.orthographicSize = (pp.MapSize.x + pp.MapSize.y) / 2 * 0.8f;
+        _cam.transform.position = new Vector3(pp.Middle.x, pp.Middle.y - 0.5f, _cam.transform.position.z);
+
+        float scaleOrthoSize = (pp.MapSize.x + pp.MapSize.y) / 2 * 0.9f ;
+        _cam.orthographicSize = 11 < scaleOrthoSize ? scaleOrthoSize : 11;
     }
 }

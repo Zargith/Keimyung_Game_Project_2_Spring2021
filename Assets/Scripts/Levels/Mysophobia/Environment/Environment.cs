@@ -1,24 +1,26 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using static EnvironmentPosition;
 using Random = UnityEngine.Random;
 
 public class Environment : PositionableGraphic
 {
-    //private Transform boardTranform; // useful ?
+    private List<EnvironmentVirus> _viruses;
 
-    private List<EnvironmentVirus> viruses;
+    private EnvironmentPositionHelper _positionHelper;
 
-    private EnvironmentPositionHelper positionHelper;
+    private EnvironmentRotationHelper _rotationHelper;
 
-    private EnvironmentRotationHelper rotationHelper;
-    
-    public Environment(PositionProvider pp) : base(pp) {
-        positionHelper = new EnvironmentPositionHelper(pp);
-        rotationHelper = new EnvironmentRotationHelper();
+    public override void Init(PositionProvider pp)
+    {
+        _pp = pp;
+
         ReceivePrefab("Environment");
-        viruses = new List<EnvironmentVirus>() { 
+
+        _positionHelper = new EnvironmentPositionHelper(pp);
+        _rotationHelper = new EnvironmentRotationHelper();
+
+        _viruses = new List<EnvironmentVirus>() {
             new EnvironmentVirus(EnvironmentVirus.Type.INSTALLER, GetPrefab("Installer")),
             new EnvironmentVirus(EnvironmentVirus.Type.CORONA, GetPrefab("Corona")),
             new EnvironmentVirus(EnvironmentVirus.Type.FLU, GetPrefab("Flu")),
@@ -28,20 +30,29 @@ public class Environment : PositionableGraphic
 
     public override void Draw()
     {
-        var posList = new List<Placeholder>() { Placeholder.EAST, Placeholder.NORTH, Placeholder.SOUTH, Placeholder.WEST };
         Random.InitState((int)DateTime.Now.Ticks);
 
-        int rand;
-        Placeholder elem;
-        int positionIndex = 0;
-        Quaternion demiAngle = Quaternion.Euler(0, 0, 90);
+        var placeholderList = new List<Placeholder>() { Placeholder.EAST, Placeholder.NORTH, Placeholder.SOUTH, Placeholder.WEST };
+        Placeholder actualPlaceholder;
 
-        while (posList.Count > 0)
+        int rand;
+        int positionIndex = 0;
+        EnvironmentPosition actualPos;
+        EnvironmentVirus actualVirus;
+
+        while (placeholderList.Count > 0)
         {
-            rand = Random.Range(0, posList.Count - 1);
-            elem = posList[rand];
-            posList.RemoveAt(rand);
-            viruses[positionIndex].Instanciat(new EnvironmentPosition(elem, positionHelper.getPosition(elem), rotationHelper.getRotation(elem)));
+            rand = Random.Range(0, placeholderList.Count - 1);
+            actualPlaceholder = placeholderList[rand];
+            placeholderList.RemoveAt(rand);
+
+            actualVirus = _viruses[positionIndex];
+            actualPos = new EnvironmentPosition(actualPlaceholder, _positionHelper.GetPosition(actualPlaceholder), _rotationHelper.GetRotation(actualPlaceholder));
+
+            actualVirus.InitPosition(actualPos);
+            //Debug.Log(actualVirus.type + " at " + actualPlaceholder + " place");
+            actualVirus.Instance = Instantiate(actualVirus.Prefab, actualPos.Position, actualPos.Rotation);
+
             positionIndex++;
         }
     }
@@ -50,20 +61,20 @@ public class Environment : PositionableGraphic
     {
         EnvironmentVirus virus = GetVirus(type);
         EnvironmentVirus installer = GetVirus(EnvironmentVirus.Type.INSTALLER);
-        EnvironmentPosition savedPos = virus._pos;
+        EnvironmentPosition savedPos = virus.Pos;
 
-        virus.Move(installer._pos);
+        virus.Move(installer.Pos);
         installer.Move(savedPos);
     }
 
-    public EnvironmentPosition.Placeholder getInstallerPlace()
+    public Placeholder GetInstallerPlace()
     {
-        return GetVirus(EnvironmentVirus.Type.INSTALLER)._pos.placeholder;
+        return GetVirus(EnvironmentVirus.Type.INSTALLER).Pos.placeholder;
     }
 
     private EnvironmentVirus GetVirus(EnvironmentVirus.Type type)
     {
-        foreach (EnvironmentVirus virus in viruses)
+        foreach (EnvironmentVirus virus in _viruses)
         {
             if (virus.type == type)
                 return (virus);
