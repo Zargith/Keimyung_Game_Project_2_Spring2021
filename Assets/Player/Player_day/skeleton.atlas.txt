@@ -1,0 +1,104 @@
+
+skeleton.png
+size: 1451,813
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Left/bras
+  rotate: true
+  xy: 419, 274
+  size: 108, 502
+  orig: 126, 520
+  offset: 10, 4
+  index: -1
+Left/pied
+  rotate: false
+  xy: 778, 39
+  size: 130, 233
+  orig: 142, 238
+  offset: 7, 3
+  index: -1
+Left/short
+  rotate: false
+  xy: 1221, 193
+  size: 156, 281
+  orig: 183, 303
+  offset: 8, 11
+  index: -1
+Right/bras
+  rotate: true
+  xy: 419, 384
+  size: 113, 502
+  orig: 130, 520
+  offset: 10, 4
+  index: -1
+Right/pied
+  rotate: true
+  xy: 1193, 62
+  size: 129, 233
+  orig: 142, 238
+  offset: 7, 3
+  index: -1
+Right/short
+  rotate: true
+  xy: 910, 72
+  size: 157, 281
+  orig: 183, 303
+  offset: 8, 11
+  index: -1
+buste
+  rotate: true
+  xy: 419, 499
+  size: 312, 547
+  orig: 329, 563
+  offset: 7, 7
+  index: -1
+casque
+  rotate: false
+  xy: 2, 358
+  size: 415, 453
+  orig: 415, 453
+  offset: 0, 0
+  index: -1
+casque_arriere
+  rotate: false
+  xy: 2, 2
+  size: 393, 354
+  orig: 393, 354
+  offset: 0, 0
+  index: -1
+leftEye
+  rotate: false
+  xy: 1342, 710
+  size: 107, 101
+  orig: 107, 101
+  offset: 0, 0
+  index: -1
+plume
+  rotate: false
+  xy: 923, 231
+  size: 296, 243
+  orig: 336, 253
+  offset: 12, 3
+  index: -1
+rightEye
+  rotate: false
+  xy: 1342, 629
+  size: 90, 79
+  orig: 90, 79
+  offset: 0, 0
+  index: -1
+tete
+  rotate: true
+  xy: 968, 476
+  size: 335, 372
+  orig: 335, 372
+  offset: 0, 0
+  index: -1
+visiere
+  rotate: false
+  xy: 397, 9
+  size: 379, 263
+  orig: 392, 274
+  offset: 5, 3
+  index: -1
