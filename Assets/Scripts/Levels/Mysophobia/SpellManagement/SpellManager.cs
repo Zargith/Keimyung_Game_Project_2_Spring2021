@@ -6,13 +6,7 @@ public class SpellManager
 
     public SpellManager()
     {
-        SpellDict = new Dictionary<InputAction.Spell, Spell>()
-        {
-            {InputAction.Spell.ACCELERATION, new Spell(InputAction.Spell.ACCELERATION, ReloadType.COOLDOWN, 10, false) },
-            {InputAction.Spell.DELETE_VIRUS, new Spell(InputAction.Spell.DELETE_VIRUS, ReloadType.USAGE, 2, true) }
-        };
-        SpellDict[InputAction.Spell.ACCELERATION].AttachDisplay("AccelerationSpell");
-        SpellDict[InputAction.Spell.DELETE_VIRUS].AttachDisplay("AntivirusSpraySpell");
+        SpellDict = new Dictionary<InputAction.Spell, Spell>();
     }
 
     public void Reset()
@@ -21,6 +15,15 @@ public class SpellManager
         {
             kvp.Value.Reset();
         }
+    }
+
+    public void Add(InputAction.Spell type, Spell spell)
+    {
+        SpellDict[type] = spell;
+    }
+    public void AttachDisplay(InputAction.Spell spell, string container)
+    {
+        SpellDict[spell].AttachDisplay(container);
     }
     public Spell Get(InputAction.Spell spell)
     {
