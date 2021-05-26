@@ -24,8 +24,6 @@ public class OthersFearPnj : MonoBehaviour
         if (distracting)
         {
             distract.Distracted(true);
-            GetComponentInChildren<PolygonCollider2D>(true).enabled = false;
-            return;
         }
         else if (move_to_target)
         {
@@ -35,7 +33,7 @@ public class OthersFearPnj : MonoBehaviour
                 move_to_target = false;
                 distracting = true;
                 GetComponentInChildren<TextMesh>(true).text = "~~~~~~  ~~~~ ~~~  ~~~~~~~~~~~~";
-                GetComponentInChildren<PolygonCollider2D>(true).enabled = false;
+                GetComponentInChildren<PolygonCollider2D>(true).gameObject.SetActive(false);
             }
         }
         else
@@ -43,6 +41,9 @@ public class OthersFearPnj : MonoBehaviour
             if (trigger.activeSelf && Input.GetButtonDown("Interact") && FindObjectOfType<OthersFearPlayer>().inventory.Remove(need))
             {
                 move_to_target = true;
+                GetComponentInChildren<TextMesh>(true).text = "";
+                GetComponentInChildren<DisplayIfPlayerIsInZone>(true).gameObject.SetActive(false);
+                trigger.SetActive(false);
             }
         }
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class InputManager
 {
-    public void GetInput(InputAction action)
+    public static void GetInput(InputAction action)
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
             action.Set(InputAction.Type.MOVE, (int)InputAction.Direction.DOWN);

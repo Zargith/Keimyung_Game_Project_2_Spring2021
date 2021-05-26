@@ -29,24 +29,21 @@ public class OthersFearPlayer : MonoBehaviour
         anim.SetBool("isGrounded", groundedPlayer);
         anim.SetFloat("yVelocity", rb.velocity.y);
 
-        if (groundedPlayer)
+        if (scaredOf != null)
         {
-            if (scaredOf != null)
+            float xdir = transform.position.x - scaredOf.transform.position.x;
+            rb.velocity = new Vector2(scaredOf.GetSpeed() * (xdir * scaredOf.GetSpeed() < 0 ? 0.8f : 1.2f), rb.velocity.y);
+        }
+        else if (groundedPlayer)
+        {
+            if (Input.GetButton("Jump") && rb.velocity.y == 0)
             {
-                float xdir = transform.position.x - scaredOf.transform.position.x;
-                rb.velocity = new Vector2(scaredOf.GetSpeed() * (xdir * scaredOf.GetSpeed() < 0 ? 0.8f : 1.2f), 0);
+                rb.AddForce(new Vector2(0, jumpStrenght), ForceMode2D.Impulse);
             }
             else
             {
-                if (Input.GetButton("Jump"))
-                {
-                    rb.AddForce(new Vector2(0, jumpStrenght), ForceMode2D.Impulse);
-                }
-                else
-                {
-                    Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0);
-                    rb.velocity = new Vector2(move.x * playerSpeed, rb.velocity.y);
-                }
+                Vector2 move = new Vector2(Input.GetAxis("Horizontal"), 0);
+                rb.velocity = new Vector2(move.x * playerSpeed, rb.velocity.y);
             }
         }
         Move();
@@ -77,15 +74,12 @@ public class OthersFearPlayer : MonoBehaviour
     public LayerMask groundLayer;
     bool IsGrounded()
     {
-        return rb.velocity.y == 0;
-        /*
-                Vector2 position = transform.position;
-                Vector2 direction = Vector2.down;
-                float distance = 0.1f;
+        Vector2 position = transform.position;
+        Vector2 direction = Vector2.down;
+        float distance = 0.1f;
 
-                Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
-                RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-                return hit.collider != null;
-        */
+        Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
+        return hit.collider != null;
     }
 }
