@@ -40,31 +40,31 @@ public class OnInteractWithElementChangeTxtDepenedingPlayerPrefs : MonoBehaviour
 
 	List<string> splitStringInListOfSizedElements(string longStr)
 	{
-			List<string> tmp = new List<string>();
-			List<string> listStrLineElements = stringArrayToStringList(longStr.Split(' '));
+		List<string> tmp = new List<string>();
+		List<string> listStrLineElements = stringArrayToStringList(longStr.Split(' '));
 
-			while (listStrLineElements.Count > 0) {
-				string newArrayElem = "";
-				string firstElem = listStrLineElements[0];
+		while (listStrLineElements.Count > 0) {
+			string newArrayElem = "";
+			string firstElem = listStrLineElements[0];
 
-				if (firstElem.Length >= maxStringLength) {
-					newArrayElem += (tmp.Count == 0 ? firstElem : " " + firstElem);
+			if (firstElem.Length >= maxStringLength) {
+				newArrayElem += (tmp.Count == 0 ? firstElem : " " + firstElem);
+				listStrLineElements.RemoveAt(0);
+				continue;
+			}
+
+			while (newArrayElem.Length < maxStringLength && listStrLineElements.Count > 0) {
+				firstElem = listStrLineElements[0];
+				if (newArrayElem.Length + firstElem.Length <= maxStringLength) {
+					newArrayElem += (newArrayElem.Length == 0 ? firstElem : " " + firstElem);
 					listStrLineElements.RemoveAt(0);
 					continue;
-				}
-
-				while (newArrayElem.Length < maxStringLength && listStrLineElements.Count > 0) {
-					firstElem = listStrLineElements[0];
-					if (newArrayElem.Length + firstElem.Length <= maxStringLength) {
-						newArrayElem += (newArrayElem.Length == 0 ? firstElem : " " + firstElem);
-						listStrLineElements.RemoveAt(0);
-						continue;
-					} else
-						break;
-				}
-
-				tmp.Add(newArrayElem);
+				} else
+					break;
 			}
+
+			tmp.Add(newArrayElem);
+		}
 		return tmp;
 	}
 
@@ -74,14 +74,6 @@ public class OnInteractWithElementChangeTxtDepenedingPlayerPrefs : MonoBehaviour
 			textFinishedToDisplay = false;
 			StartCoroutine(displayText());
 			elemToHide.SetActive(false);
-		}
-	}
-
-	IEnumerator displayTextFromListOfStr(List<string> _list)
-	{
-		for (int i = 0; i < _list.Count; i++) {
-			textMesh.text = _list[i];
-			yield return new WaitForSeconds(timeInSecondsDisplayEachTextLine);
 		}
 	}
 

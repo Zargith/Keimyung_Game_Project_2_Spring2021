@@ -24,4 +24,11 @@ public class OnInteractDisable : MonoBehaviour
 			audioSource.Play();
 		}
 	}
+
+	public void Reset()
+	{
+		elemToDisable.SetActive(true);
+		_renderer.flipY = false;
+		displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = false;
+	}
 }
