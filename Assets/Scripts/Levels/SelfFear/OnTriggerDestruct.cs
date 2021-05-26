@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConveyorBeltDestructor : MonoBehaviour
+public class OnTriggerDestruct : MonoBehaviour
 {
+	[SerializeField] string tagToCompare;
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.CompareTag("ConveyorBeltBlock"))
+		if (other.CompareTag(tagToCompare))
 			Destroy(other.gameObject);
 	}
 }

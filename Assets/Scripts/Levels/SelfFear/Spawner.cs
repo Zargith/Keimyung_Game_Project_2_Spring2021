@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConveyorBeltSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
 	[SerializeField] GameObject prefabBlock;
 	[SerializeField] float frequencyOfOccurrence = 1.0f;
@@ -12,6 +12,7 @@ public class ConveyorBeltSpawner : MonoBehaviour
 	{
 		timer = frequencyOfOccurrence;
 	}
+
 	void Update()
 	{
 		timer -= Time.deltaTime;

@@ -30,10 +30,10 @@ public class OnInteractStopConveyorBelt : MonoBehaviour
 		if (elemDisplayed.activeSelf && Input.GetButtonDown("Interact")) {
 			_renderer.flipY = true;
 			chainSaw.SetActive(false);
-			spawner.GetComponent<ConveyorBeltSpawner>().enabled = false;
+			spawner.GetComponent<Spawner>().enabled = false;
 			int spawnerChildren = spawner.transform.childCount;
 			for (int i = 0; i < spawnerChildren; i++)
-				spawner.transform.GetChild(i).GetComponent<ConveyorBeltMovingBlocks>().enabled = false;
+				spawner.transform.GetChild(i).GetComponent<OneDirectionMoving>().enabled = false;
 			audioSource.Play();
 		}
 	}
@@ -42,9 +42,9 @@ public class OnInteractStopConveyorBelt : MonoBehaviour
 	{
 		_renderer.flipY = false;
 		chainSaw.SetActive(true);
-		spawner.GetComponent<ConveyorBeltSpawner>().enabled = true;
+		spawner.GetComponent<Spawner>().enabled = true;
 		int spawnerChildren = spawner.transform.childCount;
 		for (int i = 0; i < spawnerChildren; i++)
-			spawner.transform.GetChild(i).GetComponent<ConveyorBeltMovingBlocks>().enabled = true;
+			spawner.transform.GetChild(i).GetComponent<OneDirectionMoving>().enabled = true;
 	}
 }
