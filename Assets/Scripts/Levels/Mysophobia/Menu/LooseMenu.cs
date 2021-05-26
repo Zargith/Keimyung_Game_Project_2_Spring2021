@@ -18,7 +18,6 @@ public class LooseMenu : MonoBehaviour
 
     public void Retry()
     {
-        _loseMenu.SetActive(false);
         _levelManager.Retry();
     }
 

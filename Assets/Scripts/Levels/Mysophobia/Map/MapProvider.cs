@@ -4,7 +4,7 @@ using System.Text;
 
 public class MapProvider
 {
-    private readonly string mapDir = "Assets/Resources/Mysophobia/Maps/";
+    //private readonly string mapDir = "Assets/Resources/Mysophobia/Maps/";
     public Map MapInfos {get; private set;}
 
     public MapProvider()
@@ -13,6 +13,7 @@ public class MapProvider
     }
     public void LoadFromDisk(string path)
     {
+        Debug.Log("Load map: " + path);
         FileInfo info = new FileInfo(path);
         byte[,] mapData;
         int rowsLength;
