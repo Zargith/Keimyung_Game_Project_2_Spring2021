@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &241515134 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
-  m_PrefabInstance: {fileID: 1998092803}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &303658331
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74ba9a4c89baec4eac48a04087f7b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 241515134}
+  pauseMenu: {fileID: 1447610886554838836}
   pause: 0
   room: {fileID: 1567222315}
   roomFearsFinished: {fileID: 21300000, guid: 37d905ce3983e5b45819ec4d48815eb4, type: 3}
@@ -2462,6 +2457,11 @@ PrefabInstance:
 TextMesh:
   m_CorrespondingSourceObject: {fileID: 6724013940961206992, guid: 8d5b394cce451544b8118303c945abe3, type: 3}
   m_PrefabInstance: {fileID: 6501486446765145821}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1447610886554838836 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
+  m_PrefabInstance: {fileID: 1998092803}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6501486446765145821
 PrefabInstance:
