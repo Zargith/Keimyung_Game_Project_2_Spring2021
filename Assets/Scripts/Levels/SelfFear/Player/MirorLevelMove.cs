@@ -8,10 +8,10 @@ public class MirorLevelMove : MonoBehaviour
 	Rigidbody2D rb;
 	Vector3 playerVelocity;
 	bool groundedPlayer;
-	[SerializeField] private float playerSpeed = 2.0f;
-	[SerializeField] private bool canJump = true;
-	[SerializeField] private float jumpHeight = 1.0f;
-	[SerializeField] private LayerMask groundLayer;
+	[SerializeField] float playerSpeed = 2.0f;
+	[SerializeField] bool canJump = true;
+	[SerializeField] float jumpHeight = 1.0f;
+	[SerializeField] LayerMask groundLayer;
 	Vector3 advance = Vector3.zero;
 	bool jump = false;
 
