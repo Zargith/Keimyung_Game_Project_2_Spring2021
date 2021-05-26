@@ -19,4 +19,11 @@ public class OnInteractEnable : MonoBehaviour
 			displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = true;
 		}
 	}
+
+	public void Reset()
+	{
+		elemToEnable.SetActive(false);
+		_renderer.flipY = false;
+		displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = false;
+	}
 }

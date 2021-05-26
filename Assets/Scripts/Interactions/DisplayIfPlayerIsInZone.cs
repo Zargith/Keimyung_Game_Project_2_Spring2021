@@ -13,7 +13,7 @@ public class DisplayIfPlayerIsInZone : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.gameObject.CompareTag("Player") && playerThoughts.text == "")
+		if (other.gameObject.CompareTag("Player") && (playerThoughts == null || playerThoughts.text == ""))
 			elemToDisplay.SetActive(true);
 	}
 
@@ -32,7 +32,7 @@ public class DisplayIfPlayerIsInZone : MonoBehaviour
 
 	void Update()
 	{
-		if (isPlayerStayingInZone && playerThoughts.text == "")
+		if (isPlayerStayingInZone && (playerThoughts == null || playerThoughts.text == ""))
 			elemToDisplay.SetActive(true);
 	}
 }

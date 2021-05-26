@@ -35,7 +35,8 @@ public class OthersFearEnemy : MonoBehaviour
         if (activity == EnemyState.DISTRACTED)
         {
             rb.velocity = Vector2.zero;
-        } else
+        }
+        else
         {
             SeePlayer();
             Movement(direction);
@@ -77,16 +78,16 @@ public class OthersFearEnemy : MonoBehaviour
     OthersFearPlayer lastPhit;
     float SeePlayer()
     {
-        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius, LayerMask.GetMask("Player"));        // If it hits something...
-        if (hit.collider != null && hit.collider.gameObject.CompareTag("Player"))
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 1), Vector2.right * transform.localScale.x, fov.pointLightOuterRadius * 0.85f, LayerMask.GetMask("Player"));        // If it hits something...
+        if (hit.collider != null && hit.collider.gameObject.CompareTag("Player") && activity != EnemyState.DISTRACTED)
         {
+            print("see player");
             activity = EnemyState.WATCHING_PALYER;
             lastPhit = hit.collider.gameObject.GetComponent<OthersFearPlayer>();
             lastPhit.scaredOf = this;
         }
         else
         {
-            activity = EnemyState.PATROLLING;
             if (lastPhit != null)
             {
                 lastPhit.scaredOf = null;
@@ -102,6 +103,11 @@ public class OthersFearEnemy : MonoBehaviour
         {
             activity = EnemyState.DISTRACTED;
             fov.color = Color.white;
+            if (lastPhit != null)
+            {
+                lastPhit.scaredOf = null;
+                lastPhit = null;
+            }
         }
         else
         {

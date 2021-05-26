@@ -19,6 +19,11 @@ public class RoomGameManager : MonoBehaviour
 	[SerializeField] Sprite hypochondriacFearFinished;
 	[SerializeField] Sprite hypochondriacFearNotFinished;
 
+	[SerializeField] SpriteRenderer gel;
+	[SerializeField] Sprite gelHypochondriacFearFinished;
+	[SerializeField] Sprite gelHypochondriacFearNotFinished;
+
+
 	[SerializeField] SpriteRenderer cupboard;
 	[SerializeField] Sprite sportFearFinished;
 	[SerializeField] Sprite sportFearNotFinished;
@@ -35,6 +40,7 @@ public class RoomGameManager : MonoBehaviour
 	{
 		setSpriteIfFearFinished(mirror, "SelfFear", selfFearFinished, selfFearNotFinished);
 		setSpriteIfFearFinished(dresser, "HypochondriacFear", hypochondriacFearFinished, hypochondriacFearNotFinished);
+		setSpriteIfFearFinished(gel, "HypochondriacFear", gelHypochondriacFearFinished, gelHypochondriacFearNotFinished);
 		setSpriteIfFearFinished(cupboard, "SportFear", sportFearFinished, sportFearNotFinished);
 		setSpriteIfFearFinished(pc, "OthersFear", pcOthersFearFinished, pcOthersFearNotFinished);
 		setSpriteIfFearFinished(desk, "OthersFear", deskOthersFearFinished, deskOthersFearNotFinished);
@@ -71,7 +77,6 @@ public class RoomGameManager : MonoBehaviour
 
 		if (pause)
 			return;
-
 	}
 
 	void Pause()
@@ -87,5 +92,4 @@ public class RoomGameManager : MonoBehaviour
 		pauseMenu.SetActive(false);
 		pause = false;
 	}
-
 }

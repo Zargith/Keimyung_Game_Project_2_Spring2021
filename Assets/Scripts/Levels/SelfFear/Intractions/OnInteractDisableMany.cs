@@ -25,4 +25,13 @@ public class OnInteractDisableMany : MonoBehaviour
 			audioSource.Play();
 		}
 	}
+
+	public void Reset()
+	{
+		for (int i = 0; i < elemsToDisable.Length; i++)
+			elemsToDisable[i].SetActive(true);
+		_renderer.flipY = false;
+		displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = false;
+
+	}
 }

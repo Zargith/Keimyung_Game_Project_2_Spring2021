@@ -4,19 +4,46 @@ using UnityEngine;
 
 public class SelfFearGameManager : MonoBehaviour
 {
+	[SerializeField] GameObject pauseMenu;
+	public bool pause = false;
 	[SerializeField] GameObject playerGO;
 	[SerializeField] Vector2 playerRespawnPoint;
 	[SerializeField] GameObject playerCloneGO;
 	[SerializeField] Vector2 playerCloneRespawnPoint;
 	[SerializeField] GameObject[] switches;
-	[SerializeField] GameObject[] buttonsThatOpenDoors;
+	[SerializeField] GameObject[] buttons;
+	[SerializeField] GameObject fallingPlatforms;
 
-	void Start()
-	{
-	}
+	void Start() {/*only here to have an enablable script*/}
+
 
 	void Update()
 	{
+		if (!pauseMenu.activeSelf && pause)
+			Unpause();
+		if (Input.GetButtonUp("Pause")) {
+			if (pause)
+				Unpause();
+			else
+				Pause();
+		}
+
+		if (pause)
+			return;
+	}
+
+	void Pause()
+	{
+		Time.timeScale = 0;
+		pauseMenu.SetActive(true);
+		pause = true;
+	}
+
+	void Unpause()
+	{
+		Time.timeScale = 1;
+		pauseMenu.SetActive(false);
+		pause = false;
 	}
 
 	public void resetGame()
@@ -27,30 +54,37 @@ public class SelfFearGameManager : MonoBehaviour
 
 		// Reset switches
 		for (int i = 0; i < switches.Length; i++) {
-			SpriteRenderer _renderer;
-			if (switches[i].TryGetComponent<SpriteRenderer>(out _renderer))
-				_renderer.flipY = false;
-
-			// Close doors opened by switchs
+			// Enable element disiabled by switch
 			OnInteractDisable onInteractDisableScript;
+			if (switches[i].transform.GetChild(0).TryGetComponent<OnInteractDisable>(out onInteractDisableScript))
+				onInteractDisableScript.Reset();
+
+			// Enable elements disiabled opened by switch
 			OnInteractDisableMany onInteractDisableManyScript;
-			if (switches[i].transform.GetChild(0).TryGetComponent<OnInteractDisable>(out onInteractDisableScript)) {
-				onInteractDisableScript.elemToDisable.SetActive(true);
-				onInteractDisableScript.displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = false;
-			}
-			if (switches[i].transform.GetChild(0).TryGetComponent<OnInteractDisableMany>(out onInteractDisableManyScript)) {
-				for (int j = 0; j < onInteractDisableManyScript.elemsToDisable.Length; j++)
-					onInteractDisableManyScript.elemsToDisable[j].SetActive(true);
-				onInteractDisableManyScript.displayIfPlayerIsInZoneButOnlyOneActivationScript.activatedOnce = false;
-			}
+			if (switches[i].transform.GetChild(0).TryGetComponent<OnInteractDisableMany>(out onInteractDisableManyScript))
+				onInteractDisableManyScript.Reset();
+
+			// Disiable element enabled by switch
+			OnInteractEnable onInteractEnableScript;
+			if (switches[i].transform.GetChild(0).TryGetComponent<OnInteractEnable>(out onInteractEnableScript))
+				onInteractEnableScript.Reset();
+
+
+			// Restart conveyor belt stoped by switch
+			OnInteractStopConveyorBelt onInteractStopConveyorBeltScript;
+			if (switches[i].transform.GetChild(0).TryGetComponent<OnInteractStopConveyorBelt>(out onInteractStopConveyorBeltScript))
+				onInteractStopConveyorBeltScript.Reset();
 		}
 
-		// Close doors opened by buttons
-		for (int i = 0; i < buttonsThatOpenDoors.Length; i++) {
-			JumperButtonOpenDoor jumperButtonOpenDoorScript = buttonsThatOpenDoors[i].GetComponent<JumperButtonOpenDoor>();
-			jumperButtonOpenDoorScript.doorToOpen.SetActive(true);
-			jumperButtonOpenDoorScript.doorOpened = false;
+		for (int i = 0; i < buttons.Length; i++) {
+			// Close door opened by button
+			JumperButtonOpenDoor jumperButtonOpenDoorScript = buttons[i].GetComponent<JumperButtonOpenDoor>();
+			jumperButtonOpenDoorScript.Reset();
 		}
 
+		int nbFallingPlatforms = fallingPlatforms.transform.childCount;
+		for (int i = 0; i < nbFallingPlatforms; i++) {
+			fallingPlatforms.transform.GetChild(i).GetComponent<FallPlatform>().Reset();
+		}
 	}
 }

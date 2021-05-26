@@ -37,4 +37,11 @@ public class JumperButtonOpenDoor : MonoBehaviour
 			}
 		}
 	}
+
+	public void Reset()
+	{
+		doorToOpen.SetActive(true);
+		doorOpened = false;
+	}
+
 }
