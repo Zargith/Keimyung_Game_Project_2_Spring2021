@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorLight : MonoBehaviour
+public class ChangePlayerSkin : MonoBehaviour
 {
-    [SerializeField] private FollowPlayer firefly;
+
+    [SerializeReference] Spine.Unity.SkeletonMecanim skeleton;
+    [SerializeField] Spine.Unity.SkeletonDataAsset nskin;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,9 @@ public class DoorLight : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            firefly.SetTarget(collision.gameObject.transform);
+            skeleton.skeletonDataAsset = nskin;
+            skeleton.initialSkinName = "YourNewSkinName";
+            skeleton.Initialize(true);
         }
     }
 }

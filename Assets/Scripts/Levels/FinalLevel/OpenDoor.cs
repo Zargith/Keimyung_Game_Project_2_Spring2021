@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class OpenDoor : MonoBehaviour
 {
-    [SerializeField] FollowPlayer playerCam;
-    [SerializeField] FinalPlayer player;
-    [SerializeField] FireflyDecreaseMaxIntensityThroughLevel2D firefly;
+    [SerializeField] private float playerSpeed = 3.0f;
+    [SerializeReference] FollowPlayer playerCam;
+    [SerializeReference] FinalPlayer player;
+    [SerializeReference] FireflyDecreaseMaxIntensityThroughLevel2D firefly;
 
     // Update is called once per frame
     void Update()
@@ -15,9 +16,10 @@ public class OpenDoor : MonoBehaviour
         {
             foreach (var item in GetComponentsInParent<BoxCollider2D>())
             {
-                item.enabled = false;
+                item.isTrigger = true;
             }
             playerCam.SetTarget(player.transform);
+            player.playerSpeed = playerSpeed;
         }
     }
 }
