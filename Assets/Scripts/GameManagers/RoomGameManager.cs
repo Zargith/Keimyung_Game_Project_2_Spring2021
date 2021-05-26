@@ -71,7 +71,6 @@ public class RoomGameManager : MonoBehaviour
 
 		if (pause)
 			return;
-
 	}
 
 	void Pause()
@@ -87,5 +86,4 @@ public class RoomGameManager : MonoBehaviour
 		pauseMenu.SetActive(false);
 		pause = false;
 	}
-
 }

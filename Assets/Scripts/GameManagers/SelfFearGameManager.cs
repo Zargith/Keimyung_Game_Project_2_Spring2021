@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SelfFearGameManager : MonoBehaviour
 {
+	[SerializeField] GameObject pauseMenu;
+	public bool pause = false;
 	[SerializeField] GameObject playerGO;
 	[SerializeField] Vector2 playerRespawnPoint;
 	[SerializeField] GameObject playerCloneGO;
@@ -17,6 +19,31 @@ public class SelfFearGameManager : MonoBehaviour
 
 	void Update()
 	{
+		if (!pauseMenu.activeSelf && pause)
+			Unpause();
+		if (Input.GetButtonUp("Pause")) {
+			if (pause)
+				Unpause();
+			else
+				Pause();
+		}
+
+		if (pause)
+			return;
+	}
+
+	void Pause()
+	{
+		Time.timeScale = 0;
+		pauseMenu.SetActive(true);
+		pause = true;
+	}
+
+	void Unpause()
+	{
+		Time.timeScale = 1;
+		pauseMenu.SetActive(false);
+		pause = false;
 	}
 
 	public void resetGame()
