@@ -58,11 +58,13 @@ public class FinalLevel_MapSetup : MonoBehaviour
             trunk.transform.localScale = new Vector3((Random.Range(0, 2) == 0) ? -1 : 1, 1, 1);
             SpriteRenderer sp = trunk.AddComponent<SpriteRenderer>();
             sp.sprite = tree_types[Random.Range(0, tree_types.Count)];
+            var order = Random.Range(2, 10);
+            sp.sortingOrder = order;
             GameObject leaves = new GameObject("Leaves");
             leaves.transform.parent = trunk.transform;
             sp = leaves.AddComponent<SpriteRenderer>();
             sp.sprite = leaves_types[Random.Range(0, leaves_types.Count)];
-            sp.sortingOrder = Random.Range(2, 10);
+            sp.sortingOrder = order + 1;
             leaves.AddComponent<Recoloring>();
             leaves.AddComponent<BoxCollider2D>().isTrigger = true;
             PlaceTree(trunk, treeSpacing / 10f + pos_x, leaves);
