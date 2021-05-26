@@ -4495,6 +4495,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabBlock: {fileID: 1217200131677166403, guid: 6b05fb238c83e2f45ab36cb35deaef0c, type: 3}
   frequencyOfOccurrence: 2
+--- !u!1 &641796151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
+  m_PrefabInstance: {fileID: 905474861}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &672977624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8574,6 +8579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa4b81c0ba31e44091b5d88d9411778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 641796151}
+  pause: 0
   playerGO: {fileID: 3700540711253283425}
   playerRespawnPoint: {x: -11.5, y: -3}
   playerCloneGO: {fileID: 1705006706}

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-	[SerializeField] Transform _playerTransform;
+	public Transform _playerTransform;
 	[SerializeField] float changeY = 0f;
 
 
