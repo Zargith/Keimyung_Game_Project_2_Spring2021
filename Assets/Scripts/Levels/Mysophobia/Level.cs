@@ -91,7 +91,7 @@ public class Level
         _displayManager = new DisplayManager();
         _displayManager.AddText("LivesText", "Lives");
         _displayManager.Texts["Lives"].Update(_lives.ToString());
-    }
+        }
 
     public void Update()
     {
@@ -197,6 +197,7 @@ public class Level
         _actionQueue.Reset();
         _spellManager.Reset();
         _lives = _mapInfos.Lives;
+        Finished = false;
         _displayManager.Texts["Lives"].Update(_lives.ToString());
     }
 
