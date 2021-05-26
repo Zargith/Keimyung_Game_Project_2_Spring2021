@@ -44,6 +44,12 @@ public class ActionQueue : PositionableGraphic
         _actionObjects[0].transform.Find("Frame").gameObject.SetActive(true);
     }
 
+    public override void Cleanup()
+    {
+        foreach (GameObject obj in _actionObjects)
+            Destroy(obj);
+    }
+
     public void Reset()
     {
         int initialMaxActions = _maxActions - _actionsSize;

@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using static EnvironmentPosition;
 using Random = UnityEngine.Random;
 
 public class Environment : PositionableGraphic
 {
     private List<EnvironmentVirus> _viruses;
+
+    private List<GameObject> _virusesInstances;
 
     private EnvironmentPositionHelper _positionHelper;
 
@@ -26,6 +29,7 @@ public class Environment : PositionableGraphic
             new EnvironmentVirus(EnvironmentVirus.Type.FLU, GetPrefab("Flu")),
             new EnvironmentVirus(EnvironmentVirus.Type.PLAGUE, GetPrefab("Plague"))
         };
+        _virusesInstances = new List<GameObject>();
     }
 
     public override void Draw()
@@ -53,8 +57,16 @@ public class Environment : PositionableGraphic
             //Debug.Log(actualVirus.type + " at " + actualPlaceholder + " place");
             actualVirus.Instance = Instantiate(actualVirus.Prefab, actualPos.Position, actualPos.Rotation);
 
+            _virusesInstances.Add(actualVirus.Instance);
             positionIndex++;
         }
+    }
+
+    public override void Cleanup()
+    {
+        foreach (GameObject g in _virusesInstances)
+            Destroy(g);
+        _virusesInstances.Clear();
     }
 
     public void SwapVirusPlace(EnvironmentVirus.Type type)

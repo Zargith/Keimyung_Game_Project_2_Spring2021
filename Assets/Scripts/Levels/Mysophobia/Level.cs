@@ -1,9 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Level
 {
+    public enum State
+    {
+        WIN,
+        LOOSE
+    }
+
     private Camera _cam;
 
     private const int DEFAULT_LIVES = 50;
@@ -12,7 +16,10 @@ public class Level
 
     private int _turn;
 
+    public bool Loaded { get; private set; }
     public bool Finished { get; private set; }
+
+    public State Status { get; private set; }
         
     private Board _board;
 
@@ -42,9 +49,11 @@ public class Level
         Debug.Log("Start a new level");
         PositionProvider pp;
 
+        Loaded = true;
         _mapInfos = mapInfos;
         _turn = 0;
         Finished = false;
+        Debug.Log(mapInfos.Lives);
         _lives = mapInfos.Lives;
 
         pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(mapInfos.Rows, mapInfos.Cols), 1); // tmp
@@ -57,7 +66,7 @@ public class Level
 
         /*LINK GRAPHIC AND MAP*/
 
-        _board.Map = mapInfos.Data;
+        _board.SetMap(mapInfos.Data);
 
         /*SPELL*/
 
@@ -81,6 +90,7 @@ public class Level
 
         _displayManager = new DisplayManager();
         _displayManager.AddText("LivesText", "Lives");
+        _displayManager.Texts["Lives"].Update(_lives.ToString());
     }
 
     public void Update()
@@ -91,14 +101,22 @@ public class Level
         }
         else
         {
-            if (_board.isWin())
+            if (_board.IsWin())
             {
-                FinishGame();
+                FinishGame(State.WIN);
             }
             VirusTurn();
         }
     }
 
+    public void Clean()
+    {
+        Debug.Log("Clean level");
+        _board.Cleanup();
+        _environment.Cleanup();
+        _actionQueue.Cleanup();
+        Loaded = false;
+    }
     private void PlayerTurn()
     {
         InputManager.GetInput(_inputAction);
@@ -169,13 +187,10 @@ public class Level
         _lives--;
         _displayManager.Texts["Lives"].Update(_lives.ToString());
         if (_lives == 0)
-        {
-            Debug.Log("Looser");
-            ResetGame();
-        }
+            FinishGame(State.LOOSE);
     }
 
-    private void ResetGame()
+    public void ResetGame()
     {
         Debug.Log("Retry");
         _board.Reset();
@@ -185,10 +200,11 @@ public class Level
         _displayManager.Texts["Lives"].Update(_lives.ToString());
     }
 
-    private void FinishGame()
+    private void FinishGame(State status)
     {
         Debug.Log("Game finished");
         Finished = true;
+        Status = status;
     }
 
     private void PositionCamera(PositionProvider pp)
