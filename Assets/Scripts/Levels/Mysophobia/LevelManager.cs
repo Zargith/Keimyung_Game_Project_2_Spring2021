@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class LevelManager : MonoBehaviour
 {
@@ -19,8 +20,6 @@ public class LevelManager : MonoBehaviour
 
     private MapProvider _mapProvider;
 
-    //[SerializeField] private string _mapName;
-
     private string[] campaignPaths;
 
     private string[] freeplayPaths;
@@ -31,17 +30,22 @@ public class LevelManager : MonoBehaviour
 
     private Level _level;
 
+    private GameObject _mysophobiaMenu;
+
+    private GameObject _loseMenu;
+
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Level manager start");
-        _mode = Mode.CAMPAIGN;
-        _campaignIndex = 0;
         _mapProvider = new MapProvider();
+        _mysophobiaMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "MysophobiaMenu");
+        _loseMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "LoseMenu");
         GetMapPaths();
+        _mysophobiaMenu.GetComponentInChildren<ListCreator>().Draw(GetShortFileNames(freeplayPaths), freeplayPaths);
         _level = new Level(_cam);
-        NextLevel();
+        StartCampaign(false);
     }
 
     // Update is called once per frame
@@ -50,30 +54,53 @@ public class LevelManager : MonoBehaviour
         _level.Update();
         if (_level.Finished)
         {
-            switch (_mode)
+            if (_level.Status == Level.State.WIN)
             {
-                case Mode.CAMPAIGN:
-                    if (_campaignIndex == campaignPaths.Length - 1)
-                        Exit();
-                    else
-                        NextLevel();
-                    break;
-                case Mode.FREEPLAY:
-                    FreeplayMenu();
-                    break;
+                switch (_mode)
+                {
+                    case Mode.CAMPAIGN:
+                        if (_campaignIndex == campaignPaths.Length - 1)
+                            Exit();
+                        else
+                            NextLevel(true);
+                        break;
+                    case Mode.FREEPLAY:
+                        _mysophobiaMenu.GetComponentInChildren<MysophobiaMenuManager>().DisplayFreeplayMenu();
+                        break;
+                }
+            } else
+            {
+                _loseMenu.SetActive(true);
             }
         }
     }
 
-    private void FreeplayMenu()
+    public void StartCampaign(bool cleanup = true)
     {
-        throw new NotImplementedException();
+        if (_mode == Mode.CAMPAIGN && _level.Loaded)
+            return;
+        _mode = Mode.CAMPAIGN;
+        _campaignIndex = 0;
+        NextLevel(cleanup);
     }
 
-    private void NextLevel()
+    public void LoadFreeplayMap(string path)
     {
+        _mode = Mode.FREEPLAY;
+        _level.Clean();
+        _mapProvider.LoadFromDisk(path);
+        _level.Start(_mapProvider.MapInfos);
+    }
+
+    public void Retry()
+    {
+        _level.ResetGame();
+    }
+    private void NextLevel(bool cleanup)
+    {
+        if (cleanup)
+            _level.Clean();
         _mapProvider.LoadFromDisk(campaignPaths[_campaignIndex]);
-        Debug.Log(_mapProvider.MapInfos);
         _level.Start(_mapProvider.MapInfos);
     }
 
@@ -83,7 +110,22 @@ public class LevelManager : MonoBehaviour
     }
     private void GetMapPaths()
     {
-        campaignPaths = Directory.GetFiles(mapDir + "Campaign/");
-        freeplayPaths = Directory.GetFiles(mapDir + "Freeplay/");
+        campaignPaths = Directory.GetFiles(mapDir + "Campaign/", "*.txt");
+        freeplayPaths = Directory.GetFiles(mapDir + "Freeplay/", "*.txt");
+    }
+
+    private string[] GetShortFileNames(string[] paths)
+    {
+        string[] shortNames = new string[paths.Length];
+        int slashIndex;
+        int dotIndex;
+
+        for (int i = 0; i < paths.Length; i++)
+        {
+            slashIndex = paths[i].LastIndexOf('/');
+            dotIndex = paths[i].LastIndexOf('.');
+            shortNames[i] = paths[i].Substring(slashIndex + 1, dotIndex - slashIndex - 1);
+        }
+        return (shortNames);
     }
 }
