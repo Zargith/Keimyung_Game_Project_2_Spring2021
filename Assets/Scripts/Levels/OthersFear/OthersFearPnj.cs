@@ -10,12 +10,15 @@ public class OthersFearPnj : MonoBehaviour
     bool distracting = false;
     bool move_to_target = false;
     public float speed = 1f;
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponentInChildren<TextMesh>(true).text = "Hi ! If you have a " + need.ToString() + " I can help you";
+        if (need != OthersFear_Item.EnumOthersFearItemType.SIZE)
+            GetComponentInChildren<TextMesh>(true).text = "Hi ! If you have a " + need.ToString() + " I can help you";
+        else
+            GetComponentInChildren<DisplayIfPlayerIsInZone>(true).gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -27,8 +30,9 @@ public class OthersFearPnj : MonoBehaviour
         }
         else if (move_to_target)
         {
+            print((transform.position - distract.GetDistractPos()).magnitude);
             transform.position += (distract.GetDistractPos() - transform.position).normalized * speed * Time.deltaTime;
-            if ((transform.position - distract.GetDistractPos()).magnitude < 0.01)
+            if ((transform.position - distract.GetDistractPos()).magnitude < 0.05)
             {
                 move_to_target = false;
                 distracting = true;

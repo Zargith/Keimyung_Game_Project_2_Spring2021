@@ -20,6 +20,7 @@ public class OthersFearPlayer : MonoBehaviour
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = footsteps;
+        audioSource.Play();
     }
 
     // Update is called once per frame
@@ -32,7 +33,8 @@ public class OthersFearPlayer : MonoBehaviour
         if (scaredOf != null)
         {
             float xdir = transform.position.x - scaredOf.transform.position.x;
-            rb.velocity = new Vector2(scaredOf.GetSpeed() * (xdir * scaredOf.GetSpeed() < 0 ? 0.8f : 1.2f), rb.velocity.y);
+            float sp = Mathf.Max(scaredOf.GetSpeed(), 1.0f);
+            rb.velocity = new Vector2(sp * (xdir < 0 ? -1.1f : 1.1f), rb.velocity.y);
         }
         else if (groundedPlayer)
         {
@@ -76,10 +78,12 @@ public class OthersFearPlayer : MonoBehaviour
     {
         Vector2 position = transform.position;
         Vector2 direction = Vector2.down;
-        float distance = 0.1f;
+        float distance = 0.05f;
 
-        Debug.DrawRay(position, new Vector2(0, -distance), Color.green);
-        RaycastHit2D hit = Physics2D.Raycast(position, direction, distance, groundLayer);
-        return hit.collider != null;
+        Debug.DrawRay(position + new Vector2(2.0f * transform.localScale.x, 0), new Vector2(0, -distance), Color.green);
+        Debug.DrawRay(position - new Vector2(1.5f * transform.localScale.x, 0), new Vector2(0, -distance), Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(position + new Vector2(2.0f * transform.localScale.x, 0), direction, distance, groundLayer);
+        RaycastHit2D hit2 = Physics2D.Raycast(position - new Vector2(1.5f * transform.localScale.x, 0), direction, distance, groundLayer);
+        return hit.collider != null || hit2.collider != null;
     }
 }

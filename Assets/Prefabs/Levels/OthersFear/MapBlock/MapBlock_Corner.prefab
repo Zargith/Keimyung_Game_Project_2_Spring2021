@@ -1,23 +1,39 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &1104907593638837252
+--- !u!1001 &9017320711250065209
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1549183419592616190, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
+      propertyPath: m_Name
+      value: Wall2
+      objectReference: {fileID: 0}
     - target: {fileID: 3247688570141498740, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
       propertyPath: m_Name
-      value: MapBlock_StraightHalf
+      value: MapBlock_Corner
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841035564328821433, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 3841035564328821433, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.6
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841035564328821433, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 3841035564328821433, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5326683687213879331, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
+      propertyPath: m_Name
+      value: Wall
       objectReference: {fileID: 0}
     - target: {fileID: 6021656460040050147, guid: b19cdbd941eb0cd48a3e14c0849de70f, type: 3}
       propertyPath: m_RootOrder

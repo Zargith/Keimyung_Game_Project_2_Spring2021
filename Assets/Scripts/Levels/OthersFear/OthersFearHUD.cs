@@ -19,7 +19,6 @@ public class OthersFearHUD : MonoBehaviour
             Sprite s = item.gameObject.GetComponent<SpriteRenderer>().sprite;
             caseSize = new Vector3(Mathf.Max(caseSize.x, s.texture.width / s.pixelsPerUnit), Mathf.Max(caseSize.y, s.texture.height / s.pixelsPerUnit), caseSize.z);
         }
-        print(caseSize);
     }
 
     // Update is called once per frame

@@ -10,10 +10,11 @@ public class TaskGoTowards : MonoBehaviour
         LEFT,
         RIGHT,
         UP,
-        DOWN
+        DOWN,
+        NONE
     }
 
-    [SerializeField] private Direction GoTo = Direction.RIGHT;
+    [SerializeField] private Direction GoTo = Direction.NONE;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,7 @@ public class TaskGoTowards : MonoBehaviour
                 break;
         }
         transform.localScale = tmp;
+        GetComponent<SpriteRenderer>().enabled = false;
     }
 
     // Update is called once per frame
