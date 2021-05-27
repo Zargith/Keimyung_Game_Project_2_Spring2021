@@ -6,6 +6,8 @@ public class TutoGameManager : MonoBehaviour
 {
 	[SerializeField] GameObject firefly;
 	[SerializeField] GameObject player;
+	[SerializeField] Transform dreamCameraPosition;
+	[SerializeField] FollowPlayer cameraFollowPlayerScript;
 	[SerializeField] AudioSource cameraAudioSource;
 	TutoPlayerController tutoPlayerController;
 	FlipPlayer playerFlipPlayerScript;
@@ -17,6 +19,7 @@ public class TutoGameManager : MonoBehaviour
 	public bool pause = false;
 	[SerializeField] GameObject pauseMenu;
 	[SerializeField] float xPositionPlayerStopsRun = 28f;
+
 	void Start()
 	{
 		firefly.SetActive(false);
@@ -64,7 +67,7 @@ public class TutoGameManager : MonoBehaviour
 				firefly.SetActive(true);
 				playerFlipPlayerScript.enabled = true;
 				cameraAudioSource.enabled = true;
-				player.transform.position = respawnPosition;
+				cameraFollowPlayerScript._playerTransform = dreamCameraPosition;
 				tutoPlayerController.canMove = true;
 			}
 		}
