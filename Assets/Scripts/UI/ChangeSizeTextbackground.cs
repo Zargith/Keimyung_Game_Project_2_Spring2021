@@ -5,18 +5,18 @@ using UnityEngine;
 public class ChangeSizeTextbackground : MonoBehaviour
 {
 	[SerializeField] TextMesh textMesh;
-	[SerializeField] float defaultCharSize = 1.0f;
-	[SerializeField] float charSizeLittle = 1.35f;
+	[SerializeField] float defaultCharSize = 0.75f;
+	[SerializeField] float charSizeLittle = 0.75f;
 	[SerializeField] string littleChars = "";
 	[SerializeField] float charSizeMedium = 1.6f;
 	[SerializeField] string mediumChars = "";
-	[SerializeField] float charSizeBig = 1.85f;
+	[SerializeField] float charSizeBig = 1.25f;
 	[SerializeField] string bigChars = "";
 	bool hadText = false;
 
 	void Start()
 	{
-		transform.localScale = new Vector3(0, 5, 1);
+		transform.localScale = new Vector3(0, 4, 1);
 		littleChars = littleChars.ToLower();
 		mediumChars = mediumChars.ToLower();
 		bigChars = bigChars.ToLower();
@@ -26,10 +26,10 @@ public class ChangeSizeTextbackground : MonoBehaviour
 	{
 		if (textMesh.text != "") {
 			float size = calculateCharsSize(textMesh.text.ToLower());
-			transform.localScale = new Vector3(size, 5, 1);
+			transform.localScale = new Vector3(size, 4, 1);
 			hadText = true;
 		} else if (hadText) {
-			transform.localScale = new Vector3(0 , 5, 1);
+			transform.localScale = new Vector3(0 , 4, 1);
 			hadText = true;
 		}
 	}

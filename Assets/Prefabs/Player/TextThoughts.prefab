@@ -109,19 +109,19 @@ PrefabInstance:
       objectReference: {fileID: 720929149026226235}
     - target: {fileID: 7056146298307825769, guid: 51fad2ef61ad30b4f869b3a8e4624061, type: 3}
       propertyPath: charSizeBig
-      value: 2
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7056146298307825769, guid: 51fad2ef61ad30b4f869b3a8e4624061, type: 3}
       propertyPath: charSizeLittle
-      value: 1.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7056146298307825769, guid: 51fad2ef61ad30b4f869b3a8e4624061, type: 3}
       propertyPath: charSizeMedium
-      value: 1.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7056146298307825769, guid: 51fad2ef61ad30b4f869b3a8e4624061, type: 3}
       propertyPath: defaultCharSize
-      value: 1.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7056146298307825771, guid: 51fad2ef61ad30b4f869b3a8e4624061, type: 3}
       propertyPath: m_RootOrder
