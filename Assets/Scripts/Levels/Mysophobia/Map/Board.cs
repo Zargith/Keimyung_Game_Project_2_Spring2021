@@ -11,7 +11,11 @@ public class Board : PositionableGraphic
         RIGHT = 2,
         LEFT = 3
     }
-    public byte[,] Map { private get; set; }
+    private byte[,] _initialMap;
+
+    private byte[,] _map;
+
+    private List<GameObject> _squareInstance;
 
     private Player _player;
 
@@ -26,6 +30,7 @@ public class Board : PositionableGraphic
         ReceivePrefab("Board");
 
         _virusPrefab = GetPrefab("Virus");
+        _squareInstance = new List<GameObject>();
         _virusInstances = new Dictionary<Vector2Int, GameObject>();
     }
 
@@ -39,34 +44,52 @@ public class Board : PositionableGraphic
         int cols = _pp.MapSize.y;
 
         Vector2 worldPos;
+        GameObject obj;
 
-        Debug.Log("Start drawing map: rows: " + rows + " cols: " + cols);
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
             {
                 worldPos = BoardToWorldPos(new Vector2Int(i, j));
-                if (Map[i, j] == 0){
-                    Instantiate(blockSquarePrefab, worldPos, Quaternion.identity);                    
-                } else if (Map[i, j] == 1 || Map[i, j] == 4)
+                if (_map[i, j] == 0){
+                    obj = Instantiate(blockSquarePrefab, worldPos, Quaternion.identity);                    
+                } else if (_map[i, j] == 1 || _map[i, j] == 4)
                 {
-                   var obj = Instantiate(pathSquarePrefab, worldPos, Quaternion.identity);
-                   if (Map[i, j] == 4)
+                   obj = Instantiate(pathSquarePrefab, worldPos, Quaternion.identity);
+                   if (_map[i, j] == 4)
                     {
                         obj.GetComponentInChildren<SpriteRenderer>().color = Color.gray;
                         _player = new Player(GetPrefab("Player"), new Vector2Int(i, j));
                         _player.Instance = Instantiate(_player.Prefab, worldPos, Quaternion.identity);
                     }
-                } else if (Map[i, j] == 2)
+                } else if (_map[i, j] == 2)
                 {
-                    Instantiate(endSquarePrefab, worldPos, Quaternion.identity);
+                    obj = Instantiate(endSquarePrefab, worldPos, Quaternion.identity);
                 } else
                 {
-                    Debug.Log("Problem in a square value of the map: " + Map[i, j]);
+                    throw new Exception("Problem in a square value of the map: " + _map[i, j]);
                 }
+                _squareInstance.Add(obj);
             }
         }
-        Debug.Log("Finished");
+    }
+
+    public override void Cleanup()
+    {
+        foreach (GameObject g in _squareInstance)
+            Destroy(g);
+        _squareInstance.Clear();
+        foreach (KeyValuePair<Vector2Int, GameObject> kvp in _virusInstances)
+            Destroy(kvp.Value);
+        _virusInstances.Clear();
+        Destroy(_player.Instance);
+        _map = _initialMap;
+    }
+
+    public void SetMap(byte[,] map)
+    {
+        _initialMap = map;
+        _map = map;
     }
 
     public void Reset()
@@ -74,15 +97,15 @@ public class Board : PositionableGraphic
         MoveEntity(_player.Instance, _player.InitialPos);
         foreach (KeyValuePair<Vector2Int, GameObject> kvp in _virusInstances)
         {
-            Map[kvp.Key.x, kvp.Key.y] = 1;
             Destroy(kvp.Value);
         }
         _virusInstances.Clear();
+        _map = _initialMap;
     }
 
-    public bool isWin()
+    public bool IsWin()
     {
-        if (Map[_player.BoardPos.x, _player.BoardPos.y] == 2)
+        if (_map[_player.BoardPos.x, _player.BoardPos.y] == 2)
             return true;
         return false;
     }
@@ -99,7 +122,7 @@ public class Board : PositionableGraphic
         if (IsPositionAvailable(pos))
         {
             Debug.Log("Spawn virus: " + pos);
-            Map[pos.x, pos.y] = 3;
+            _map[pos.x, pos.y] = 3;
             _virusInstances.Add(pos, Instantiate(_virusPrefab, BoardToWorldPos(pos), Quaternion.identity));
         }
     }
@@ -118,7 +141,7 @@ public class Board : PositionableGraphic
             Debug.Log(obj);
             _virusInstances.Remove(pos);
             Destroy(obj);
-            Map[pos.x, pos.y] = 1;
+            _map[pos.x, pos.y] = 1;
             return (true);
         }
         return (false);
@@ -132,12 +155,12 @@ public class Board : PositionableGraphic
             Debug.Log("Move failed: Side map");
             return (false);
         }
-        if (Map[boardPos.x, boardPos.y] == 0)
+        if (_map[boardPos.x, boardPos.y] == 0)
         {
             Debug.Log("Move failed: Wall");
             return (false);
         }
-        if (Map[boardPos.x, boardPos.y] == 3)
+        if (_map[boardPos.x, boardPos.y] == 3)
         {
             Debug.Log("Move failed: Virus");
             return (false);
@@ -177,12 +200,12 @@ public class Board : PositionableGraphic
 
     private bool IsPositionAVirus(Vector2Int boardPos)
     {
-        return IsPositionValid(boardPos) && Map[boardPos.x, boardPos.y] == 3;
+        return IsPositionValid(boardPos) && _map[boardPos.x, boardPos.y] == 3;
     }
 
     private bool IsPositionAvailable(Vector2Int boardPos)
     {
-        return IsPositionValid(boardPos) && Map[boardPos.x, boardPos.y] == 1;
+        return IsPositionValid(boardPos) && _map[boardPos.x, boardPos.y] == 1;
     }
 
     private bool IsPositionValid(Vector2Int boardPos)

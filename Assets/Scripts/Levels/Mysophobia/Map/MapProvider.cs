@@ -4,22 +4,27 @@ using System.Text;
 
 public class MapProvider
 {
-    private readonly string mapDir = "Assets/Resources/Mysophobia/Maps/";
+    //private readonly string mapDir = "Assets/Resources/Mysophobia/Maps/";
+    public Map MapInfos {get; private set;}
 
-    public int RowsLength { private set; get; }
-
-    public int ColumnsLength { private set; get; }
-
-    public byte[,] Map { get; private set; }
-
-    public void LoadFromDisk(string name)
+    public MapProvider()
     {
-        FileInfo info = new FileInfo(mapDir + name + ".txt");
+        MapInfos = new Map();
+    }
+    public void LoadFromDisk(string path)
+    {
+        Debug.Log("Load map: " + path);
+        FileInfo info = new FileInfo(path);
+        byte[,] mapData;
+        int rowsLength;
+        int columnsLength;
+        int lives;
+        int accelerationCD;
+        int sprayUses;
 
         if (!info.Exists)
         {
-            Debug.Log("Map " + name + " doesn't exist in map directory");
-            return;
+            throw new System.Exception("Wtf guy");
         }
 
         try
@@ -31,20 +36,29 @@ public class MapProvider
 
             line = reader.ReadLine();
             string[] split = line.Split(' ');
-            RowsLength = int.Parse(split[0]);
-            ColumnsLength = int.Parse(split[1]);
-            Map = new byte[RowsLength, ColumnsLength];
+            rowsLength = int.Parse(split[0]);
+            columnsLength = int.Parse(split[1]);
+            lives = int.Parse(split[2]);
+            accelerationCD = int.Parse(split[3]);
+            sprayUses = int.Parse(split[4]); ;
+            mapData = new byte[rowsLength, columnsLength];
 
-            for (int i = 0; i < RowsLength; i++)
+            for (int i = 0; i < rowsLength; i++)
             {
                 line = reader.ReadLine();
                 byteLine = Encoding.ASCII.GetBytes(line);
 
-                for (int j = 0; j < ColumnsLength; j++)
+                for (int j = 0; j < columnsLength; j++)
                 {
-                    Map[i, j] = (byte)(byteLine[j] - '0');
+                    mapData[i, j] = (byte)(byteLine[j] - '0');
                 }
             }
+            MapInfos.Data = mapData;
+            MapInfos.Rows = rowsLength;
+            MapInfos.Cols = columnsLength;
+            MapInfos.Lives = lives;
+            MapInfos.AccelerationCD = accelerationCD;
+            MapInfos.SprayUses = sprayUses;
         } catch (System.Exception e)
         {
             Debug.Log(e);

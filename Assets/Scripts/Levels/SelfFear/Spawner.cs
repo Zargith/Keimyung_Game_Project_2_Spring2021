@@ -4,33 +4,27 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject perso;
-    [SerializeField] private GameObject clone;
-    [SerializeField] private GameObject[] interrupteur;
-    Vector3 posPerso;
-    Vector3 posClone;
+	[SerializeField] GameObject prefabBlock;
+	[SerializeField] float frequencyOfOccurrence = 1.0f;
+	float timer = 0f;
 
-    void Awake()
-    {
-        posClone = clone.transform.position;
-        posPerso = perso.transform.position;
-    }
+	void Start()
+	{
+		timer = frequencyOfOccurrence;
+	}
 
+	void Update()
+	{
+		timer -= Time.deltaTime;
+		if (timer <= 0f) {
+			Instantiate(prefabBlock, this.transform);
+			timer = frequencyOfOccurrence;
+		}
 
-    // Update is called once per frame
-    void Update()
-    {
-        // if (perso.GetComponent<ButtonColision>().GetCollideNmyState() || clone.GetComponent<ButtonColision>().GetCollideNmyState()) {
-        //     RestartGame();
-        // }
-    }
+	}
 
-    private void RestartGame()
-    {
-        perso.transform.position = posPerso;
-        clone.transform.position = posClone;
-        for (int i = 0 ; i < interrupteur.Length ; ++i) {
-            interrupteur[i].GetComponent<Reset>().ResetInterrupteur();
-        }
-    }
+	IEnumerator SpawnBlocks()
+	{
+		yield return new WaitForSeconds(frequencyOfOccurrence);
+	}
 }

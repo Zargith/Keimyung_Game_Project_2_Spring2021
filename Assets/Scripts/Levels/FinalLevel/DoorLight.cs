@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorLight : MonoBehaviour
 {
-    [SerializeField] private float playerSpeed = 3.0f;
     [SerializeField] private FollowPlayer firefly;
 
     // Start is called before the first frame update
@@ -23,7 +22,6 @@ public class DoorLight : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            collision.gameObject.GetComponent<FinalPlayer>().playerSpeed = playerSpeed;
             firefly.SetTarget(collision.gameObject.transform);
         }
     }

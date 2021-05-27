@@ -27,6 +27,10 @@ public class TutoGameManager : MonoBehaviour
 		textMesh.text = "";
 		StartCoroutine(displayText());
 		cameraAudioSource.enabled = false;
+		PlayerPrefs.SetInt("SelfFear", 0);
+		PlayerPrefs.SetInt("HypochondriacFear", 0);
+		PlayerPrefs.SetInt("SportFear", 0);
+		PlayerPrefs.SetInt("OthersFear", 0);
 	}
 
 	void Update()

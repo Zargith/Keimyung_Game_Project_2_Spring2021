@@ -5,4 +5,6 @@ public abstract class PositionableGraphic : PrefabReceiver
     public abstract void Init(PositionProvider pp);
 
     public abstract void Draw();
+
+    public abstract void Cleanup();
 }
