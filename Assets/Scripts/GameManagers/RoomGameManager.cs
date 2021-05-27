@@ -38,6 +38,7 @@ public class RoomGameManager : MonoBehaviour
 
 	void Start()
 	{
+		Time.timeScale = 1;
 		setSpriteIfFearFinished(mirror, "SelfFear", selfFearFinished, selfFearNotFinished);
 		setSpriteIfFearFinished(dresser, "HypochondriacFear", hypochondriacFearFinished, hypochondriacFearNotFinished);
 		setSpriteIfFearFinished(gel, "HypochondriacFear", gelHypochondriacFearFinished, gelHypochondriacFearNotFinished);

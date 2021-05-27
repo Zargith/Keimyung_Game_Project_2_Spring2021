@@ -9,15 +9,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Resume()
     {
-        Debug.Log("PauseMenu - Resume");
-        //TODO
-        // Time resume eventually
-        // deactive pause panel already did
     }
 
     public void StartMenu()
     {
-        Debug.Log("PauseMenu - Start Menu");
         SceneManager.LoadScene(startMenuScene);
     }
 }
