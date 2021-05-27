@@ -9,14 +9,13 @@ public class DisableMenuButton : MonoBehaviour
     [SerializeField] GameObject menu;
     [SerializeField] bool pastState;
 
-    // Update is called once per frame
+
     void Update()
     {
         if (pastState != menu.activeSelf) {
             pastState = !pastState;
             for (int i = 0 ; i < buttons.Count ; i++)
                 buttons[i].enabled = !pastState;
-            Debug.Log("change");
         }
     }
 

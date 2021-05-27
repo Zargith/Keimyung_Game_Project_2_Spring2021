@@ -5321,10 +5321,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PausePrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3290408229145627022, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -8039,7 +8035,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1490331525179828358, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
   m_PrefabInstance: {fileID: 1341765312}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1469917102
+--- !u!114 &1469917103
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8048,11 +8044,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1469917101}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b528e982cd6744caadf6299141f3f4, type: 3}
+  m_Script: {fileID: 11500000, guid: a9cff93f57b26b94a8ba11225b1af4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   elemDisplayed: {fileID: 882918505}
   sceneName: Room
+  levelPlayerPrefName: DidTuto
 --- !u!1001 &1494405038
 PrefabInstance:
   m_ObjectHideFlags: 0

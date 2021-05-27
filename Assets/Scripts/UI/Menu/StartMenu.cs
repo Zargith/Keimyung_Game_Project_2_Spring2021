@@ -5,15 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
-    public string gameEntryPointScene;
+	[SerializeField] string TutoSceneName;
+	[SerializeField] string RoomSceneName;
 
-    public void Play()
-    {
-        SceneManager.LoadScene(gameEntryPointScene);
-    }
+	public void NewGame()
+	{
+		SceneManager.LoadScene(TutoSceneName);
+	}
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
+	public void ContinueGame()
+	{
+		SceneManager.LoadScene(RoomSceneName);
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
+	}
 }

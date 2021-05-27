@@ -20,7 +20,6 @@ public class ChangeVolume : MonoBehaviour
 	public void SetVolume()
 	{
 		float sliderValue = slider.value;
-		Debug.Log(Mathf.Log10(Mathf.Max(sliderValue, 0.0001f)) * 20);
 		mixer.SetFloat(exposedGroupeName, Mathf.Log10(Mathf.Max(sliderValue, 0.0001f)) * 20);
 		PlayerPrefs.SetFloat(exposedGroupeName, sliderValue);
 	}
