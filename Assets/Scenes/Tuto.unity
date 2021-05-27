@@ -5321,6 +5321,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PausePrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3290408229145627022, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
       propertyPath: m_RootOrder
       value: 12
