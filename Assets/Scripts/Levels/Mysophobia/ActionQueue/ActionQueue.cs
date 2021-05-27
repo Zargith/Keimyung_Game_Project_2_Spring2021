@@ -58,7 +58,7 @@ public class ActionQueue : PositionableGraphic
         {
             Destroy(obj);
         }
-
+        _index = 0;
         SetMaxAction(initialMaxActions);
         Draw();
     }

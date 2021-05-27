@@ -34,6 +34,8 @@ public class LevelManager : MonoBehaviour
 
     private GameObject _loseMenu;
 
+    private bool _loseMenuOpen;
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,7 @@ public class LevelManager : MonoBehaviour
         _mapProvider = new MapProvider();
         _mysophobiaMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "MysophobiaMenu");
         _loseMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "LoseMenu");
+        _loseMenuOpen = false;
         GetMapPaths();
         _mysophobiaMenu.GetComponentInChildren<ListCreator>().Draw(GetShortFileNames(freeplayPaths), freeplayPaths);
         _level = new Level(_cam);
@@ -51,7 +54,6 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _level.Update();
         if (_level.Finished)
         {
             if (_level.Status == Level.State.WIN)
@@ -70,8 +72,12 @@ public class LevelManager : MonoBehaviour
                 }
             } else
             {
-                _loseMenu.SetActive(true);
+                if (!_loseMenuOpen)
+                    LoseMenu();
             }
+        } else
+        {
+            _level.Update();
         }
     }
 
@@ -94,7 +100,10 @@ public class LevelManager : MonoBehaviour
 
     public void Retry()
     {
+        Debug.Log("Retry");
+        _loseMenuOpen = false;
         _level.ResetGame();
+        Time.timeScale = 1;
     }
     private void NextLevel(bool cleanup)
     {
@@ -102,6 +111,13 @@ public class LevelManager : MonoBehaviour
             _level.Clean();
         _mapProvider.LoadFromDisk(campaignPaths[_campaignIndex]);
         _level.Start(_mapProvider.MapInfos);
+    }
+
+    private void LoseMenu()
+    {
+        _loseMenuOpen = true;
+        Time.timeScale = 0;
+        _loseMenu.SetActive(true);
     }
 
     private void Exit()

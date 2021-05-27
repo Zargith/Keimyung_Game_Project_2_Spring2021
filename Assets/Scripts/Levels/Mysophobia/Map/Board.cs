@@ -83,7 +83,7 @@ public class Board : PositionableGraphic
             Destroy(kvp.Value);
         _virusInstances.Clear();
         Destroy(_player.Instance);
-        _map = _initialMap;
+        //_map = _initialMap;
     }
 
     public void SetMap(byte[,] map)
@@ -95,12 +95,14 @@ public class Board : PositionableGraphic
     public void Reset()
     {
         MoveEntity(_player.Instance, _player.InitialPos);
+        _player.ResetPos();
         foreach (KeyValuePair<Vector2Int, GameObject> kvp in _virusInstances)
         {
+            _map[kvp.Key.x, kvp.Key.y] = 1;
             Destroy(kvp.Value);
         }
         _virusInstances.Clear();
-        _map = _initialMap;
+        //_map = _initialMap;
     }
 
     public bool IsWin()

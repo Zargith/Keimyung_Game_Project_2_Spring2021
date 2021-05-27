@@ -18,6 +18,12 @@ public class Player
         Direction = Board.Direction.UP;
     }
 
+    public void ResetPos()
+    {
+        BoardPos = InitialPos;
+        Direction = Board.Direction.UP;
+    }
+
     public bool Move(Board.Direction direction, Func<GameObject, Vector2Int, bool> moveFunction)
     {
         Debug.Log("Player Try move: " + direction);
