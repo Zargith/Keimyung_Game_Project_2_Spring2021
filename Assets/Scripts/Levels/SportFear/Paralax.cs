@@ -6,14 +6,13 @@ public class Paralax : MonoBehaviour
 {
     [SerializeField] float speed;
     float savedSpeed;
-    [SerializeField] float dest;
-    [SerializeField] float rest;
-
+    SpriteRenderer a;
 
     private void OnEnable()
     {
         SportGameOver.OnGameOver += stop;
         SportGameOver.OnRestart += restart;
+        a = GetComponent<SpriteRenderer>();
     }
 
     private void OnDisable()
@@ -26,11 +25,7 @@ public class Paralax : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime;
-        if (transform.position.x <= dest)
-        {
-            transform.position = new Vector3(rest, transform.position.y, transform.position.z);
-        }
+        a.material.mainTextureOffset = new Vector2(Time.time * speed, 0f);
     }
 
     public void stop()
