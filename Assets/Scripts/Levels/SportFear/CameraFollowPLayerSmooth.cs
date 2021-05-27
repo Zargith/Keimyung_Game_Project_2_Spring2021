@@ -110,8 +110,6 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
         haveFallen = false;
         haveToMoveB = false;
         isPositioning = false;
-        elapsedTimeB = 0;
-        elapsedTimeHaveToMoveB = 0;
         transform.position = new Vector3(0, 0, -10);
     }
 
