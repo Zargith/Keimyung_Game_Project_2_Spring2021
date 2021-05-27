@@ -9,6 +9,7 @@ public class CollectItem : MonoBehaviour
     Animator anim;
     CameraFollowPLayerSmooth cam;
     public GameObject ToShow;
+    Paralax[] pp;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class CollectItem : MonoBehaviour
         map = GameObject.FindObjectOfType<MapScroller>();
         anim = GetComponent<Animator>();
         cam = GameObject.FindObjectOfType<CameraFollowPLayerSmooth>();
+        pp = FindObjectsOfType<Paralax>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,6 +25,10 @@ public class CollectItem : MonoBehaviour
         {
             player.GetComponent<PlayerSportController>().stop();
             map.stop();
+            foreach(Paralax p in pp)
+            {
+                p.stop();
+            }
             anim.SetBool("collected", true);
             Invoke("selfDestroy", 3);
             ToShow.SetActive(true);
@@ -35,6 +41,10 @@ public class CollectItem : MonoBehaviour
         map.restart();
         cam.replace();
         map.removeFromChunk(transform);
+        foreach (Paralax p in pp)
+        {
+            p.restart();
+        }
     }
    
 }

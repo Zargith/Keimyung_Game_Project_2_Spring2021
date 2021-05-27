@@ -8,12 +8,14 @@ public class SportEndDoor : MonoBehaviour
 
     [SerializeField] GameObject obj;
     MapScroller map;
-
+    Paralax[] pp;
     bool touched = false;
 
     private void Start()
     {
         map = FindObjectOfType<MapScroller>();
+        pp = FindObjectsOfType<Paralax>();
+
     }
 
     private void Update()
@@ -35,6 +37,10 @@ public class SportEndDoor : MonoBehaviour
             GameObject.Find("BALL").SetActive(false);
             obj.SetActive(true);
             touched = true;
+            foreach (Paralax p in pp)
+            {
+                p.stop();
+            }
         }
     }
 

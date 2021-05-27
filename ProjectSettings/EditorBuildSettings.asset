@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OthersFear.unity
     guid: 55e90c5a23a20d4409593b0eb7ae7197
+  - enabled: 1
+    path: Assets/Scenes/MysophobiaLevel.unity
+    guid: c7c2c06a39f719b4193f5c5d4961b701
   m_configObjects: {}
