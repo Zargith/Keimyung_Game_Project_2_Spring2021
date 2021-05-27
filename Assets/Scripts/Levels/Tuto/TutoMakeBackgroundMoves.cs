@@ -22,8 +22,8 @@ public class TutoMakeBackgroundMoves : MonoBehaviour
 		Vector2 playerPostion = player.transform.position;
 		if (isPlayerMoving() && playerPostion.x > limitXmin && playerPostion.x < limitXmax) {
 			foreach (Transform child in transform) {
-				float offset = playerOrientation * moveSpeed;
-				child.localPosition = new Vector2(child.localPosition.x + (getPlayerOrintation() * moveSpeed), child.localPosition.y);
+				float offset = playerOrientation * moveSpeed * Time.deltaTime;
+				child.localPosition = new Vector2(child.localPosition.x + (getPlayerOrintation() * offset), child.localPosition.y);
 			}
 		}
 	}

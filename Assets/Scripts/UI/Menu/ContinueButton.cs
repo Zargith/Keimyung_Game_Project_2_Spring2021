@@ -6,11 +6,20 @@ using UnityEngine.UI;
 public class ContinueButton : MonoBehaviour
 {
 	[SerializeField] Button ButtonToEnable;
+	[SerializeField] Color enabledColor;
+	[SerializeField] Color disabledColor;
+
 
 	void Start()
 	{
-		if (checkIfTutoDone())
+		Text buttonsText = ButtonToEnable.transform.GetChild(0).GetComponent<Text>();
+		if (checkIfTutoDone()) {
 			ButtonToEnable.interactable = true;
+			buttonsText.color = enabledColor;
+		} else {
+			ButtonToEnable.interactable = false;
+			buttonsText.color = disabledColor;
+		}
 	}
 
 	bool checkIfTutoDone()

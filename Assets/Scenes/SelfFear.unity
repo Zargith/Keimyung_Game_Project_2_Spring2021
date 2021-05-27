@@ -133,7 +133,6 @@ GameObject:
   m_Component:
   - component: {fileID: 227060}
   - component: {fileID: 227059}
-  - component: {fileID: 227058}
   - component: {fileID: 227057}
   m_Layer: 0
   m_Name: interrupteur3
@@ -168,27 +167,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.43, y: 0.72}
   m_EdgeRadius: 0
---- !u!50 &227058
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 227056}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!212 &227059
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -265,7 +243,6 @@ GameObject:
   m_Component:
   - component: {fileID: 22995288}
   - component: {fileID: 22995289}
-  - component: {fileID: 22995291}
   - component: {fileID: 22995290}
   m_Layer: 0
   m_Name: interrupteur5
@@ -366,27 +343,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.43, y: 0.72}
   m_EdgeRadius: 0
---- !u!50 &22995291
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 22995287}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!4 &29451779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1851731713796116552, guid: 7823547d87b77b04ba1cdde38d07825e, type: 3}
@@ -2020,8 +1976,6 @@ GameObject:
   - component: {fileID: 336223231}
   - component: {fileID: 336223230}
   - component: {fileID: 336223229}
-  - component: {fileID: 336223228}
-  - component: {fileID: 336223227}
   m_Layer: 0
   m_Name: interrupteur2
   m_TagString: Untagged
@@ -2029,30 +1983,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &336223227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336223226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90207d98da50a014cb8c9ca7dcaed918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &336223228
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336223226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4d9700569824a14594329d924220f7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &336223229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12500,7 +12430,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1724261285}
   - component: {fileID: 1724261288}
-  - component: {fileID: 1724261287}
   - component: {fileID: 1724261286}
   m_Layer: 0
   m_Name: interrupteur4
@@ -12550,27 +12479,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.43, y: 0.72}
   m_EdgeRadius: 0
---- !u!50 &1724261287
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1724261284}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!212 &1724261288
 SpriteRenderer:
   m_ObjectHideFlags: 0
