@@ -252,6 +252,10 @@ PrefabInstance:
       propertyPath: quote
       value: AH! you disgust me! go away!
       objectReference: {fileID: 0}
+    - target: {fileID: 137425516486885991, guid: 30de0c2807c546d438ddad2a22bdca43, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3006400109941699359, guid: 30de0c2807c546d438ddad2a22bdca43, type: 3}
       propertyPath: m_Name
       value: FloatingHead (2)
@@ -2948,7 +2952,7 @@ PrefabInstance:
     - target: {fileID: 8565283366789454767, guid: 5be902c4c4de2fa48a76153fd8922cff, type: 3}
       propertyPath: distract
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1582017881}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5be902c4c4de2fa48a76153fd8922cff, type: 3}
 --- !u!4 &1210410138 stripped
@@ -3978,6 +3982,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32535f07847b8884bb08cf120d436e24, type: 3}
+--- !u!114 &1582017881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 137425516486885991, guid: 30de0c2807c546d438ddad2a22bdca43, type: 3}
+  m_PrefabInstance: {fileID: 62507024}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a5ef4557c13f54c832a908729d2c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1601079380 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 137425516486885991, guid: 30de0c2807c546d438ddad2a22bdca43, type: 3}
+  m_PrefabInstance: {fileID: 1372380630}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a5ef4557c13f54c832a908729d2c71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1618973932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7328363584085461635, guid: 2acfe3c8c0dc5c442980db942567ca47, type: 3}
@@ -5255,7 +5281,7 @@ PrefabInstance:
     - target: {fileID: 8565283366789454767, guid: 5be902c4c4de2fa48a76153fd8922cff, type: 3}
       propertyPath: distract
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1601079380}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5be902c4c4de2fa48a76153fd8922cff, type: 3}
 --- !u!1001 &8271980614880284670
