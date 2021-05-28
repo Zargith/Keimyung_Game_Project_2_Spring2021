@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class OnTriggerEnterResetGame : MonoBehaviour
 {
-	[SerializeField] SelfFearGameManager selfFearGameManager;
+	public SelfFearGameManager selfFearGameManager;
 	AudioSource audioSource;
 
 	void Start()

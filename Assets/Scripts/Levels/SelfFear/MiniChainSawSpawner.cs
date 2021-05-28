@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class MiniChainSawSpawner : MonoBehaviour
 {
+	[SerializeField] SelfFearGameManager selfFearGameManager;
 	[SerializeField] GameObject prefabBlock;
 	[SerializeField] float frequencyOfOccurrence = 1.0f;
 	float timer = 0f;
@@ -17,7 +18,8 @@ public class Spawner : MonoBehaviour
 	{
 		timer -= Time.deltaTime;
 		if (timer <= 0f) {
-			Instantiate(prefabBlock, this.transform);
+			GameObject miniChainSaw = Instantiate(prefabBlock, this.transform);
+			miniChainSaw.GetComponent<OnTriggerEnterResetGame>().selfFearGameManager = selfFearGameManager;
 			timer = frequencyOfOccurrence;
 		}
 	}
