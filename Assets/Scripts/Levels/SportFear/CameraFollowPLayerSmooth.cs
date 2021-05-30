@@ -29,6 +29,8 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
     Vector3 vb;
     float vt;
 
+    public bool _followPlayer = false;
+
     private void OnEnable()
     {
         SportGameOver.OnRestart += replace;
@@ -50,7 +52,8 @@ public class CameraFollowPLayerSmooth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (_followPlayer) transform.position = new Vector3(transform.position.x, player.position.y + playerOffset, transform.position.z);
+        return;
         if (isPositioning)
         {
             transform.position = Vector3.Lerp(va, vb, vt / 6);
