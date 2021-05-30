@@ -11,6 +11,7 @@ public class OthersFearPlayer : MonoBehaviour
     bool groundedPlayer;
     AudioSource audioSource;
     [SerializeField] AudioClip footsteps;
+    [SerializeField] AudioClip jump;
     public List<OthersFear_Item.EnumOthersFearItemType> inventory;
     public OthersFearEnemy scaredOf;
 
@@ -41,6 +42,8 @@ public class OthersFearPlayer : MonoBehaviour
             if (Input.GetButton("Jump") && rb.velocity.y == 0)
             {
                 rb.AddForce(new Vector2(0, jumpStrenght), ForceMode2D.Impulse);
+                audioSource.PlayOneShot(jump);
+                audioSource.volume = 0.05f;
             }
             else
             {
@@ -53,23 +56,34 @@ public class OthersFearPlayer : MonoBehaviour
 
     private void Move()
     {
+        if (Mathf.Abs(rb.velocity.x) == 0 || !IsGrounded())
+        {
+            audioSource.clip = null;
+        }
+        else
+        {
+            audioSource.clip = footsteps;
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+                audioSource.volume = 0.25f;
+            }
+        }
+
         if (Mathf.Abs(rb.velocity.x) == 0)
         {
             anim.SetBool("isWalking", false);
             anim.SetBool("isRunning", false);
-            audioSource.Pause();
         }
         else if (Mathf.Abs(rb.velocity.x) <= 1.5f)
         {
             anim.SetBool("isWalking", true);
             anim.SetBool("isRunning", false);
-            audioSource.UnPause();
         }
         else
         {
             anim.SetBool("isWalking", false);
             anim.SetBool("isRunning", true);
-            audioSource.UnPause();
         }
     }
 
