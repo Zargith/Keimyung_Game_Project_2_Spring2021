@@ -41,7 +41,6 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Level manager start");
         _mapProvider = new MapProvider();
         _root = GameObject.Find("Root");
         _mysophobiaMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "MysophobiaMenu");

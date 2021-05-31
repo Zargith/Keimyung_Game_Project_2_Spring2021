@@ -4683,7 +4683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8163302936234895650, guid: 1aa2450cfc8cbb74f902b39efbe85604, type: 3}
       propertyPath: m_Text
-      value: Press E to intract
+      value: Press 'E' to intract
       objectReference: {fileID: 0}
     - target: {fileID: 8163302936234895650, guid: 1aa2450cfc8cbb74f902b39efbe85604, type: 3}
       propertyPath: m_OffsetZ

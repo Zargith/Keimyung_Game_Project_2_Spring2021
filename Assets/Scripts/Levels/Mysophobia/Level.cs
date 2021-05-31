@@ -46,14 +46,12 @@ public class Level
     } 
     public void Start(Map mapInfos)
     {
-        Debug.Log("Start a new level");
         PositionProvider pp;
 
         Loaded = true;
         _mapInfos = mapInfos;
         _turn = 0;
         Finished = false;
-        Debug.Log(mapInfos.Lives);
         _lives = mapInfos.Lives;
         _board.PassThroughVirus = mapInfos.passThroughtVirus;
 
@@ -148,7 +146,7 @@ public class Level
                     break;
                 }
                 if (spell.Instant)
-                {                //TODO a refaire dégueulasse
+                {                //TODO a refaire dï¿½gueulasse
                     if (spell.type == InputAction.Spell.DELETE_VIRUS)
                     {
                         _board.DeleteVirus();

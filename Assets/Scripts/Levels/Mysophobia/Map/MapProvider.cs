@@ -13,7 +13,6 @@ public class MapProvider
     }
     public void LoadFromDisk(string path)
     {
-        Debug.Log("Load map: " + path);
         FileInfo info = new FileInfo(path);
         byte[,] mapData;
         int rowsLength;
