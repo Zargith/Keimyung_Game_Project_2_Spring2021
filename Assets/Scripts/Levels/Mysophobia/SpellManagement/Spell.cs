@@ -20,9 +20,9 @@ public class Spell
 
     private Color gold = new Color(255, 215, 0);
 
-    private Image _icon;
+    private Image _icon = null;
 
-    private Text _dataDisplay;
+    private Text _dataDisplay = null;
 
     public Spell(InputAction.Spell type, ReloadType reloadType, int reloadData, bool instant)
     {
@@ -40,7 +40,8 @@ public class Spell
                 break;
             case ReloadType.COOLDOWN:
                 _actualReloadData = 0;
-                _icon.color = Color.white;
+                if (_icon != null)
+                    _icon.color = Color.white;
                 break;
         }
     }
