@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,6 +31,8 @@ public class LevelManager : MonoBehaviour
 
     private GameObject _mysophobiaMenu;
 
+    private GameObject _root;
+
     private GameObject _loseMenu;
 
     private bool _loseMenuOpen;
@@ -42,6 +43,7 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Level manager start");
         _mapProvider = new MapProvider();
+        _root = GameObject.Find("Root");
         _mysophobiaMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "MysophobiaMenu");
         _loseMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "LoseMenu");
         _loseMenuOpen = false;
@@ -62,12 +64,18 @@ public class LevelManager : MonoBehaviour
                 {
                     case Mode.CAMPAIGN:
                         if (_campaignIndex == campaignPaths.Length - 1)
+                        {
+                            PlayerPrefs.SetInt("HypochondriacFear", 1);
                             Exit();
+                        }
                         else
+                        {
+                            _campaignIndex++;
                             NextLevel(true);
+                        }
                         break;
                     case Mode.FREEPLAY:
-                        _mysophobiaMenu.GetComponentInChildren<MysophobiaMenuManager>().DisplayFreeplayMenu();
+                        _root.GetComponent<MysophobiaMenuManager>().DisplayFreeplayMenu();
                         break;
                 }
             } else

@@ -11,9 +11,13 @@ public class Board : PositionableGraphic
         RIGHT = 2,
         LEFT = 3
     }
-    private byte[,] _initialMap;
+    //private byte[,] _initialMap;
 
     private byte[,] _map;
+
+    public bool PassThroughVirus = false;
+
+    //private bool _firstPassThrough = true;
 
     private List<GameObject> _squareInstance;
 
@@ -88,7 +92,7 @@ public class Board : PositionableGraphic
 
     public void SetMap(byte[,] map)
     {
-        _initialMap = map;
+        //_initialMap = map;
         _map = map;
     }
 
@@ -162,8 +166,12 @@ public class Board : PositionableGraphic
             Debug.Log("Move failed: Wall");
             return (false);
         }
-        if (_map[boardPos.x, boardPos.y] == 3)
+        if (_map[boardPos.x, boardPos.y] == 3 && !PassThroughVirus)
         {
+            /*if (_firstPassThrough)
+            {
+                _firstPassThrough = false;
+            }*/
             Debug.Log("Move failed: Virus");
             return (false);
         }
@@ -214,4 +222,14 @@ public class Board : PositionableGraphic
     {
         return !(boardPos.x < 0 || boardPos.x >= _pp.MapSize.x || boardPos.y < 0 || boardPos.y >= _pp.MapSize.y);
     }
+
+    /*private IEnumerator popPassThroughText()
+    {
+        GameObject container = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "");
+
+        container.SetActive(true);
+        yield return new WaitForSeconds(3);
+        container.SetActive(false);
+        yield return null;
+    }*/
 }

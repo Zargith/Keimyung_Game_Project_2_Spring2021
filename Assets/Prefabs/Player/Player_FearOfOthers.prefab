@@ -189,7 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSpeed: 3
   jumpStrenght: 2
-  footsteps: {fileID: 0}
+  footsteps: {fileID: 8300000, guid: 5483a4b3fde5a9248aef5e3879989748, type: 3}
+  jump: {fileID: 8300000, guid: 107dd022f749b35449967ba2967414f8, type: 3}
   inventory: 
   scaredOf: {fileID: 0}
   groundLayer:
