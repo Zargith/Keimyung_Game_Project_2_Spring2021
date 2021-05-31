@@ -1,4 +1,3 @@
-using System;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -64,11 +63,13 @@ public class LevelManager : MonoBehaviour
                 switch (_mode)
                 {
                     case Mode.CAMPAIGN:
-                        _campaignIndex++;
                         if (_campaignIndex == campaignPaths.Length - 1)
                             Exit();
                         else
+                        {
+                            _campaignIndex++;
                             NextLevel(true);
+                        }
                         break;
                     case Mode.FREEPLAY:
                         _root.GetComponent<MysophobiaMenuManager>().DisplayFreeplayMenu();
