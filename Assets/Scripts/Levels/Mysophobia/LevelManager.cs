@@ -64,7 +64,10 @@ public class LevelManager : MonoBehaviour
                 {
                     case Mode.CAMPAIGN:
                         if (_campaignIndex == campaignPaths.Length - 1)
+                        {
+                            PlayerPrefs.SetInt("HypochondriacFear", 1);
                             Exit();
+                        }
                         else
                         {
                             _campaignIndex++;
