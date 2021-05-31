@@ -55,6 +55,7 @@ public class Level
         Finished = false;
         Debug.Log(mapInfos.Lives);
         _lives = mapInfos.Lives;
+        _board.PassThroughVirus = mapInfos.passThroughtVirus;
 
         pp = new PositionProvider(new Vector2(0, 0), new Vector2Int(mapInfos.Rows, mapInfos.Cols), 1); // tmp
 
@@ -91,7 +92,7 @@ public class Level
         _displayManager = new DisplayManager();
         _displayManager.AddText("LivesText", "Lives");
         _displayManager.Texts["Lives"].Update(_lives.ToString());
-        }
+    }
 
     public void Update()
     {

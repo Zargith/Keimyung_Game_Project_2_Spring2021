@@ -15,6 +15,8 @@ public class Board : PositionableGraphic
 
     private byte[,] _map;
 
+    public bool PassThroughVirus = false;
+
     private List<GameObject> _squareInstance;
 
     private Player _player;
@@ -162,7 +164,7 @@ public class Board : PositionableGraphic
             Debug.Log("Move failed: Wall");
             return (false);
         }
-        if (_map[boardPos.x, boardPos.y] == 3)
+        if (_map[boardPos.x, boardPos.y] == 3 && !PassThroughVirus)
         {
             Debug.Log("Move failed: Virus");
             return (false);

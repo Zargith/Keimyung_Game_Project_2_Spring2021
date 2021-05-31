@@ -6,4 +6,5 @@ public class Map
     public int Lives;
     public int SprayUses;
     public int AccelerationCD;
+    public bool passThroughtVirus;
 }

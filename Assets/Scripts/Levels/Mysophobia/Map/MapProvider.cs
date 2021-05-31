@@ -21,6 +21,7 @@ public class MapProvider
         int lives;
         int accelerationCD;
         int sprayUses;
+        int passThrought = 0;
 
         if (!info.Exists)
         {
@@ -40,7 +41,11 @@ public class MapProvider
             columnsLength = int.Parse(split[1]);
             lives = int.Parse(split[2]);
             accelerationCD = int.Parse(split[3]);
-            sprayUses = int.Parse(split[4]); ;
+            sprayUses = int.Parse(split[4]);
+            if (split.Length == 6)
+            {
+                passThrought = int.Parse(split[5]);
+            }
             mapData = new byte[rowsLength, columnsLength];
 
             for (int i = 0; i < rowsLength; i++)
@@ -59,6 +64,7 @@ public class MapProvider
             MapInfos.Lives = lives;
             MapInfos.AccelerationCD = accelerationCD;
             MapInfos.SprayUses = sprayUses;
+            MapInfos.passThroughtVirus = passThrought == 1;
         } catch (System.Exception e)
         {
             Debug.Log(e);
