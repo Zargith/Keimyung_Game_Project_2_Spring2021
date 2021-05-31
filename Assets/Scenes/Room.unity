@@ -2247,7 +2247,7 @@ MonoBehaviour:
   textMesh: {fileID: 534121273210936333}
   playerPrefName: OthersFear
   textIfPlayerPrefFalse: Why do people hate me ?
-  textIfPlayerPrefTrue: People on the internet are sometimes meany. i just have to
+  textIfPlayerPrefTrue: People on the internet are sometimes meany. I just have to
     ignore them and focus on what I like !
   maxStringLength: 30
   timeInSecondsDisplayEachTextLine: 2
