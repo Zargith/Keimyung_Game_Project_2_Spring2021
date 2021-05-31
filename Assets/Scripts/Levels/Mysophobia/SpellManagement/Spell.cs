@@ -40,6 +40,7 @@ public class Spell
                 break;
             case ReloadType.COOLDOWN:
                 _actualReloadData = 0;
+                _icon.color = Color.white;
                 break;
         }
     }
