@@ -27,6 +27,7 @@ public class ExitLevel : MonoBehaviour
     {
         if (trigger.activeSelf && Input.GetButtonDown("Interact"))
         {
+            GetComponent<AudioSource>().Play();
             PlayerPrefs.SetInt(LevelPref, 1);
             SceneManager.LoadScene("Room");
         }

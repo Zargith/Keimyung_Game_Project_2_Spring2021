@@ -25,7 +25,7 @@ public class Paralax : MonoBehaviour
 
     void Update()
     {
-        a.material.mainTextureOffset = new Vector2(Time.time * speed, 0f);
+        a.material.mainTextureOffset += new Vector2((Time.deltaTime * speed) % 1, 0);
     }
 
     public void stop()
