@@ -3562,19 +3562,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526382, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_Size.x
-      value: 2.0288258
+      value: 1.8925915
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526382, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_Size.y
-      value: 4.2020674
+      value: 3.568458
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526382, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_Offset.x
-      value: -4.857629
+      value: -6.3269997
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526382, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_Offset.y
-      value: 0.14039874
+      value: 0.6092701
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526383, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_RootOrder
@@ -3582,11 +3582,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526383, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1
+      value: 4.34
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526383, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -1.66
       objectReference: {fileID: 0}
     - target: {fileID: 1572050151106526383, guid: a9996750b6c53f246bca9113398b1180, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4543,7 +4543,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -4574,12 +4574,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!4 &1244435691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 387919885468744892, guid: 5d74f5f1ef30b094bb63e139d144b82a, type: 3}
