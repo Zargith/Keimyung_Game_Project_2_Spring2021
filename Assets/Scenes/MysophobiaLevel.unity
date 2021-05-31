@@ -288,7 +288,6 @@ GameObject:
   - component: {fileID: 339502585}
   - component: {fileID: 339502584}
   - component: {fileID: 339502586}
-  - component: {fileID: 339502587}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -338,19 +337,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 397315867}
---- !u!114 &339502587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339502583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8c09d2bfd77eff4cb3a00bd85405de2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MysophobiaMenu: {fileID: 1757544020}
 --- !u!1 &397315867 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1447610884725579063, guid: f2fc09f56e8bc7647827cad439c45a9d, type: 3}
@@ -1388,6 +1374,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 248338808424956664, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
   m_PrefabInstance: {fileID: 1041395290}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1757544021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1757544020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c09d2bfd77eff4cb3a00bd85405de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MysophobiaMenu: {fileID: 1757544020}
 --- !u!1001 &1839474302
 PrefabInstance:
   m_ObjectHideFlags: 0
