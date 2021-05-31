@@ -30,7 +30,6 @@ public class OthersFearPnj : MonoBehaviour
         }
         else if (move_to_target)
         {
-            print((transform.position - distract.GetDistractPos()).magnitude);
             transform.position += (distract.GetDistractPos() - transform.position).normalized * speed * Time.deltaTime;
             if ((transform.position - distract.GetDistractPos()).magnitude < 0.05)
             {
