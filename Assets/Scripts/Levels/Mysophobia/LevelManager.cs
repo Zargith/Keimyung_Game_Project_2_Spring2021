@@ -11,7 +11,7 @@ public class LevelManager : MonoBehaviour
         FREEPLAY
     }
 
-    private const string mapDir = "Assets/Resources/Mysophobia/Maps/";
+    private const string mapDir = "Maps/";
 
     [SerializeField] private Camera _cam;
 
@@ -116,7 +116,7 @@ public class LevelManager : MonoBehaviour
     {
         if (cleanup)
             _level.Clean();
-        _mapProvider.LoadFromDisk(campaignPaths[_campaignIndex]);
+        _mapProvider.LoadFromDisk("Maps/Campaign/" + GetShortFileNames(campaignPaths)[_campaignIndex] + ".txt");
         _level.Start(_mapProvider.MapInfos);
     }
 
@@ -133,8 +133,8 @@ public class LevelManager : MonoBehaviour
     }
     private void GetMapPaths()
     {
-        campaignPaths = Directory.GetFiles(mapDir + "Campaign/", "*.txt");
-        freeplayPaths = Directory.GetFiles(mapDir + "Freeplay/", "*.txt");
+        campaignPaths = Directory.GetFiles("Assets/Resources/" + mapDir + "Campaign/", "*.txt");
+        freeplayPaths = Directory.GetFiles("Assets/Resources/" + mapDir + "Freeplay/", "*.txt");
     }
 
     private string[] GetShortFileNames(string[] paths)

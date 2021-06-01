@@ -32,7 +32,7 @@ public class ListCreator : MonoBehaviour
         {
             Vector3 pos = new Vector3(SpawnPoint.position.x, -(i * 60), SpawnPoint.position.z);
             GameObject SpawnedItem = Instantiate(item, pos, SpawnPoint.rotation);
-            SpawnedItem.transform.SetParent(SpawnPoint, false);
+            //SpawnedItem.transform.SetParent(SpawnPoint, false);
             Button button = SpawnedItem.GetComponentInChildren<Button>();
             Text text = SpawnedItem.GetComponentInChildren<Text>();
             string path = paths[i];
