@@ -385,6 +385,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cam: {fileID: 2118339738}
   _exitScene: LevelsHub
+  _mysophobiaMenu: {fileID: 1757544020}
+  _loseMenu: {fileID: 1011101996}
 --- !u!4 &339502585
 Transform:
   m_ObjectHideFlags: 0
@@ -736,7 +738,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2830763505220897933, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2988067598988848356, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
       propertyPath: m_AnchorMax.x
@@ -749,6 +751,14 @@ PrefabInstance:
     - target: {fileID: 2988067598988848356, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
       propertyPath: m_SizeDelta.x
       value: -17
+      objectReference: {fileID: 0}
+    - target: {fileID: 3775680655625050938, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2118339738}
+    - target: {fileID: 3775680655625050938, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5182897912739094583, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
@@ -774,10 +784,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6274734051848841330, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7273621405944744298, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
       propertyPath: Menu
       value: 
       objectReference: {fileID: 1757544020}
+    - target: {fileID: 7945079265474807082, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc66b40cbe156274a929d691f1d6c0ed, type: 3}
 --- !u!1 &1070797429
@@ -982,6 +1000,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8805518783279283004, guid: 6259fa6e538de27449e88d1855122980, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2118339738}
+    - target: {fileID: 8805518783279283004, guid: 6259fa6e538de27449e88d1855122980, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8972643877767551133, guid: 6259fa6e538de27449e88d1855122980, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 2
@@ -1156,7 +1182,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300971678}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5df8dc7dae9fe50468a9615883d93761, type: 3}
   m_Name: 
@@ -1176,6 +1202,10 @@ PrefabInstance:
     - target: {fileID: 4304291784227227074, guid: 449329facd6c9534788668d164f9ca5a, type: 3}
       propertyPath: m_Name
       value: LevelSceneManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304291784227227074, guid: 449329facd6c9534788668d164f9ca5a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4304291784227227075, guid: 449329facd6c9534788668d164f9ca5a, type: 3}
       propertyPath: m_RootOrder

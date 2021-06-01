@@ -23,19 +23,20 @@ public class ListCreator : MonoBehaviour
     }
 
     // Use this for initialization
-    public void Draw(string[] texts, string[] paths)
+    public void Draw(string[] texts)
     {
         content.sizeDelta = new Vector2(0, texts.Length * 60);
         int[] indexes = new int[texts.Length];
 
         for (int i = 0; i < texts.Length; i++)
         {
+            Debug.Log(texts[i]);
             Vector3 pos = new Vector3(SpawnPoint.position.x, -(i * 60), SpawnPoint.position.z);
             GameObject SpawnedItem = Instantiate(item, pos, SpawnPoint.rotation);
             //SpawnedItem.transform.SetParent(SpawnPoint, false);
             Button button = SpawnedItem.GetComponentInChildren<Button>();
             Text text = SpawnedItem.GetComponentInChildren<Text>();
-            string path = paths[i];
+            string path = texts[i];
             button.onClick.AddListener(DeactivateMenu);
             button.onClick.AddListener(() => { LoadLevel(path); });
             text.text = texts[i];

@@ -11,8 +11,18 @@ public class FreeplayMenu : MonoBehaviour
         _manager = GameObject.Find("Root").GetComponent<LevelManager>();
     }
 
-    public void launchMap(string path)
+    public void Campaign1()
     {
+        _manager.LoadFreeplayMap("campaign_1");
+    }
 
+    public void Campaign2()
+    {
+        _manager.LoadFreeplayMap("campaign_2");
+    }
+
+    public void Campaign3()
+    {
+        _manager.LoadFreeplayMap("campaign_3");
     }
 }

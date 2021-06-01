@@ -11,7 +11,9 @@ public class LevelManager : MonoBehaviour
         FREEPLAY
     }
 
-    private const string mapDir = "Maps/";
+    private const string campaignDir = "Maps/Campaign";
+
+    private const string freeplayDir = "Maps/Freeplay";
 
     [SerializeField] private Camera _cam;
 
@@ -19,9 +21,9 @@ public class LevelManager : MonoBehaviour
 
     private MapProvider _mapProvider;
 
-    private string[] campaignPaths;
+    private readonly string[] campaignPaths = { "campaign_1", "campaign_2", "campaign_3" };
 
-    private string[] freeplayPaths;
+    private string[] freeplayPaths = { "campaign_1", "campaign_2", "campaign_3" };
 
     private Mode _mode;
 
@@ -29,11 +31,11 @@ public class LevelManager : MonoBehaviour
 
     private Level _level;
 
-    private GameObject _mysophobiaMenu;
+    [SerializeField] private GameObject _mysophobiaMenu;
 
     private GameObject _root;
 
-    private GameObject _loseMenu;
+    [SerializeField] private GameObject _loseMenu;
 
     private bool _loseMenuOpen;
 
@@ -43,11 +45,11 @@ public class LevelManager : MonoBehaviour
     {
         _mapProvider = new MapProvider();
         _root = GameObject.Find("Root");
-        _mysophobiaMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "MysophobiaMenu");
-        _loseMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "LoseMenu");
+        //_mysophobiaMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "MysophobiaMenu");
+        //_loseMenu = Resources.FindObjectsOfTypeAll<GameObject>().FirstOrDefault(g => g.name == "LoseMenu");
         _loseMenuOpen = false;
         GetMapPaths();
-        _mysophobiaMenu.GetComponentInChildren<ListCreator>().Draw(GetShortFileNames(freeplayPaths), freeplayPaths);
+        _mysophobiaMenu.GetComponentInChildren<ListCreator>(true).Draw(freeplayPaths);
         _level = new Level(_cam);
         StartCampaign(false);
     }
@@ -80,7 +82,10 @@ public class LevelManager : MonoBehaviour
             } else
             {
                 if (!_loseMenuOpen)
+                {
+                    Debug.Log("loose");
                     LoseMenu();
+                }
             }
         } else
         {
@@ -101,7 +106,7 @@ public class LevelManager : MonoBehaviour
     {
         _mode = Mode.FREEPLAY;
         _level.Clean();
-        _mapProvider.LoadFromDisk(path);
+        _mapProvider.LoadFromDisk(freeplayDir + '/' + path);
         _level.Start(_mapProvider.MapInfos);
     }
 
@@ -116,7 +121,7 @@ public class LevelManager : MonoBehaviour
     {
         if (cleanup)
             _level.Clean();
-        _mapProvider.LoadFromDisk("Maps/Campaign/" + GetShortFileNames(campaignPaths)[_campaignIndex] + ".txt");
+        _mapProvider.LoadFromDisk(campaignDir + '/' + campaignPaths[_campaignIndex]);
         _level.Start(_mapProvider.MapInfos);
     }
 
@@ -133,8 +138,8 @@ public class LevelManager : MonoBehaviour
     }
     private void GetMapPaths()
     {
-        campaignPaths = Directory.GetFiles("Assets/Resources/" + mapDir + "Campaign/", "*.txt");
-        freeplayPaths = Directory.GetFiles("Assets/Resources/" + mapDir + "Freeplay/", "*.txt");
+        //campaignPaths = Directory.GetFiles("Assets/Resources/" + mapDir + "Campaign/", "*.txt");
+        //freeplayPaths = Directory.GetFiles("Assets/Resources/" + mapDir + "Freeplay/", "*.txt");
     }
 
     private string[] GetShortFileNames(string[] paths)
