@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(FlipPlayer))]
 public class FinalPlayer : MonoBehaviour
@@ -24,7 +25,14 @@ public class FinalPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (transform.position.x >= 50) {
+            SceneManager.LoadScene("StartMenu");
+            PlayerPrefs.SetInt("DidTuto", 0);
+            PlayerPrefs.SetInt("SelfFear", 0);
+            PlayerPrefs.SetInt("HypochondriacFear", 0);
+            PlayerPrefs.SetInt("SportFear", 0);
+            PlayerPrefs.SetInt("OthersFear", 0);
+        }
         groundedPlayer = IsGrounded();
         anim.SetBool("isGrounded", groundedPlayer);
         anim.SetFloat("yVelocity", rb.velocity.y);

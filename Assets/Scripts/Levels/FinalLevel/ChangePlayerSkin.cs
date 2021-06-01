@@ -7,6 +7,9 @@ public class ChangePlayerSkin : MonoBehaviour
 
     [SerializeReference] Spine.Unity.SkeletonMecanim skeleton;
     [SerializeField] Spine.Unity.SkeletonDataAsset nskin;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject other;
+    [SerializeField] FollowPlayer scriptCamra;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +27,12 @@ public class ChangePlayerSkin : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            skeleton.skeletonDataAsset = nskin;
-            skeleton.initialSkinName = "YourNewSkinName";
-            skeleton.Initialize(true);
+            player.SetActive(false);
+            other.SetActive(true);
+            scriptCamra._playerTransform = other.transform;
+            // skeleton.skeletonDataAsset = nskin;
+            // skeleton.initialSkinName = "YourNewSkinName";
+            // skeleton.Initialize(true);
         }
     }
 }

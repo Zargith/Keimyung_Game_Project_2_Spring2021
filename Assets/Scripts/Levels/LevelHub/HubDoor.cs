@@ -35,10 +35,16 @@ public class HubDoor : MonoBehaviour
             chain4.SetActive(false);
         }
 
-        if (finished >= 4)
-        {
-            GetComponent<DisplayIfPlayerIsClose>().enabled = true;
-        }
+        // if (finished >= 4)
+        // {
+        //     GetComponent<DisplayIfPlayerIsClose>().enabled = true;
+        // }
     }
 
+    void Update()
+    {
+        DisplayIfPlayerIsClose displayIfPlayerIsCloseScript = GetComponent<DisplayIfPlayerIsClose>();
+        if (displayIfPlayerIsCloseScript && !displayIfPlayerIsCloseScript.enabled && finished >= 4)
+            displayIfPlayerIsCloseScript.enabled = true;
+    }
 }

@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MysophobiaLevel.unity
     guid: c7c2c06a39f719b4193f5c5d4961b701
+  - enabled: 1
+    path: Assets/Scenes/FinalLevel.unity
+    guid: 09a37205843eac747a2e764da08e5fb0
   m_configObjects: {}
