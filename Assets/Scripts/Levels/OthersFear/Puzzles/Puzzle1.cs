@@ -20,7 +20,7 @@ public class Puzzle1 : MonoBehaviour
 
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.Equals(reward))
         {
@@ -29,8 +29,8 @@ public class Puzzle1 : MonoBehaviour
                 item.enabled = false;
             }
             reward.transform.rotation = Quaternion.Euler(0, 0, 0);
-            reward.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            reward.GetComponent<Collider2D>().enabled = false;
+            reward.GetComponent<Rigidbody>().isKinematic = true;
+            reward.GetComponent<Collider>().enabled = false;
             reward.transform.position = posReward;
             var tmp = reward.GetComponentInChildren<OthersFear_Item>().gameObject;
             tmp.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, 1);

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  flip: {x: 0, y: 0}
+  axis: 0
   trigger: {fileID: 7494695672732949929}
   animate: {fileID: 4699551600338465514}
 --- !u!1 &7668412797945734037
@@ -315,7 +315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7342934907680251614, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.83
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7342934908104821509, guid: a68e66a96c3ec9e43bcc057e2ead218e, type: 3}
       propertyPath: m_Text
